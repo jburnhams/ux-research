@@ -36,4 +36,6 @@ the same commit or PR as the change**. Do not leave it for later.
 - **Evidence**: say where each figure comes from and how strong it is; prefer the
   primary source, and flag second-hand or version-bound numbers.
 - **Tests**: `node --test ux-design/tests/*.test.mjs` must pass after any change to
-  `ux-design/`.
+  `ux-design/` or `ui-library/` (the suite lints `ui-library/examples/`). After changing
+  the example's code, also run `npm run check` and `npm run render` in
+  `ui-library/examples/` and commit the updated screenshots.

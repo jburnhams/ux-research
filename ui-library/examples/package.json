@@ -1,0 +1,33 @@
+{
+  "name": "plinth-examples",
+  "private": true,
+  "type": "module",
+  "description": "Worked example for ui-library/: a Plinth theme, components and screens for a fictional pottery co-op's kiln room.",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "css": "tailwindcss -i app/globals.css -o dist/tailwind.css",
+    "lint": "node ../../ux-design/skill/scripts/slop-lint.mjs .",
+    "render": "node scripts/render.mjs",
+    "site": "node scripts/build-site.mjs",
+    "check": "npm run typecheck && npm run css && npm run lint"
+  },
+  "dependencies": {
+    "@fontsource-variable/public-sans": "^5.2.0",
+    "@radix-ui/react-slot": "^1.2.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.500.0",
+    "marked": "^16.0.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "tailwind-merge": "^3.3.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "esbuild": "^0.25.0",
+    "tailwindcss": "^4.1.0",
+    "typescript": "^5.8.0"
+  }
+}

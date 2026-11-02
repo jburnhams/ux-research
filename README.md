@@ -6,7 +6,7 @@ is the companion to [`jburnhams/prompts`](https://github.com/jburnhams/prompts) 
 follows the same structure: primary sources stored by source, cross-cutting synthesis
 docs, and an original design built from them.
 
-First pass: **2026-11-01**. Blocked sources retried: **2026-11-02**. Changes by day are in
+First pass: **2026-11-01**. Blocked sources retried and the component library designed: **2026-11-02**. Changes by day are in
 [`changelog.md`](./changelog.md).
 
 ## Start here
@@ -24,6 +24,16 @@ procedure, Operate-surface rules, a quality audit, a zero-dependency **source li
 (`slop-lint`, 46 rules, mode-aware) and a **palette generator** (`palette.mjs`: seeds →
 contrast-solved OKLCH ramps → shadcn/Tailwind v4 tokens → validation), with fixtures and
 tests (`node --test ux-design/tests/*.test.mjs`).
+
+**[→ `ui-library/`](./ui-library)**: a design for a React + Tailwind component library
+built from this research (placeholder name Plinth). It ships structure, behaviour,
+states and a token contract but no look: a product generates its own theme from its
+subject, Tailwind's stock palette and sizes are removed so they cannot be typed, and
+loading, empty, error and pending states are part of each component's type signature.
+Written up as the stance and its decisions, tokens, components, patterns and agent rules,
+with a worked example (a pottery co-op's kiln room) that type-checks, compiles, renders
+in light and dark and passes `slop-lint`. A GitHub Pages workflow publishes the docs and
+the live example as a site.
 
 ## Synthesis docs
 
