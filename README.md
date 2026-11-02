@@ -6,7 +6,8 @@ is the companion to [`jburnhams/prompts`](https://github.com/jburnhams/prompts) 
 follows the same structure: primary sources stored by source, cross-cutting synthesis
 docs, and an original design built from them.
 
-First pass: **2026-11-01**.
+First pass: **2026-11-01**. Blocked sources retried: **2026-11-02**. Changes by day are in
+[`changelog.md`](./changelog.md).
 
 ## Start here
 
@@ -36,7 +37,8 @@ tests (`node --test ux-design/tests/*.test.mjs`).
 | [`ux-material-3.md`](./ux-material-3.md) | Material 3 Expressive as of late 2026: spring motion tokens, the shape scale, the emphasized type scale, dynamic colour (HCT, ten scheme variants incl. the new two-seed CMF, contrast levels), and what transfers to Tailwind |
 | [`ux-colour-science.md`](./ux-colour-science.md) | Colour spaces (OKLCH, HCT), WCAG vs APCA, four ways to build a scale, harmony, mechanical validation, CVD, preference and emotion research, dark mode |
 | [`ux-mood-to-theme.md`](./ux-mood-to-theme.md) | Turning a concept, keyword, mood or vibe into a theme: seven approaches in the wild, evidence that mood vocabularies converge too, and the procedure used here |
-| [`blocked-sources.md`](./blocked-sources.md) | Everything this pass could not reach or verify, for follow-up |
+| [`blocked-sources.md`](./blocked-sources.md) | What the first pass could not reach, what the 2026-11-02 retry found, and what is still unreached |
+| [`changelog.md`](./changelog.md) | What changed, by day |
 | [`sources.md`](./sources.md) | Repos, commits, paths and licences; fetch recipe |
 
 ## Primary sources
@@ -57,6 +59,11 @@ tests (`node --test ux-design/tests/*.test.mjs`).
 | [`material-3/`](./material-3) | Material 3 Expressive tokens and the colour engine | Apache-2.0 |
 | [`vibecoded-design-tells/`](./vibecoded-design-tells) | Which tells Reddit users actually complain about (3.2M posts) | MIT (counts only) |
 | [`generator-prompts/`](./generator-prompts) | Design sections of app-builder and coding-agent prompts, excerpted from `prompts` | see `prompts` |
+| [`design-slop-cop/`](./design-slop-cop) | Krebs's Show HN study and detector: 14 computed-style patterns, prevalence over 1,390 sites, 190 human labels | MIT |
+| [`pixelslop/`](./pixelslop) | A render-first anti-slop skill: 26 visual patterns, five-pillar rubric, personas | Apache-2.0 |
+| [`boardui/`](./boardui) | A React + Tailwind design system's rules for coding agents | MIT (free tier) |
+| [`notboring/`](./notboring) | Components sold as prompts; "build every state" (analysis only) | proprietary |
+| [`web-articles/`](./web-articles) | Articles on AI purple, design-system drift and tell lists, graded (notes only) | — |
 
 ## Findings worth knowing first
 
@@ -89,14 +96,28 @@ tests (`node --test ux-design/tests/*.test.mjs`).
    afterwards, mechanically.
 9. **Equal-lightness "harmonious" chart palettes fail colour-blind users.** Worst-pair
    ΔE under protan/deutan simulation was 0.4–2.6 (target 8); lightness must vary.
+10. **The most recognised tell is not the most common one.** In Krebs's measured data
+    (1,390 Show HN sites), dark pages with muted grey text (35%), gradients (26%) and
+    the centred hero with icon cards (21–22%) lead; filled purple CTAs are about 5%.
+    Quoted percentages also move between versions of the same study, so use rankings.
+11. **Google's own research backs the mode split.** M3 Expressive made key elements up
+    to four times faster to find, mostly through size, position and contrast, and
+    hurt usability where it broke familiar patterns. Material recommends its bouncier
+    Expressive motion by default but Standard for utilitarian products.
 
 ## Candidates for the next pass
 
-- Read the blocked sources ([`blocked-sources.md`](./blocked-sources.md)): boardui.com,
-  notboring.dev, m3.material.io, the Krebs Show HN study.
+- What is still unreached ([`blocked-sources.md`](./blocked-sources.md)): Wathan's post
+  on X, the Stitch app.
+- Six design skills found on 2026-11-02 and not yet compared: emil-design-eng,
+  web-design-engineer, ui-ux-pro-max, better-\*, designer-skills, tastemaker
+  ([`web-articles/`](./web-articles)).
+- Port Krebs's computed-style checks ([`design-slop-cop/patterns.tsv`](./design-slop-cop/patterns.tsv))
+  into slop-lint's browser engine, and measure both against his 190 labels.
 - A browser engine for slop-lint (Playwright computed styles) for the render-only tells,
-  and a comparison against Impeccable's detector on the same fixtures.
+  and a comparison against Impeccable's and Pixelslop's detectors on the same fixtures.
 - Analyse taste-skill's `library/*.json` for hue, type and layout distribution.
-- Material's shape morphing (`androidx.graphics.shapes`) and the M3 Expressive research.
+- Material's shape morphing (`androidx.graphics.shapes`); the web has no official
+  implementation.
 - Run the evaluation in [`ux-design/README.md`](./ux-design/README.md) §6.
 - Weekly pass, as in `prompts`: new skill releases, tell drift, new generator prompts.

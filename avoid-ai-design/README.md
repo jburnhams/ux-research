@@ -35,7 +35,11 @@
 6. **It never accuses.** "A tell is evidence of a default nobody chose, not proof
    that a model made the page … The fix is the same whoever defaulted."
 
-The per-pattern percentages come from Adrian Krebs's Playwright study of
-about 1,400 Show HN sites (`adriankrebs.ch/blog/design-slop/`). That host was
-outside this session's network allowlist, so the figures are quoted second-hand
-from this catalogue.
+The per-pattern percentages come from Adrian Krebs's Playwright study of Show HN
+sites. Checked against the primary sources on 2026-11-02
+([`../design-slop-cop/`](../design-slop-cop)): the catalogue's figures match the
+**first, 500-site version** of the study (as reported by GIGAZINE on April 23, 2026),
+while its "~1,400 sites" and "16 heuristics" come from the blog post's later text.
+The detector's current data (1,390 sites, 14 patterns) gives different rates for
+several tells, for example purple CTAs 5.4% rather than 10.7% and dark-with-grey-text
+34.7% rather than 20.3%.

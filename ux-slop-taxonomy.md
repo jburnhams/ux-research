@@ -38,8 +38,8 @@ median of the corpus is literally the stack's defaults:
 
 | Default in the stack | What it became |
 |---|---|
-| Tailwind UI's `bg-indigo-500` buttons (Adam Wathan acknowledged the downstream effect publicly in 2025, per avoid-ai-design C1) | The "AI purple" CTA and the indigo-to-violet hero gradient |
-| shadcn/ui `components.json` base colour (`zinc`, `slate`, `neutral`), stock `--radius` | The untouched kit. avoid-ai-design K1 puts it on about 23.5% of the Show HN sample, and the Reddit-mined ranking puts it first |
+| Tailwind UI's `bg-indigo-500` buttons (Adam Wathan acknowledged the downstream effect on X on 2025-08-07; the post is login-walled, so the wording is second-hand via prg.sh and DEV, [`web-articles/`](./web-articles)) | The "AI purple" CTA and the indigo-to-violet hero gradient. Purple is the most *recognised* tell rather than the most common: `indigo-500` is on about 0.54% of all pages (HTTP Archive 2025, via Sailop) and filled purple CTAs on about 5% of Show HN sites in Krebs's current data |
+| shadcn/ui `components.json` base colour (`zinc`, `slate`, `neutral`), stock `--radius` | The untouched kit. Krebs's first, 500-site version of the Show HN study put it on 23.5% (the detector has since dropped it; [`design-slop-cop/`](./design-slop-cop)), and the Reddit-mined ranking puts it first |
 | `next/font` Geist and Geist Mono in `create-next-app`; Inter as the default sans in most kits | Typography that "was never chosen" (T1, T4) |
 | `lucide-react` shipped with shadcn | `Sparkles` beside "AI", icons in tinted `rounded-xl` squares (K6, I3) |
 | `container mx-auto px-4`, `max-w-7xl mx-auto` | One width forever (L6) |
@@ -95,7 +95,8 @@ notices, **P1** a designer or developer notices, **P2** craft.
 | Cream or beige ground by reflex; cream plus terracotta | P1 | src | Impeccable `cream-palette`; frontend-design cluster 1; taste wave 3 |
 | Near-black (#0B0B0B, #111) standing in for black; one acid accent | P1 | src | frontend-design clusters 2 and 5 |
 | `zinc-950` card with `border-white/10` (the default dark SaaS card) | P1 | src | avoid K9 |
-| Dark mode nobody asked for | P1 | judge | avoid C7, anti-slop-design |
+| Dark mode nobody asked for; dark ground with muted grey body text | P1 | judge/render | avoid C7, anti-slop-design; the **most common** pattern in Krebs's current data (34.7% of 1,390 Show HN sites, `perma_dark_mode`) |
+| Cyan or neon accents on a dark ground; several neon accents with no dominant one | P1 | render | Pixelslop 4 and 22 (cyan-on-dark is one of its four severity-3 fingerprints); Fountain Institute tell 1 |
 | Timid, evenly distributed palette; primary and accent within 20° of hue | P1/P2 | render/src | avoid C4 and C8; cookbook ("dominant colors with sharp accents outperform timid, evenly-distributed palettes") |
 | Grey text on a coloured surface; muted text below AA | P1 | render | Impeccable `gray-on-color`, `low-contrast`; avoid C9 |
 | Glass and backdrop blur as decoration | P1 | src | Impeccable craft floor, avoid K3, taste wave 1. Reddit data says *over-blamed* (§5) |
@@ -106,7 +107,7 @@ notices, **P1** a designer or developer notices, **P2** craft.
 | Tell | Sev | Det | Named by |
 |---|---|---|---|
 | Inter, Roboto or system stack for everything, no second face | P0 | src | avoid T1, cookbook, Codex/Amp, Emergent |
-| The "tasteful free font" cluster as the only design gesture (Space Grotesk, Geist, Syne, Sora, Instrument Serif, Fraunces, Cal Sans; about 15.8% of the Show HN sample) | P1 | src | avoid T2, Impeccable `overused-font` |
+| The "tasteful free font" cluster as the only design gesture (Space Grotesk, Geist, Syne, Sora, Instrument Serif, Fraunces, Bricolage Grotesque, Young Serif, Cal Sans; 15.8% in the first version of the Show HN study, 10.4% in the current detector, which counts a face only when it is the page default) | P1 | src | avoid T2, Impeccable `overused-font`, Krebs `slop_fonts` (list from an r/UXDesign thread) |
 | Oversized italic serif hero headline | P1 | src | Impeccable `italic-serif-display`, taste wave 3 |
 | One accented word in the headline (italic, colour, gradient, highlighter) | P1 | src | frontend-design (first item), avoid SD5, taste wave 2 |
 | Tracked ALL-CAPS eyebrow or kicker above headings | P1 | src | Impeccable bans it outright ("no brief earns it back"); taste data: 16% of top sites against 57% of weak |
@@ -130,6 +131,8 @@ notices, **P1** a designer or developer notices, **P2** craft.
 | Numbered 01 / 02 / 03 markers on non-sequences | P1 | src | frontend-design, Impeccable, avoid SD6, artifact-design ("Structure is information") |
 | Bento grid as the default composition | P1/P2 | judge | taste wave 2, avoid L3 (also over-blamed per Reddit) |
 | Monotonous spacing; heading closer to the block above than its own content | P2 | render | Impeccable `monotonous-spacing`, `heading-rhythm`; avoid S1 |
+| FAQ accordion of 3+ generic questions near the bottom, often restating the page | P2 | render | Krebs `faq_accordion` (14.2%), Sailop ("FAQs that paraphrase the page") |
+| Everything visible at once: no progressive disclosure on app screens | P1 | judge | Kosta Canatselis |
 
 ### 3d. Components and chrome
 
@@ -138,10 +141,12 @@ notices, **P1** a designer or developer notices, **P2** craft.
 | Untouched shadcn defaults (base colour, `--radius`, Card, Button) | P0 | src | avoid K1 and K8 |
 | `rounded-2xl shadow-lg` on everything; one radius regardless of hierarchy | P1 | src | frontend-design cluster 4, artifact-design ("`rounded-lg` everywhere"), avoid K2 |
 | Hairline border *plus* a wide soft shadow on a whole row of cards (the "ghost card") | P1 | src | Impeccable `gpt-thin-border-wide-shadow` (a GPT-family tell), taste app rules |
-| Coloured left or top stripe on a rounded card | P1 | src | Impeccable `side-tab` ("the most recognizable tell"), artifact-design ("accent bar/rail on rounded cards"), Krebs ("almost as reliable … as em-dashes are for text") |
+| Coloured left or top stripe on a rounded card; a *different* colour per card ("multicoloured side tabs") | P1 | src | Impeccable `side-tab` ("the most recognizable tell"), artifact-design ("accent bar/rail on rounded cards"), Krebs (quoting a designer: "almost as reliable … as em-dashes are for text"; 6.3% of sites, and the pattern humans rejected most in his labels), Fountain Institute ("quickly becoming the em-dash of AI-generated UI") |
 | Icon in a tinted rounded-square chip, one per feature or KPI | P1 | src | Impeccable `icon-tile-stack`, avoid K6, taste app rules ("0 of 23" real screens) |
 | Cards inside cards | P2 | render | Impeccable `nested-cards` ("always wrong"), avoid K11 |
-| Status-chip soup; decorative pulsing "live" dot | P2 | src | avoid K12, Impeccable `pulsing-dot` |
+| Status-chip soup; decorative pulsing "live" dot; status dots on every element; "New"/"Live" badges on things that are neither | P2 | src | avoid K12, Impeccable `pulsing-dot`, Fountain Institute tell 7, Noqta |
+| Decorative sparklines with no data behind them | P2 | src | Pixelslop 11 |
+| Every button styled as primary | P1 | render | Pixelslop 20 |
 | Fake window chrome (macOS traffic lights) as the hero | P2 | src | avoid SD7 |
 | Stock effect components (Spotlight, Beams, Meteors, Number Ticker, Marquee) | P1 | src | avoid K10, Impeccable `marquee` |
 | Emoji as icons or bullets; Unicode glyphs as an icon system | P1 | src | everyone; v0, Same.dev and Lovable prompts all ban it |
@@ -180,7 +185,13 @@ notices, **P1** a designer or developer notices, **P2** craft.
   avoid F1.
 - **Cross-page drift**: two pages of one product with different fonts, palette or
   radius. "Slop is convergence … drift is divergence from your own system"
-  (avoid X1). Only visible side by side.
+  (avoid X1). Only visible side by side. Superdesign names four mechanisms: **token
+  fabrication** (inventing plausible names such as `--color-primary-500`),
+  within-session drift, between-session amnesia, and emitting a component's old API.
+  OverlayQA showed Figma Make breaking the design system it had just generated in the
+  next prompt ([`web-articles/`](./web-articles)). The fix is a token contract the
+  agent reads but never regenerates, plus a check, as BoardUI's `AGENTS.md` does
+  ([`boardui/`](./boardui)).
 - **Model-family tells**. Impeccable is the only source that keys tells to the
   model family: a `<codex>` block (ghost cards, sketchy SVG, stripe and grid
   backgrounds, "theater" copy) next to the general ones, and frontend-design names
@@ -229,7 +240,8 @@ Little of this is peer-reviewed. What exists:
 
 | Evidence | What it measures | Caveat |
 |---|---|---|
-| Krebs, Show HN study (about 1,400 sites, 16 CSS/DOM heuristics), via avoid-ai-design | Prevalence of each pattern in a slop-prone sample | 5–10% false positives per the author; skews to solo AI-built projects. Primary source not reachable from this session ([`blocked-sources.md`](./blocked-sources.md)) |
+| Krebs, Show HN study ([`design-slop-cop/`](./design-slop-cop): 500 sites and 15 patterns when first published in April 2026; 1,390 sites and 14 patterns in the repo snapshot; MIT code, results and 190 human labels) | Prevalence of each pattern in a slop-prone sample, by deterministic computed-style checks | 5–10% false positives per the author's labels; skews to solo AI-built projects; **figures shift by version** (purple 10.7% → 5.4%, dark-with-grey-text 20.3% → 34.7%), so the percentages quoted from avoid-ai-design are version 1. No pre-AI baseline |
+| Material 3 Expressive research (46 studies, 18,000+ participants; [`ux-material-3.md`](./ux-material-3.md) §1) | Whether expressive design helps: preference, attributes, eye-tracked time to find key elements | Vendor research, methods summarised not published; the "4× faster" result comes from bigger, better-placed, higher-contrast targets. Its own caveat: breaking familiar patterns hurt usability |
 | JCarterJohnson `vibecoded-design-tells` (3.2M Reddit posts, 47 subreddits, 2020–26; counts stored in [`vibecoded-design-tells/`](./vibecoded-design-tells)) | Which tells people *complain about*. "All looks the same" and "screams AI" run at about 13% of posts each, five times any specific tell. Comments rank shadcn defaults (2.5%) and purple (2.3%) top; posts rank emoji (2.7%) top. Fonts, bento and centring are rarely named | Vocal-opinion proxy; keyword matching; ranking more reliable than percentages |
 | taste-skill study (248 gallery sites plus 23 app screens; model jurors) | Device frequency in top against weak sites | Model jurors on stills; gallery fashion ≠ quality; usability does not rise with score |
 | taste-skill blind tests | Pages with tells removed and nothing added lose | Owner-run, small, model jurors |

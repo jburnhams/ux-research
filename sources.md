@@ -1,12 +1,13 @@
 # Where the sources came from
 
-Every repo read in the first pass (2026-11-01), the commit read, the paths that matter,
-the licence, and what was stored. Re-fetch any of them in a minute with the recipe below.
+Every repo read in the first pass (2026-11-01) and in the retry of blocked sources
+(2026-11-02), the commit read, the paths that matter, the licence, and what was stored. Re-fetch any of them in a minute with the recipe below.
 What could *not* be read is in [`blocked-sources.md`](./blocked-sources.md).
 
 ## Fetch recipe
 
-`api.github.com` returns 403 through this environment's proxy; plain git works. Blobless +
+In the first pass `api.github.com` returned 403 through this environment's proxy (it
+answered on 2026-11-02); plain git always works. Blobless +
 sparse keeps every repo small:
 
 ```sh
@@ -41,6 +42,10 @@ git -C <dir> ls-tree -r --name-only HEAD | grep -i <term>          # find paths 
 | Evil Martians Harmonizer | `evilmartians/harmonizer` | `4b45439` (2026-10-02) | `README.md` | **no licence file** | not stored; quoted |
 | APCA reference | `Myndex/apca-w3` | `6c5c066` (2026-05-06) | `README.md` (Lc levels) | **All Rights Reserved** (licensed to W3C) | not stored; quoted |
 | culori | `Evercoder/culori` | `7613e69` (2026-10-15) | — | MIT | not stored; recommended |
+| Design Slop Cop (Krebs) | `AdrianKrebs/design-slop-cop` | `e2fab6c` (2026-07-07) | `src/patterns/*.js`, `src/score.js`, `results/tier-*.json`, `dataset/labels.jsonl` | MIT | [`design-slop-cop/`](./design-slop-cop): pattern table and our prevalence count |
+| Pixelslop | `gabelul/pixelslop` | `45cd615` (2026-08-25); npm 0.3.8 | `dist/skill/SKILL.md`, `dist/skill/resources/` | Apache-2.0 | [`pixelslop/`](./pixelslop): SKILL, pattern catalogue, scoring rubric |
+| BoardUI | `BoardUI/boardui` | `ec5c5eb` (2026-10-03) | `AGENTS.md`, `styles/` | MIT (free tier) | [`boardui/`](./boardui): `AGENTS.md` |
+| Compose Material 3 motion tokens | `android.googlesource.com/platform/frameworks/support` | `androidx-main` @ `badb0138c4` (2026-11-02) | `compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/tokens/{Expressive,Standard}MotionTokens.kt` | Apache-2.0 | [`material-3/compose-motion/`](./material-3/compose-motion) |
 | OpenAI skills | `openai/skills` | `49f948f` (2026-06-23) | `skills/.curated/figma-create-design-system-rules/` | per-skill | not stored (no frontend-design skill found) |
 
 ## From the sibling `prompts` collection
@@ -62,3 +67,20 @@ line ranges, from `leaked/lovable/`, `leaked/v0/`, `leaked/same-dev/`,
 | https://platform.claude.com/cookbook/coding-prompting-for-frontend-aesthetics | WebFetch (then the repo notebook) |
 | https://github.com/google-labs-code/design.md, https://github.com/JCarterJohnson/vibecoded-design-tells | WebFetch, then cloned |
 | Search results for M3 Expressive, Stitch vibe design, Jonauskaite et al. 2020, anti-slop skills | WebSearch (snippets only; cited as such) |
+
+### Read on 2026-11-02 (retry of blocked sources)
+
+Pages that need JavaScript (m3.material.io, design.google, impeccable.style,
+notboring.dev, the Stitch app, X) were rendered in stock headless Chromium; the rest
+were read with WebFetch. Abstracts came from the Europe PMC REST API.
+
+| Page | Via | Used in |
+|---|---|---|
+| https://adriankrebs.ch/blog/design-slop/, https://news.ycombinator.com/item?id=47864393, https://gigazine.net/gsc_news/en/20260423-design-slop/ | WebFetch | [`design-slop-cop/`](./design-slop-cop) |
+| https://www.boardui.com/ | WebFetch | [`boardui/`](./boardui) |
+| https://notboring.dev/, `/license`, `/c/button` | Browser | [`notboring/`](./notboring) |
+| m3.material.io: `/blog/building-with-m3-expressive` (2025-05-13), `/blog/m3-expressive-motion-theming` (2025-05-20), `/blog/whats-new-at-io26` and `/blog/material-is-compose-first` (2026-05-19), `/styles/motion/overview/how-it-works`, `/styles/motion/overview/specs`, `/styles/shape/overview-principles`, `/styles/shape/corner-radius-scale`, `/styles/shape/shape-morph`, `/foundations/designing/motion` | Browser | [`ux-material-3.md`](./ux-material-3.md) |
+| https://design.google/library/expressive-material-design-google-research | Browser | [`ux-material-3.md`](./ux-material-3.md) §1 |
+| https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale, https://git.apcacontrast.com/documentation/APCA_in_a_Nutshell, https://bottosson.github.io/posts/oklab/, https://oklch.com, https://harmonizer.evilmartians.com | WebFetch / browser | [`ux-colour-science.md`](./ux-colour-science.md) |
+| Europe PMC records for Palmer and Schloss 2010 (doi:10.1073/pnas.0906172107) and Valdez and Mehrabian 1994 (doi:10.1037/0096-3445.123.4.394) | REST API (abstracts) | [`ux-colour-science.md`](./ux-colour-science.md) §6 |
+| Sailop, Superdesign, OverlayQA, DEV (Alan West), prg.sh, HEY World (Kosta Canatselis), 925 Studios, Fountain Institute, Noqta, Bitdoze, impeccable.style `/slop` and `/docs`, blog.google Stitch launch | WebFetch / browser | [`web-articles/`](./web-articles) |

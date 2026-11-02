@@ -1,6 +1,6 @@
 # Anti-slop design skills compared
 
-Ten skill-shaped sources that try to make an agent produce non-generic UI,
+Ten skill-shaped sources (eleven since Pixelslop was added on 2026-11-02) that try to make an agent produce non-generic UI,
 compared stage by stage the way `prompts/code-review-approaches.md` compares
 review agents. The generator prompts are compared separately in
 [`ux-generator-prompts.md`](./ux-generator-prompts.md).
@@ -17,6 +17,7 @@ review agents. The generator prompts are compared separately in
 | [Vercel WIG](./vercel-web-interface-guidelines) | AGENTS.md plus review command | about 150 rules | MIT |
 | [shadcn skill](./shadcn-skill) | SKILL plus rules, with live `info --json` context | — | MIT |
 | [Google Stitch `taste-design`](./google-stitch-skills) | A port of taste-skill v1 into Stitch's DESIGN.md flow | 191 lines | Apache-2.0 |
+| [Pixelslop](./pixelslop) (added 2026-11-02) | SKILL plus 11 subagents, Playwright scanner, fix loop with checkpoints | 26 visual + 16 source patterns, 5 pillars, 8 personas | Apache-2.0 |
 
 ## 1. Before any pixels: classify, then ground
 
@@ -97,10 +98,15 @@ All nine carry an avoid-list. What separates them:
 | Vercel WIG | The review command emits `file:line` findings | — | — |
 | shadcn | `showcase-coverage.mjs`; `scrollWidth <= innerWidth`; `scrollY === 0` on load | Screenshot hero, foundations, a form, a dark band | — |
 | dataviz | Palette validator with FAIL and WARN | Render and look | — |
+| Pixelslop | In-page JS checks on the rendered page at three viewports; grep patterns reported separately and **not counted** ("a page can grep dirty but render clean") | Screenshots; five pillars scored 1–4, each score citing a measurement; eight personas | Fix loop with git checkpoints and rollback |
+| Design Slop Cop (Krebs; a study tool, not a skill) | 14 computed-style checks, one file each with named thresholds; 190 labelled sites and a precision/recall eval | None by design | — |
 
 **Finding**: the field is converging on Impeccable's architecture: a deterministic
 detector for the source-visible tells, run automatically (hook or CI) rather than
 when someone remembers, plus one bounded visual look for the render-only tells.
+Pixelslop and Krebs's detector push the deterministic half into the browser: computed
+styles, not source, are what they count. Only Krebs's ships labelled ground truth to
+measure the detector against.
 The other half (whether the idea belongs to the subject) is still judgement and
 only taste-skill's competitor test makes it checkable.
 
