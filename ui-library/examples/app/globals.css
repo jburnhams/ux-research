@@ -64,14 +64,17 @@
   --surface-sunken: var(--neutral-1);
 }
 
-@media (pointer: coarse) {
-  :root { --control-h: 2.75rem; --control-h-sm: 2.5rem; }
-}
 [data-density="compact"] { --control-h: 2rem; --control-h-sm: 1.75rem; }
+/* After the compact rule, so a coarse pointer always wins: every control, small or compact,
+   stays a 44px target on touch. */
+@media (pointer: coarse) {
+  :root, [data-density="compact"] { --control-h: 2.75rem; --control-h-sm: 2.75rem; }
+}
 
 /* More contrast: the text roles from the same seeds at palette.mjs --contrast 1. */
 @media (prefers-contrast: more) {
-  :root {
+  /* :not(.dark), so these light-theme inks never land on a dark root. */
+  :root:not(.dark) {
     --foreground: oklch(6.7% 0 0);
     --muted-foreground: oklch(36.7% 0.008 137.8);
     --accent-foreground: oklch(7.9% 0.01 144.6);

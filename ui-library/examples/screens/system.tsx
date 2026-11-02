@@ -6,9 +6,12 @@ import * as React from "react";
 import { Check, Flame, RefreshCw, Thermometer, TriangleAlert } from "lucide-react";
 import { AsyncButton, type Phase } from "@/components/ui/async-button";
 import { Button, IconButton } from "@/components/ui/button";
-import { DataTable } from "@/components/ui/data-table";
+import { DataTable, TableSkeleton } from "@/components/ui/data-table";
 import { DataView, EmptyState, Skeleton } from "@/components/ui/data-view";
-import { Field, Input, NativeSelect } from "@/components/ui/field";
+import { ChoiceGroup, Field, Input, NativeSelect, Textarea } from "@/components/ui/field";
+import { LineChart } from "@/components/ui/line-chart";
+import { PageHeader } from "@/components/ui/page-header";
+import { UndoBar } from "@/components/ui/undo";
 import { Metric, MetricStrip } from "@/components/ui/metric";
 import { Status } from "@/components/ui/status";
 
@@ -96,7 +99,42 @@ export function SystemPage() {
           <Field label="Member number" hint="Set by the studio.">
             <Input name="member-demo" defaultValue="0417" disabled />
           </Field>
+          <Field label="Notes for the kiln team" hint="Optional.">
+            <Textarea name="notes-demo" defaultValue="The tall jug needs a stilt." />
+          </Field>
+          <ChoiceGroup
+            legend="Firing"
+            name="firing-demo"
+            value="glaze"
+            onChange={noop}
+            choices={[
+              { value: "bisque", label: "Bisque, cone 04", detail: "Kiln 1 only." },
+              { value: "glaze", label: "Glaze, cone 6", detail: "Kiln 1 or 2." },
+            ]}
+          />
+          <ChoiceGroup
+            legend="Firing (with error)"
+            name="firing-error-demo"
+            value=""
+            onChange={noop}
+            error="Choose a firing."
+            choices={[
+              { value: "bisque", label: "Bisque, cone 04" },
+              { value: "glaze", label: "Glaze, cone 6" },
+            ]}
+          />
         </div>
+      </Row>
+
+      <Row title="PageHeader">
+        <PageHeader
+          as="h2"
+          title="Kiln room"
+          scope="Thursday 5 November, updated 14:10"
+          actions={<Button variant="default">Book a firing</Button>}
+          finding={{ text: "Kiln 2 will be safe to open at about 14:50.", action: <Button>Message the owners</Button> }}
+        />
+        <PageHeader as="h2" title="Members" scope="60 members" />
       </Row>
 
       <Row title="Metric">
@@ -105,6 +143,37 @@ export function SystemPage() {
           <Metric label="Pieces fired this month" value="386" note="41 more than October" />
           <Metric label="Failed firings this month" value="0" note="None since 12 August" />
         </MetricStrip>
+      </Row>
+
+      <Row title="LineChart">
+        <LineChart
+          label="Example: a short firing"
+          series={[
+            { x: 0, y: 20 },
+            { x: 60, y: 300 },
+            { x: 120, y: 620 },
+            { x: 180, y: 980 },
+            { x: 240, y: 1060 },
+            { x: 300, y: 700 },
+            { x: 360, y: 450 },
+          ]}
+          seriesLabel="Measured temperature"
+          planned={[
+            { x: 0, y: 20 },
+            { x: 240, y: 1060 },
+          ]}
+          plannedLabel="Controller program"
+          band={{ below: 200, label: "Safe to open below 200 °C" }}
+          formatX={(m) => `${m / 60} h`}
+          formatY={(c) => `${c.toLocaleString("en-GB")}\u00a0°C`}
+          xTicks={[0, 120, 240, 360]}
+          colour="var(--warning)"
+          height={200}
+        />
+      </Row>
+
+      <Row title="UndoBar">
+        <UndoBar inline pending={{ id: "demo", message: "Withdrew Dev Raman's 8 pieces from kiln 1.", commit: noop }} onUndo={noop} />
       </Row>
 
       <Row title="DataView">
@@ -131,6 +200,10 @@ export function SystemPage() {
         >
           {() => null}
         </DataView>
+      </Row>
+
+      <Row title="TableSkeleton">
+        <TableSkeleton rows={3} columns={4} />
       </Row>
 
       <Row title="DataTable">

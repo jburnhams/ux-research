@@ -36,10 +36,12 @@ const states: Record<KilnState, { tone: Tone; icon: LucideIcon; label: string }>
 };
 
 export function KilnRoom({ load }: { load: Load<Booking[]> }) {
-  const [rows, setRows] = React.useState<Booking[]>(load.status === "ready" ? load.data : []);
+  // Rows always come from the latest load; local state only records which ones the person has
+  // withdrawn (hidden at once, committed after the undo window), so a refresh never goes stale.
   const [hidden, setHidden] = React.useState<Set<string>>(new Set());
   const { pending, schedule, undo } = useUndoable();
 
+  const rows = load.status === "ready" ? load.data : [];
   const visible = rows.filter((r) => !hidden.has(r.id));
   const inKiln2 = visible.filter((r) => r.kiln === 2 && r.state === "cooling");
   const piecesInKiln2 = inKiln2.reduce((n, r) => n + r.pieces, 0);
@@ -51,7 +53,7 @@ export function KilnRoom({ load }: { load: Load<Booking[]> }) {
     schedule({
       id: b.id,
       message: `Withdrew ${b.member}'s ${b.pieces} pieces from kiln ${b.kiln}.`,
-      commit: () => setRows((rs) => rs.filter((r) => r.id !== b.id)),
+      commit: () => undefined, // stands in for the withdraw request; the row stays hidden
     });
   };
   const undoWithdraw = () => {

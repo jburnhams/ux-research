@@ -173,18 +173,23 @@ product token, recorded in DESIGN.md with its reason.
 
 ```css
 :root { --control-h: 2.5rem; --control-h-sm: 2rem; }
-@media (pointer: coarse) { :root { --control-h: 2.75rem; --control-h-sm: 2.5rem; } }
 [data-density="compact"] { --control-h: 2rem; --control-h-sm: 1.75rem; }
+@media (pointer: coarse) {
+  :root, [data-density="compact"] { --control-h: 2.75rem; --control-h-sm: 2.75rem; }
+}
 ```
 
 Every control's height reads `--control-h` (`h-(--control-h)`), so button, input and
-select move together, and touch screens get 44px targets without a separate variant.
+select move together. On a coarse pointer every control, small or compact, is a 44px
+target: the touch rule comes after the compact one so it always wins (checked in
+Chromium with touch emulation: all buttons 44px with `data-density="compact"`).
 
 ## 11. Contrast and dark mode
 
 - **More contrast**: the text roles from the same seeds at `palette.mjs --contrast 1`,
-  applied under `@media (prefers-contrast: more)`. Only roles that gain contrast are
-  overridden (see the limit in [`README.md`](./README.md) §7).
+  applied under `@media (prefers-contrast: more)`. The light inks are scoped to
+  `:root:not(.dark)` so they never land on a dark root (an unscoped `:root` rule there
+  would turn dark-mode text near-black). Only roles that gain contrast are overridden (see the limit in [`README.md`](./README.md) §7).
 - **Dark** is generated, not inverted: each step is re-solved against the dark ground
   (`../ux-colour-science.md` §7). `color-scheme: dark` is set so native controls and
   scrollbars follow. `@custom-variant dark (&:is(.dark *))` scopes dark tokens to a

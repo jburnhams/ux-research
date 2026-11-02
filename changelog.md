@@ -39,6 +39,13 @@ defaults are what make generated UI look the same.
   text; `palette.mjs` has no status roles, so they were solved by hand with its colour
   library; `slop-lint` does not yet flag stock size classes (`text-sm`) in a project
   that has removed them. No new sources were read for this change.
+- Review fixes on the same PR (Codex review): high-contrast light inks no longer
+  override a dark root; small and compact controls stay 44px on touch; kiln facts moved
+  into `sample-data.ts` and the booking form derives its choices, hints and errors from
+  them; the form asks before in-app navigation discards entries; the kiln room derives
+  rows from each load instead of only the first; the state-matrix page now shows every
+  example component (Textarea, ChoiceGroup, PageHeader, LineChart, UndoBar,
+  TableSkeleton were missing).
 
 **Blocked sources retried and processed**, on branch `claude/project-thread-ox5cth`.
 Asked to look at the doc listing sources the first pass could not reach and process

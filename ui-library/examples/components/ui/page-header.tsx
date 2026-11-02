@@ -9,8 +9,11 @@ export function PageHeader({
   scope,
   actions,
   finding,
+  as: Heading = "h1",
 }: {
   title: string;
+  /** The title's element: h1 on a screen, h2 where the header is shown inside another page. */
+  as?: "h1" | "h2";
   /** What the screen covers: a date, a range, a filter. */
   scope?: React.ReactNode;
   actions?: React.ReactNode;
@@ -20,7 +23,7 @@ export function PageHeader({
     <header className="grid gap-4">
       <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
         <div className="grid min-w-0 gap-0.5">
-          <h1 className="type-title text-balance">{title}</h1>
+          <Heading className="type-title text-balance">{title}</Heading>
           {scope && <p className="type-body-sm text-muted-foreground">{scope}</p>}
         </div>
         {actions && <div className="flex flex-wrap gap-2">{actions}</div>}

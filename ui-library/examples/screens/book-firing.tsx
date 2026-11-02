@@ -7,35 +7,45 @@ import * as React from "react";
 import { AsyncButton, useAsyncAction } from "@/components/ui/async-button";
 import { Button } from "@/components/ui/button";
 import { ChoiceGroup, Field, Input, NativeSelect, Textarea } from "@/components/ui/field";
+import { MAX_PIECES_PER_BOOKING, firingTypes, kilns, type FiringType, type KilnId } from "./sample-data";
 
 type Values = { firing: string; kiln: string; pieces: string; tallest: string; notes: string };
 type Errors = Partial<Record<keyof Values, string>>;
 
-const SHELF_GAP_CM: Record<string, number> = { "1": 45, "2": 30 };
+const kilnList = (ids: KilnId[]) => (ids.length === 1 ? `Kiln ${ids[0]} only` : `Kiln ${ids.join(" or ")}`);
 
-const firings = [
-  { value: "bisque", label: "Bisque, cone 04", detail: "Kiln 1 only. Fridays, out on Saturday after 10:00." },
-  { value: "glaze", label: "Glaze, cone 6", detail: "Kiln 1 or 2. Tuesdays and Thursdays." },
-  { value: "raku", label: "Raku", detail: "Kiln 3, in the yard. Saturdays; you take part in the firing." },
-];
+const firings = (Object.keys(firingTypes) as FiringType[]).map((value) => ({
+  value,
+  label: firingTypes[value].label,
+  detail: `${kilnList(firingTypes[value].kilns)}. ${firingTypes[value].when}`,
+}));
+
+const gapped = (Object.keys(kilns) as KilnId[]).filter((k) => kilns[k].shelfGapCm);
+const largest = gapped.reduce((a, b) => (kilns[b].shelfGapCm! > kilns[a].shelfGapCm! ? b : a));
+const shelfHint = gapped.map((k) => `Kiln ${k} has ${kilns[k].shelfGapCm} cm between shelves`).join(", ") + ".";
 
 export function validate(v: Values): Errors {
   const e: Errors = {};
   const pieces = Number(v.pieces);
   const tallest = Number(v.tallest);
   if (!v.firing) e.firing = "Choose a firing.";
-  if (v.firing === "bisque" && v.kiln !== "1") e.kiln = "Bisque firings use kiln 1. Choose kiln 1.";
-  if (v.firing === "raku" && v.kiln !== "3") e.kiln = "Raku is fired in kiln 3, in the yard. Choose kiln 3.";
-  if (v.firing === "glaze" && v.kiln === "3") e.kiln = "Kiln 3 only fires raku. Choose kiln 1 or 2.";
+  else {
+    const allowed = firingTypes[v.firing as FiringType].kilns;
+    const where = `kiln ${allowed.join(" or ")}`;
+    const name = firingTypes[v.firing as FiringType].label.split(",")[0];
+    if (!allowed.includes(v.kiln as KilnId)) e.kiln = `${name} firings use ${where}. Choose ${where}.`;
+  }
   if (!v.pieces) e.pieces = "Enter how many pieces you are bringing.";
   else if (!Number.isInteger(pieces) || pieces < 1) e.pieces = "Enter a whole number of pieces, 1 or more.";
-  else if (pieces > 20) e.pieces = "One booking holds up to 20 pieces. Make a second booking for the rest.";
+  else if (pieces > MAX_PIECES_PER_BOOKING)
+    e.pieces = `One booking holds up to ${MAX_PIECES_PER_BOOKING} pieces. Make a second booking for the rest.`;
+  const gap = kilns[v.kiln as KilnId]?.shelfGapCm;
   if (!v.tallest) e.tallest = "Enter the height of your tallest piece, in centimetres.";
-  else if (SHELF_GAP_CM[v.kiln] && tallest > SHELF_GAP_CM[v.kiln])
+  else if (gap && tallest > gap)
     e.tallest =
-      v.kiln === "2"
-        ? `Kiln 2's shelves are 30 cm apart, and your tallest piece is ${tallest} cm. Choose kiln 1, which takes up to 45 cm.`
-        : `Kiln 1 takes pieces up to 45 cm. Ask the kiln team about anything taller.`;
+      v.kiln !== largest
+        ? `Kiln ${v.kiln}'s shelves are ${gap} cm apart, and your tallest piece is ${tallest} cm. Choose kiln ${largest}, which takes up to ${kilns[largest].shelfGapCm} cm.`
+        : `Kiln ${v.kiln} takes pieces up to ${gap} cm. Ask the kiln team about anything taller.`;
   return e;
 }
 
@@ -60,6 +70,12 @@ export function BookFiring({ initial, showErrors = false }: { initial?: Partial<
     window.addEventListener("beforeunload", warn);
     return () => window.removeEventListener("beforeunload", warn);
   }, [dirty]);
+
+  // beforeunload only covers leaving the document. In-app navigation (this link changes the hash,
+  // which swaps the screen) asks the same question itself.
+  const confirmLeave = (e: React.MouseEvent) => {
+    if (dirty && !window.confirm("Leave without booking? What you have entered will be lost.")) e.preventDefault();
+  };
 
   const set = (key: keyof Values) => (value: string) => {
     setValues((v) => ({ ...v, [key]: value }));
@@ -92,22 +108,24 @@ export function BookFiring({ initial, showErrors = false }: { initial?: Partial<
       <form ref={formRef} noValidate onSubmit={onSubmit} className="grid gap-6">
         <ChoiceGroup legend="Firing" name="firing" choices={firings} value={values.firing} onChange={set("firing")} error={errors.firing} />
 
-        <Field label="Kiln" error={errors.kiln} hint="Kiln 1 has 45 cm between shelves, kiln 2 has 30 cm.">
+        <Field label="Kiln" error={errors.kiln} hint={shelfHint}>
           <NativeSelect name="kiln" value={values.kiln} onChange={(e) => set("kiln")(e.target.value)}>
-            <option value="1">Kiln 1, large electric</option>
-            <option value="2">Kiln 2, small electric</option>
-            <option value="3">Kiln 3, raku (gas, in the yard)</option>
+            {(Object.keys(kilns) as KilnId[]).map((k) => (
+              <option key={k} value={k}>
+                {kilns[k].name}
+              </option>
+            ))}
           </NativeSelect>
         </Field>
 
         <div className="grid gap-6 sm:grid-cols-2">
-          <Field label="Pieces" error={errors.pieces} hint="Up to 20 per booking.">
+          <Field label="Pieces" error={errors.pieces} hint={`Up to ${MAX_PIECES_PER_BOOKING} per booking.`}>
             <Input
               name="pieces"
               type="number"
               inputMode="numeric"
               min={1}
-              max={20}
+              max={MAX_PIECES_PER_BOOKING}
               autoComplete="off"
               value={values.pieces}
               onChange={(e) => set("pieces")(e.target.value)}
@@ -133,7 +151,9 @@ export function BookFiring({ initial, showErrors = false }: { initial?: Partial<
         <div className="flex flex-wrap items-center gap-3 border-t border-border pt-6">
           <AsyncButton type="submit" variant="default" phase={phase} labels={{ idle: "Book firing", pending: "Booking…", done: "Booked" }} />
           <Button variant="ghost" asChild>
-            <a href="#kiln-room">Back to the kiln room</a>
+            <a href="#kiln-room" onClick={confirmLeave}>
+              Back to the kiln room
+            </a>
           </Button>
         </div>
       </form>

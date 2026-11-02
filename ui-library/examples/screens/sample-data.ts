@@ -76,3 +76,21 @@ export const bookings: Booking[] = [
 ];
 
 export const kiln1Shelves = { booked: 9, total: 14 };
+
+// The studio's kiln facts. The booking form's choices, hints and validation all read these, so a
+// change here changes what the form says and what it checks together.
+export type KilnId = "1" | "2" | "3";
+export const kilns: Record<KilnId, { name: string; shelfGapCm?: number }> = {
+  "1": { name: "Kiln 1, large electric", shelfGapCm: 45 },
+  "2": { name: "Kiln 2, small electric", shelfGapCm: 30 },
+  "3": { name: "Kiln 3, raku (gas, in the yard)" },
+};
+
+export type FiringType = "bisque" | "glaze" | "raku";
+export const firingTypes: Record<FiringType, { label: string; kilns: KilnId[]; when: string }> = {
+  bisque: { label: "Bisque, cone 04", kilns: ["1"], when: "Fridays, out on Saturday after 10:00." },
+  glaze: { label: "Glaze, cone 6", kilns: ["1", "2"], when: "Tuesdays and Thursdays." },
+  raku: { label: "Raku", kilns: ["3"], when: "Saturdays, in the yard; you take part in the firing." },
+};
+
+export const MAX_PIECES_PER_BOOKING = 20;

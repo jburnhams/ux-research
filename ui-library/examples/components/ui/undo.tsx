@@ -43,9 +43,23 @@ export function useUndoable(windowMs = 8000) {
 // The bar lives in a polite live region that is always mounted, so screen readers hear the message
 // when it appears. It is fixed to the bottom of the viewport; a page that uses it keeps that much
 // bottom padding so the bar never covers the focused row.
-export function UndoBar({ pending, onUndo }: { pending: Pending | null; onUndo: () => void }) {
+export function UndoBar({
+  pending,
+  onUndo,
+  inline = false,
+}: {
+  pending: Pending | null;
+  onUndo: () => void;
+  /** Render in the flow instead of fixed to the viewport; for the state-matrix page. */
+  inline?: boolean;
+}) {
   return (
-    <div aria-live="polite" className="pointer-events-none fixed inset-x-0 bottom-4 z-50 flex justify-center px-4">
+    <div
+      aria-live="polite"
+      className={
+        inline ? "flex" : "pointer-events-none fixed inset-x-0 bottom-4 z-50 flex justify-center px-4"
+      }
+    >
       {pending && (
         <div className="pointer-events-auto flex max-w-lg items-center gap-4 rounded-overlay bg-foreground py-2 pr-2 pl-4 text-background shadow-overlay">
           <p className="min-w-0 type-body-sm">{pending.message}</p>
