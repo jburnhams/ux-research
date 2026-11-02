@@ -9,7 +9,10 @@ says about preference and emotion. The working implementation is
 Sources read: `material-color-utilities` (HCT, schemes, dislike, temperature;
 [`material-3/`](./material-3)), Tailwind v4 `theme.css`, Adobe Leonardo, Evil Martians
 Harmonizer, Radix Colors, the APCA reference repo, Claude `dataviz`'s validator
-(via `prompts/`), culori. Licences and commits are in [`sources.md`](./sources.md).
+(via `prompts/`), culori. Checked against primary sources on 2026-11-02: Radix's
+"Understanding the scale" page, the "APCA in a Nutshell" page, Ottosson's Oklab post,
+and the abstracts of Palmer and Schloss (2010) and Valdez and Mehrabian (1994).
+Licences and commits are in [`sources.md`](./sources.md).
 
 ## 1. Colour spaces: compute in a perceptual one
 
@@ -17,7 +20,7 @@ Harmonizer, Radix Colors, the APCA reference repo, Claude `dataviz`'s validator
 |---|---|---|
 | **sRGB hex / HSL** | Storage, legacy | HSL lightness is not perceived lightness: `hsl(60 100% 50%)` (yellow) and `hsl(240 100% 50%)` (blue) share "L 50%" but differ by roughly 8:1 in WCAG luminance contrast. A scale built in HSL has uneven steps across hues. Lovable's prompt mandates HSL, which is one reason its palettes need manual fixing |
 | **CIELAB / LCh** | L* tracks perceived lightness well; basis of WCAG-adjacent work and of Material's tone | Hue is not linear: blues drift toward purple as chroma drops |
-| **OKLab / OKLCH** (Ottosson, 2020) | Better hue linearity than LCh, simple maths, **CSS-native** (`oklch()`), and **Tailwind v4's default palette** | OKLCH L is not WCAG luminance either. Two colours at equal L can have different WCAG contrast against white, so a contrast-targeted scale still needs a contrast solver |
+| **OKLab / OKLCH** (Ottosson, "A perceptual color space for image processing", Dec 23, 2020; matrices revised Jan 2021) | An IPT-like structure (matrix, cube root, matrix) fitted to CAM16 lightness and chroma data and IPT's hue data; much better blue hue prediction than CIELAB, and lightness and chroma errors close to CAM16-UCS without its blending problems; reference code public domain or MIT. Better hue linearity than LCh, simple maths, **CSS-native** (`oklch()`), and **Tailwind v4's default palette** | OKLCH L is not WCAG luminance either. Two colours at equal L can have different WCAG contrast against white, so a contrast-targeted scale still needs a contrast solver |
 | **HCT** (Google: CAM16 hue and chroma, L* as tone) | Tone *is* L*, so contrast is predictable from tone gap; models viewing conditions | Heavier maths; library-bound (`@material/material-color-utilities`) |
 | **Display P3** | Wider gamut on modern screens; OKLCH can address it | Needs a gamut-mapping fallback for sRGB (`@media (color-gamut: p3)`); chroma that only exists in P3 clips unpredictably if you don't map |
 
@@ -39,9 +42,13 @@ over-rates some dark pairs (pure orange on black passes and reads badly).
 
 **APCA** (Accessible Perceptual Contrast Algorithm, Somers; the candidate for WCAG 3)
 outputs an Lc value that is polarity-aware and tied to font size and weight. Its
-reference README gives the levels: about Lc 90 preferred for body text, 75 the minimum
-for body text, 60 for other content text, 45 for large or heavy text, 30 the absolute
-minimum for any text (placeholder, disabled), and 15 the floor for non-text. Vercel's
+reference README and the "APCA in a Nutshell" page give the levels: Lc 90 preferred for
+body text (18px/300 or 14px/400 and up), 75 the minimum for columns of body text
+(18px/400, 16px/500, 14px/700), 60 for other content text (24px/400, 16px/700), 45 for
+large or heavy text and fine-detail icons (36px regular, 24px bold), 30 the absolute
+minimum for any text (placeholder, disabled) and solid icons, and 15 the floor for
+non-text ("treat anything below this level as invisible"). Add Lc 15 for the
+AAA-equivalent. Sizes are CSS px for a Helvetica-like x-height of 0.52. Vercel's
 guidelines say "prefer APCA", and Harmonizer and `apcach` build palettes on it.
 
 **Caution on APCA**: the reference code is "All Rights Reserved … Patent(s) pending",
@@ -62,7 +69,7 @@ hue pair. This makes "which step is the text step" a lookup instead of a search.
 |---|---|---|---|---|
 | **Fixed lightness ladder** | Tailwind v4 (50 … 950 in OKLCH) | Each step has a nominal L; chroma shaped per hue | Simple, predictable class names | `500` of different hues has different contrast, so "text-*-600 on white" is only safe per hue |
 | **Contrast-targeted** | Adobe Leonardo (`ratios: [3, 4.5]` against a named background); Evil Martians Harmonizer (APCA or WCAG per level) | Each step is the colour on a hue path that hits a contrast target against the background | **Every hue's step N has the same contrast**, so swapping a hue can't break text legibility; themes regenerate by changing background lightness | Steps are tied to one background; needs a solver |
-| **Functional steps** | Radix Colors (12 steps): 1–2 app backgrounds, 3–5 component backgrounds (normal, hover, active), 6–8 borders and separators (subtle, normal, strong), 9–10 solid fills (normal, hover), 11–12 text (low and high contrast) | Each step has a *job*, tuned by eye for light and dark, plus alpha variants | Maps straight onto component states; the role is the API | Hand-tuned per hue; adding a brand hue means tuning 24 values |
+| **Functional steps** | Radix Colors (12 steps, verified against the docs on 2026-11-02): 1 app background, 2 subtle background, 3–5 UI element backgrounds (normal, hover, active/selected), 6 subtle borders and separators, 7 UI element borders **and focus rings**, 8 hovered borders, 9 solid backgrounds (the highest-chroma, "purest" step), 10 hovered solids, 11 low-contrast text, 12 high-contrast text. Steps 11 and 12 are **guaranteed Lc 60 and Lc 90** (APCA) on step 2 of the same scale. Most step-9 colours take white text; Sky, Mint, Lime, Yellow and Amber take dark text | Each step has a *job*, tuned by eye for light and dark, plus alpha variants | Maps straight onto component states; the role is the API | Hand-tuned per hue; adding a brand hue means tuning 24 values |
 | **Seed → tonal palettes → roles** | Material dynamic colour (HCT) | One or two seeds expanded into tones 0–100 for five palettes, roles picked by tone with contrast curves | A whole light, dark and high-contrast theme from one input; contrast levels for free | Recognisably Material if you keep its role mapping and Tonal Spot muting |
 
 What a React and Tailwind app needs is the **union**: roles from Radix and shadcn,
@@ -141,10 +148,13 @@ color-only)" and `dataviz`'s texture fills.
 
 What is solid enough to use in a generator:
 
-- **Ecological valence theory** (Palmer and Schloss, 2010, PNAS): colour preference
-  tracks how much people like the objects associated with a colour. Blues and cyans
-  are broadly liked; **dark yellow-green and brownish olive are broadly disliked**
-  (associated with mould, rot and waste). Material operationalised exactly this in
+- **Ecological valence theory** (Palmer and Schloss, 2010, PNAS 107(19):8877–8882,
+  verified from the abstract): colour preference tracks how much people like the
+  objects associated with a colour: "blues with clear skies and clean water" are
+  liked, and "browns with feces and rotten food" disliked. The theory fit the data
+  better than the alternatives with fewer free parameters. The **dark yellow-green**
+  band is Material's operationalisation of the disliked end (associated with mould,
+  rot and waste), not a hue the abstract names. Material operationalised exactly this in
   `DislikeAnalyzer`. Preference is shaped by culture and by in-group objects (for
   example university colours), so it can be shifted. This is a reason to derive
   colour from the *subject's* liked objects (its materials, place and artefacts)
@@ -155,9 +165,14 @@ What is solid enough to use in a generator:
   measurable local variation that grows with linguistic and geographic distance.
   Universal mappings are a reasonable default; localise when the audience is
   specific.
-- **Lightness and saturation carry more emotional signal than hue.** In the classic
-  dimensional studies (Valdez and Mehrabian, 1994), brightness tracks pleasantness and
-  saturation tracks arousal. So "calm" is mostly *low chroma and high or mid
+- **Lightness and saturation carry more emotional signal than hue.** Valdez and
+  Mehrabian (1994, *J. Exp. Psych.: General* 123(4):394–409, verified from the
+  abstract) fitted, on standardised variables, **Pleasure = .69B + .22S**, **Arousal =
+  −.31B + .60S** and **Dominance = −.76B + .32S**: brightness drives pleasantness,
+  saturation drives arousal, and brighter colours are also *calmer*. Brightness worked
+  the same for chromatic and achromatic colours. On hue, blue, blue-green, green,
+  red-purple, purple and purple-blue were the most pleasant and yellow and
+  green-yellow the least. So "calm" is mostly *low chroma and high or mid
   lightness* in any hue, and "energetic" is *high chroma*. For a generator, set L and C
   from the mood first and choose h from the subject second. This is the opposite of
   the common "calm = blue, energy = red" lookup.

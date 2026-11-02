@@ -1,68 +1,65 @@
-# Sources not reached in the first pass (2026-11-01)
+# Sources not reached, and what happened when they were retried
 
-Everything this pass tried to read and couldn't, or relied on second-hand. Each entry
-says why, what was used instead, and what to check. Tick items off and add findings
-under each, or move them into the relevant doc.
+The first pass (2026-11-01) could not read these. On **2026-11-02** every one was
+retried: the session's network allowed almost all of them, and JavaScript-only sites
+were rendered in a headless browser. Each row says what was found and where it went.
+What is **still** unreached is collected first.
 
-## A. Hosts blocked by the session's network allowlist
+## Still unreached or unverified (as of 2026-11-02)
 
-The cloud environment resolves only allowed domains. To let a later session read
-these, add them under **Network access → Allowed domains** in the environment settings
-(https://code.claude.com/docs/en/cloud-environments#network-access), or investigate
-by hand.
-
-| URL | Why it matters | Used instead | To check |
+| Source | Why | What we have instead | To check |
 |---|---|---|---|
-| https://www.boardui.com/ | You suggested it | Web search found nothing for the domain (results were unrelated "Board" products) | What it is; its stance on AI-generated UI; any principles, components or tooling worth a source folder |
-| https://notboring.dev/ | You suggested it | Web search found nothing for the domain. Closest match: **Not Boring Software** (`notboring.software`), Apple Design Award-winning Weather, Habits, Timer and Calculator apps "built like a game" with 3D skinnable interfaces. Possibly related, unconfirmed | Whether notboring.dev is that studio; whether it publishes design principles or tooling |
-| https://m3.material.io/ (incl. `/blog/m3-expressive-motion-theming`, the Expressive research write-up, component guidance) | Current Material guidance prose, research claims, motion theming rationale | Token SCSS from `material-components/material-web` and source from `material-color-utilities` on GitHub ([`material-3/`](./material-3)); search-result snippets for dates | Official dates (I/O 2026 notice reportedly May 19, 2026); the Expressive research methodology and claims; shape-morph guidance; reduced-motion guidance for springs; the 35-shape library |
-| https://adriankrebs.ch/blog/design-slop/ | Primary source of the ~1,400-site Show HN study (16 heuristics), whose percentages are quoted throughout | Second-hand via [`avoid-ai-design/ai-tells-catalog.md`](./avoid-ai-design/ai-tells-catalog.md) | The heuristic definitions, per-pattern percentages, false-positive estimate, date |
+| Adam Wathan's post on X about `bg-indigo-500` (https://x.com/adamwathan/status/1953510802159219096, 2025-08-07) | X returns HTTP 402 without a login | Two secondary accounts agree on the gist ([`web-articles/`](./web-articles)) | The exact wording |
+| x.com/MyWestLord/article/2068064010600108267 ("45 Claude Design Skills That Kill AI Slop") | X requires a login | Bitdoze's 11-skill comparison covers similar ground ([`web-articles/`](./web-articles)) | Whether it names skills not in Bitdoze's list |
+| The Stitch app (stitch.withgoogle.com) and its docs | Sign-in-only JavaScript app; `labs.google.com/stitch` is now a 404 | The official launch post (March 18, 2026) and the Stitch skills repo | How URL-to-design-system extraction and DESIGN.md import behave in practice |
+| Valdez and Mehrabian (1994) full text; Palmer and Schloss (2010) full text | Paywalled (APA PsycNet, PNAS returned 403) | Both **abstracts** via Europe PMC, which confirm the claims as used ([`ux-colour-science.md`](./ux-colour-science.md) §6) | Effect sizes and samples if a generator ever depends on them |
+| Colour vision deficiency prevalence (about 8% of men, 0.5% of women, Northern European ancestry) | Not retried; common reference figure | — | Any ophthalmology reference |
+| Legal standing of WCAG 2 (ADA, EN 301 549, EU Accessibility Act) | Jurisdiction-specific | — | Treat as indicative |
+| M3 guidance on reduced motion for springs and shape morph | The first pass had it from search snippets; none of the motion, shape or accessibility pages read on 2026-11-02 says it | Material's web curves and `prefers-reduced-motion` | Material's accessibility motion pages, if they exist |
+| Evil Martians Harmonizer and APCA reference code | Reachable, but no licence file (Harmonizer) and All Rights Reserved (APCA) | Harmonizer's app and README read; "APCA in a Nutshell" read | Nothing stored, by licence, not by access |
+| Huemint, Khroma, Coolors | Closed products | — | Not inspected |
+| `pbakaus/impeccable-site`, `~/code/impeccable-evals` | Private | Numbers quoted from Impeccable's public CLAUDE.md | — |
 
-## B. Not attempted after the allowlist failures (likely blocked, or closed)
+Section C of the first pass (actions denied in the session) still stands for running
+Impeccable's downloaded detector against `ux-design/fixtures/`; that needs the
+owner's go-ahead. `api.github.com` now answers (HTTP 200).
 
-Per the session's guidance, no further arbitrary hosts were tried once several failed.
+## Resolved on 2026-11-02
 
-| Source | Why it matters | Status |
+### A. Hosts that were blocked by the allowlist
+
+| URL | Result | Where it went |
 |---|---|---|
-| https://radix-ui.com/colors/docs (scale "Understanding the scale") | The 12-step functional semantics are stated **from memory** in [`ux-colour-science.md`](./ux-colour-science.md) §3 (1–2 backgrounds, 3–5 component backgrounds, 6–8 borders, 9–10 solids, 11–12 text) | Repo cloned (MIT) but its README defers to the docs site. **Verify** |
-| https://news.ycombinator.com/item?id=47864393 | 235-comment discussion of the Krebs study (pushback: "it's just Tailwind", "designers did this before AI") | Second-hand via avoid-ai-design |
-| https://gigazine.net/gsc_news/en/20260423-design-slop/ | Write-up of the Krebs study (dates it to about April 2026) | Not read |
-| https://www.sailop.com/blog/ai-slop-2026-state-of-the-ai-generated-web | "Section waterfall", silhouette test, "blue-600 → purple-500" fingerprint | Second-hand via avoid-ai-design |
-| https://superdesign.dev/blog/ai-design-system-drift, https://overlayqa.com/blog/ai-design-system-drift/ | The "design system drift" framing | Second-hand via avoid-ai-design |
-| https://dev.to/alanwest/why-every-ai-built-website-looks-the-same-blame-tailwinds-indigo-500-3h2p and Adam Wathan's 2025 acknowledgement of `bg-indigo-500` | The origin story of "AI purple" | Second-hand; **find Wathan's primary post** |
-| https://impeccable.style/slop, https://impeccable.style/docs/* | Impeccable's public slop gallery and docs | Repo read instead |
-| https://world.hey.com/kostac/spot-the-slop-a-ui-designer-s-guide-to-fixing-ai-defaults-4c448c9c | A UI designer's tell guide | Search snippet only |
-| https://prg.sh/ramblings/Why-Your-AI-Keeps-Building-the-Same-Purple-Gradient-Website | Causal essay | Search snippet only |
-| https://www.925studios.co/blog/ai-slop-web-design-guide, https://pages.thefountaininstitute.com/posts/7-tells-that-a-ui-is-ai-generated, https://noqta.tn/en/blog/ai-design-slop-overused-ui-patterns-fix-2026 | Agency tell lists | Search snippets only; low evidential weight |
-| https://cdn.jsdelivr.net/npm/pixelslop@0.3.8/dist/skill/resources/ai-slop-patterns.md | Another skill's pattern catalogue (`pixelslop`) | Not read. jsDelivr may be reachable; **worth a source folder** |
-| https://labs.google.com/stitch, Stitch official docs and release notes | "Vibe design" (reportedly March 18, 2026 update) and DESIGN.md import | Only `google-labs-code/stitch-skills` and `design.md` repos read |
-| Huemint, Khroma, Coolors | ML or generative palette tools from mood input | Closed products; not inspected |
-| https://oklch.com, https://harmonizer.evilmartians.com | Evil Martians' OKLCH picker and APCA palette tool | Harmonizer README read; the repo has **no licence file**, so nothing copied |
-| https://git.apcacontrast.com/documentation/APCA_in_a_Nutshell | APCA levels and usage | README read; the reference code is All Rights Reserved, so nothing copied |
-| x.com/MyWestLord/article/2068064010600108267 ("45 Claude Design Skills That Kill AI Slop") | A roundup of design skills | Not read (X) |
-| https://www.bitdoze.com/best-ai-skills-for-web-design/ | Skills comparison | Not read |
+| https://www.boardui.com/ | **BoardUI**: a React + Tailwind v4 design system for dashboards and agent UIs, with an MCP server and rules for coding agents; free tier MIT | [`boardui/`](./boardui) (its `AGENTS.md` stored); cited in [`ux-slop-taxonomy.md`](./ux-slop-taxonomy.md) §3g |
+| https://notboring.dev/ | **notboring**: components sold as prompts for agents, by a French UI designer. **Not** Not Boring Software, as the first pass guessed. Licence forbids redistributing the prompts | [`notboring/`](./notboring) (analysis only); its "build every state" rule added to [`ux-product-ui.md`](./ux-product-ui.md) §5 |
+| https://m3.material.io/ (motion, shape, the launch and I/O 2026 posts) and the Expressive research on design.google | Read (rendered). Corrections: there are **two motion schemes** and the stored tokens were Standard; Expressive (Material's default) uses spatial damping 0.6–0.8. The "4×" claim is real and is eye-tracked time to find key elements. I/O 2026 (May 19) added the Expressive layout system and made Material Android Compose-first | [`ux-material-3.md`](./ux-material-3.md) rewritten in §1; Compose motion tokens stored in [`material-3/compose-motion/`](./material-3/compose-motion) |
+| https://adriankrebs.ch/blog/design-slop/ | Read, plus the **MIT repo with results and 190 human labels**. The percentages used across this collection were from the study's first, 500-site version; current figures differ | [`design-slop-cop/`](./design-slop-cop) (patterns, our prevalence count); [`ux-slop-taxonomy.md`](./ux-slop-taxonomy.md) §1, §3 and §6; [`avoid-ai-design/README.md`](./avoid-ai-design/README.md) |
 
-## C. Actions denied in the session
+### B. Sources not attempted in the first pass
 
-| Action | Why it was denied | Workaround |
+| Source | Result | Where it went |
 |---|---|---|
-| `npx impeccable detect --list-rules` (running Impeccable's downloaded engine) | Auto-mode classifier: executing code from an external package | Parsed the rule registry from `crates/foundation/src/registry.rs` with our own script ([`impeccable/antipatterns.tsv`](./impeccable/antipatterns.tsv)). **Running the detector against the fixtures in `ux-design/fixtures/` would be a useful comparison**, if you're happy to allow it |
-| A Python one-liner run inside the cloned taste-skill folder | Same classifier: interpreter run in a downloaded directory | Read the files with the Read tool instead; `evals/evals.json` was **not** inspected |
-| `api.github.com` | Proxy returns 403 | Used `git clone` (sparse, blobless) for every repo |
+| Radix Colors "Understanding the scale" | **Verified.** The 12 step jobs match what was written from memory, with finer detail (7 includes focus rings; 11 and 12 guarantee APCA Lc 60 and 90 on step 2; which step-9 colours take dark text) | [`ux-colour-science.md`](./ux-colour-science.md) §3 |
+| HN discussion of the Krebs study (235 comments) | Read in full | [`design-slop-cop/README.md`](./design-slop-cop/README.md) |
+| GIGAZINE write-up | Read; it carries the first version's per-pattern figures | [`design-slop-cop/README.md`](./design-slop-cop/README.md) |
+| Sailop, "AI Slop in 2026" | Read. Adds HTTP Archive figures on `indigo-500` and Inter, and withdrew its own earlier 47-site study | [`web-articles/`](./web-articles) |
+| Superdesign and OverlayQA on design-system drift | Read; four drift mechanisms and a one-prompt drift experiment | [`web-articles/`](./web-articles); [`ux-slop-taxonomy.md`](./ux-slop-taxonomy.md) §3g |
+| DEV (Alan West) on indigo-500 | Read; no primary link. prg.sh supplied the Wathan post's URL | [`web-articles/`](./web-articles) |
+| impeccable.style/slop and /docs | Read; the public catalogue lags the rule registry; detector exit codes and DESIGN.md checks documented | [`web-articles/`](./web-articles) |
+| Kosta Canatselis, "Spot the Slop" | Read; adds missing states and no progressive disclosure | [`web-articles/`](./web-articles); [`ux-product-ui.md`](./ux-product-ui.md) §5 |
+| prg.sh, purple-gradient essay | Read | [`web-articles/`](./web-articles) |
+| 925 Studios, Fountain Institute, Noqta tell lists | Read; Fountain adds multicoloured side tabs and status dots everywhere; 925 is sales copy | [`web-articles/`](./web-articles); [`ux-slop-taxonomy.md`](./ux-slop-taxonomy.md) §3d |
+| `pixelslop` pattern catalogue | Read, with its Apache-2.0 repo | [`pixelslop/`](./pixelslop) (SKILL, catalogue, scoring rubric); [`ux-anti-slop-skills.md`](./ux-anti-slop-skills.md) |
+| Stitch "vibe design" | Official post found and read: March 18, 2026, confirmed | [`web-articles/`](./web-articles) |
+| oklch.com | Read: Evil Martians' OKLCH picker with P3/Rec2020 gamut display and sRGB fallback | Nothing new to store |
+| Harmonizer | App read; no licence, nothing stored | — |
+| "APCA in a Nutshell" | Read; Lc levels now carry their font-size and weight pairs | [`ux-colour-science.md`](./ux-colour-science.md) §2 |
+| Bitdoze skills comparison | Read; six skills not yet in this collection | [`web-articles/`](./web-articles); README candidates |
 
-## D. Private or unpublished
+### E. Claims that were cited from memory
 
-| Source | Note |
+| Claim | Result |
 |---|---|
-| `pbakaus/impeccable-site`, `~/code/impeccable-evals` | Impeccable's direction catalogue ("the paid-service moat") and eval framework; their numbers are quoted from the public repo's CLAUDE.md only |
-| taste-skill `library/*.json` (1.8 MB) | Public, available in the clone, not stored; could be analysed for hue and type distribution the way [`ux-mood-to-theme.md`](./ux-mood-to-theme.md) §3 analyses Impeccable's seeds |
-
-## E. Cited from memory: please verify
-
-| Claim | Where | Primary source to check |
-|---|---|---|
-| Palmer and Schloss (2010, PNAS), ecological valence theory: blues liked, dark yellow-green disliked | [`ux-colour-science.md`](./ux-colour-science.md) §6 | "An ecological valence theory of human color preference", PNAS 107(19). Material's `dislike_analyzer.ts` cites it, which corroborates the gist |
-| Valdez and Mehrabian (1994): brightness tracks pleasure, saturation tracks arousal | same | "Effects of color on emotions", J. Exp. Psych.: General 123(4) |
-| Colour vision deficiency prevalence (about 8% of men, 0.5% of women, Northern European ancestry) | same §5 | Any ophthalmology reference |
-| Ottosson 2020 OKLab | same §1 | bottosson.github.io/posts/oklab (likely blocked) |
-| Legal standing of WCAG 2 (ADA, EN 301 549, EU Accessibility Act) | same §2 | Jurisdiction-specific; treat as indicative |
+| Palmer and Schloss (2010) | **Confirmed** from the abstract (PNAS 107(19):8877–8882). The abstract's disliked example is browns; the dark yellow-green band is Material's operationalisation. Text adjusted |
+| Valdez and Mehrabian (1994) | **Confirmed** from the abstract, with coefficients (Pleasure = .69B + .22S; Arousal = −.31B + .60S). Text now gives them |
+| Ottosson 2020 Oklab | **Confirmed** (post dated Dec 23, 2020; matrices revised Jan 2021; code public domain or MIT) |

@@ -108,8 +108,9 @@ artifact-design:
 ## 5. States: the polish gap
 
 "Generated UI renders the happy path and skips the states a craftsperson would
-build" (avoid-ai-design K7). The required set, merged from Impeccable, Vercel and
-shadcn:
+build" (avoid-ai-design K7; Kosta Canatselis lists "missing states" among seven
+designer-spotted tells, [`web-articles/`](./web-articles)). The required set, merged
+from Impeccable, Vercel, shadcn and notboring:
 
 | Component kind | States to design |
 |---|---|
@@ -119,6 +120,7 @@ shadcn:
 | Destructive actions | confirm or undo window, never immediate |
 | Async feedback | `aria-live="polite"` toasts; optimistic UI with rollback |
 | Navigation state | URL reflects filters, tabs, pagination and expanded panels; back restores scroll |
+| Object lifecycle | Every state the object can really be in, not the one the demo opens on: empty, one, full, refused, undone, pressed twice, interrupted halfway. notboring's component prompts make this the agent's job ("work out that list before you write, and build the whole of it"), and keep one object through its states (save → saving → saved is one pill whose label changes) rather than swapping it for a spinner ([`notboring/`](./notboring)) |
 
 ## 6. Copy in product UI
 
