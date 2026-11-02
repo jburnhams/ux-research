@@ -1,0 +1,64 @@
+# Where the sources came from
+
+Every repo read in the first pass (2026-11-01), the commit read, the paths that matter,
+the licence, and what was stored. Re-fetch any of them in a minute with the recipe below.
+What could *not* be read is in [`blocked-sources.md`](./blocked-sources.md).
+
+## Fetch recipe
+
+`api.github.com` returns 403 through this environment's proxy; plain git works. Blobless +
+sparse keeps every repo small:
+
+```sh
+git clone --depth 1 --filter=blob:none --sparse https://github.com/<owner>/<repo> <dir>
+git -C <dir> sparse-checkout set <dir/path> [...]
+git -C <dir> sparse-checkout set --skip-checks <single/file.md>   # files, not dirs
+git -C <dir> ls-tree -r --name-only HEAD | grep -i <term>          # find paths without network
+```
+
+## Repos
+
+| Source | Repo | Commit (date) | Paths that matter | Licence | Stored here |
+|---|---|---|---|---|---|
+| Anthropic `frontend-design` | `anthropics/skills` | `ca45fc4` (2026-10-28) | `skills/frontend-design/` | Apache-2.0 | [`anthropic-frontend-design/`](./anthropic-frontend-design) (whole skill) |
+| Anthropic cookbook, frontend aesthetics | `anthropics/claude-cookbooks` | `c43f56d` (2026-10-29) | `coding/prompting_for_frontend_aesthetics.ipynb` | MIT | [`anthropic-cookbook-frontend-aesthetics/`](./anthropic-cookbook-frontend-aesthetics) (notebook as Markdown) |
+| Impeccable | `pbakaus/impeccable` | `e89e3ad` (2026-11-01) | `skill/SKILL.src.md`, `skill/reference/`, `crates/foundation/src/registry.rs` (rule registry), `crates/context/src/palette_data.rs` (mood seeds), `CLAUDE.md` (eval findings) | Apache-2.0 | [`impeccable/`](./impeccable): router, 13 references, `antipatterns.tsv` and `palette-seeds.tsv` (extracted by us) |
+| taste-skill v2 | `Leonxlnx/taste-skill` | `12af471` (2026-10-25) | `skills/taste-skill/SKILL.md`, `references/`, `library/*.json`, `evals/` | MIT | [`taste-skill/`](./taste-skill): SKILL + 8 references |
+| avoid-ai-design | `funboy322/avoid-ai-design` | `2b7c718` (2026-09-24) | `SKILL.md`, `references/ai-tells-catalog.md`, `scripts/detect.mjs` | MIT | [`avoid-ai-design/`](./avoid-ai-design): SKILL + catalogue |
+| anti-ai-slop | `Vinayak-Shukla-03/anti-ai-slop` | `c414eba` (2026-07-02) | `SKILL.md`, `references/` | MIT | [`anti-ai-slop/`](./anti-ai-slop) |
+| anti-slop-design | `Ferousco-dev/anti-slop-design` | `484f99e` (2026-10-02) | `skills/anti-slop-design/` (20 modules) | MIT | [`anti-slop-design/`](./anti-slop-design): SKILL + 3 modules |
+| Vercel Web Interface Guidelines | `vercel-labs/web-interface-guidelines` | `434b7f9` (2026-10-05) | `AGENTS.md`, `command.md` | MIT | [`vercel-web-interface-guidelines/`](./vercel-web-interface-guidelines) |
+| Vercel agent skills | `vercel-labs/agent-skills` | `1a2c79d` (2026-10-27) | `skills/web-design-guidelines/`, `skills/react-best-practices/` | — | not stored (WIG repo is the source) |
+| shadcn/ui skill | `shadcn-ui/ui` | `c0d63c3` (2026-11-01) | `skills/shadcn/`, `apps/v4/registry/new-york-v4/{ui,blocks}` (linter calibration) | MIT | [`shadcn-skill/`](./shadcn-skill): SKILL, design-system, customization, 2 rule files |
+| Google DESIGN.md | `google-labs-code/design.md` | `6e5da53` (2026-10-16) | `PHILOSOPHY.md`, `docs/spec.md`, `examples/` | Apache-2.0 | [`google-design-md/`](./google-design-md) |
+| Google Stitch skills | `google-labs-code/stitch-skills` | `0337446` (2026-08-17) | `plugins/stitch-utilities/skills/{enhance-prompt,design-md,taste-design}`, `plugins/stitch-design/skills/generate-design` | Apache-2.0 | [`google-stitch-skills/`](./google-stitch-skills) (4 skills) |
+| Material Web tokens | `material-components/material-web` | `de5470f` (2026-10-29) | `tokens/versions/latest/sass/_md-sys-*.scss` | Apache-2.0 | [`material-3/tokens/`](./material-3/tokens) |
+| Material colour utilities | `material-foundation/material-color-utilities` | `bd811e4` (2026-10-19) | `dev_guide/`, `typescript/{hct,scheme,dynamiccolor,dislike,temperature,score}` | Apache-2.0 | [`material-3/color-utilities/`](./material-3/color-utilities) (guides + 6 sources) |
+| Reddit tell study | `JCarterJohnson/vibecoded-design-tells` | `f7c4aef` (2026-06-23) | `unslop-ai-ui/*.csv`, `DATA_NOTE.md` | MIT (code; text is authors') | [`vibecoded-design-tells/`](./vibecoded-design-tells) (aggregate CSVs only) |
+| Tailwind CSS v4 | `tailwindlabs/tailwindcss` | `654f89f` (2026-11-01) | `packages/tailwindcss/theme.css` (default OKLCH palette, radius, shadows) | MIT | not stored; quoted |
+| Adobe Leonardo | `adobe/leonardo` | `eb6481d` (2026-07-08) | `packages/contrast-colors/README.md` | Apache-2.0 | not stored; analysed |
+| Radix Colors | `radix-ui/colors` | `dbdb854` (2025-12-17) | `src/light.ts`, `src/dark.ts` (docs on radix-ui.com) | MIT | not stored |
+| Evil Martians Harmonizer | `evilmartians/harmonizer` | `4b45439` (2026-10-02) | `README.md` | **no licence file** | not stored; quoted |
+| APCA reference | `Myndex/apca-w3` | `6c5c066` (2026-05-06) | `README.md` (Lc levels) | **All Rights Reserved** (licensed to W3C) | not stored; quoted |
+| culori | `Evercoder/culori` | `7613e69` (2026-10-15) | — | MIT | not stored; recommended |
+| OpenAI skills | `openai/skills` | `49f948f` (2026-06-23) | `skills/.curated/figma-create-design-system-rules/` | per-skill | not stored (no frontend-design skill found) |
+
+## From the sibling `prompts` collection
+
+`jburnhams/prompts` @ `e5dcbf1`: design sections excerpted verbatim into
+[`generator-prompts/design-sections.md`](./generator-prompts/design-sections.md) with
+line ranges, from `leaked/lovable/`, `leaked/v0/`, `leaked/same-dev/`,
+`leaked/emergent/`, `leaked/orchids/`, `leaked/google-gemini/`, `codex/gpt-5.2-codex_prompt.md`,
+`leaked/amp/amp-code.md`. Claude's artifact and design skills are analysed from
+`leaked/claude-code/artifact-skills/` (captured 2026-09-10) and from the
+`artifact-design` skill as served in this session (2026-11-01); no text stored
+([`claude-design-skills/`](./claude-design-skills)). Prior analysis reused:
+`prompts/agent-generative-output.md` §9–§11.
+
+## Web pages read
+
+| Page | Via |
+|---|---|
+| https://platform.claude.com/cookbook/coding-prompting-for-frontend-aesthetics | WebFetch (then the repo notebook) |
+| https://github.com/google-labs-code/design.md, https://github.com/JCarterJohnson/vibecoded-design-tells | WebFetch, then cloned |
+| Search results for M3 Expressive, Stitch vibe design, Jonauskaite et al. 2020, anti-slop skills | WebSearch (snippets only; cited as such) |
