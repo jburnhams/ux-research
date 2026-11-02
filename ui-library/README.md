@@ -18,6 +18,9 @@ is the piece). Swap it freely; nothing depends on the name.
 | [`agents.md`](./agents.md) | How a coding agent works inside a Plinth project: the rules file, the order of work, the checks, and how the library is maintained |
 | [`examples/`](./examples) | One fictional product end to end: a generated theme, ten components, a dashboard, a form and a state-matrix page, with screenshots |
 
+The docs and the live example are also published as a site (GitHub Pages, built by
+`.github/workflows/pages.yml`), styled with the example's own theme.
+
 ## 1. Starting brief
 
 As given: use the research to design a React and Tailwind UX library, in the way

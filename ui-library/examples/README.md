@@ -55,7 +55,16 @@ npm install
 npm run check    # tsc --noEmit · tailwindcss compile · slop-lint (operate mode)
 npm run render   # build with esbuild, screenshot 8 views, fail on console errors,
                  # horizontal overflow, scrolled load, unloaded font or blank page
+npm run site     # the GitHub Pages site in dist/site: the docs, styled with this
+                 # theme, plus the live demo and the screenshots
 ```
+
+The site is published by [`.github/workflows/pages.yml`](../../.github/workflows/pages.yml):
+pull requests that touch `ui-library/` or `ux-design/` run the tests, `npm run check` and
+the site build; pushes to `main` also deploy it, to
+`https://jburnhams.github.io/ux-research/` once Pages is set to deploy from GitHub
+Actions (Settings, Pages, Source). The demo's screens are addressed by hash, with
+`?theme=dark` and `?density=compact`: for example `demo/?theme=dark#system`.
 
 `slop-lint` over this folder also runs in the repo's test suite
 (`node --test ux-design/tests/*.test.mjs`), which needs no install.

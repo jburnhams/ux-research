@@ -32,7 +32,8 @@ subject, Tailwind's stock palette and sizes are removed so they cannot be typed,
 loading, empty, error and pending states are part of each component's type signature.
 Written up as the stance and its decisions, tokens, components, patterns and agent rules,
 with a worked example (a pottery co-op's kiln room) that type-checks, compiles, renders
-in light and dark and passes `slop-lint`.
+in light and dark and passes `slop-lint`. A GitHub Pages workflow publishes the docs and
+the live example as a site.
 
 ## Synthesis docs
 

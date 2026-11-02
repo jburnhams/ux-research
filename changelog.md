@@ -46,6 +46,16 @@ defaults are what make generated UI look the same.
   rows from each load instead of only the first; the state-matrix page now shows every
   example component (Textarea, ChoiceGroup, PageHeader, LineChart, UndoBar,
   TableSkeleton were missing).
+- GitHub Pages site, asked for in the same thread: `.github/workflows/pages.yml` (**new**)
+  runs the repo tests, `npm run check` and a site build on pull requests, and deploys on
+  pushes to `main`. `ui-library/examples/scripts/build-site.mjs` and `scripts/site.css`
+  (**new**) render the six ui-library docs to HTML styled with the example's Plinth
+  theme, rewrite doc links to `.html` and repo links to GitHub, and add the live demo
+  (`demo/`, screens by hash, `?theme=dark`, `?density=compact`) and the screenshots.
+  `package-lock.json` (**new**) so CI can `npm ci`; `marked` added for the Markdown.
+  Checked locally: a clean `npm ci` then `check` and `site` pass, all nine pages load
+  over HTTP with no errors or overflow, and all 17 internal links resolve. Pages must
+  be switched to "GitHub Actions" in the repository settings before the first deploy.
 
 **Blocked sources retried and processed**, on branch `claude/project-thread-ox5cth`.
 Asked to look at the doc listing sources the first pass could not reach and process
