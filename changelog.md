@@ -6,6 +6,40 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-02
 
+**Component library design: `ui-library/`**, on branch `claude/project-thread-2o640l`.
+Asked to use the research to design a React and Tailwind UX library, the way `prompts`
+turned its research into Forge, and to write it up with examples. The design became a
+library that ships no look, because the research's main finding is that the stack's
+defaults are what make generated UI look the same.
+
+- `ui-library/` — **new**:
+  - `README.md`: the brief, the stance, 16 decisions each with its source and what it
+    replaces, what was not adopted, the architecture and layer ownership,
+    distribution as a shadcn-format registry, the inventory, enforcement, known limits.
+  - `tokens.md`: the token contract, including the Tailwind namespace reset (verified
+    against Tailwind 4.3.3: it must come after `@import "tailwindcss"`; placed before
+    it, nothing is removed), status tint and ink pairs solved to ≥ 6:1, type steps as
+    `@utility`, radius by role, motion and density tokens.
+  - `components.md`: conventions and specs for 23 components, each with what generated
+    versions get wrong.
+  - `patterns.md`: the Operate screen shape, figures, tables, charts, forms,
+    destructive and async patterns, and what Read and Persuade surfaces get.
+  - `agents.md`: the rules block for a project's `AGENTS.md`, each rule mapped to a
+    check, and how the library is maintained.
+  - `examples/`: a fictional pottery co-op's kiln room. A theme generated with
+    `palette.mjs`, ten components, a dashboard, a booking form and a state-matrix page,
+    a filled-in `DESIGN.md` and `AGENTS.md`, a render script with the audit's
+    mechanical checks, and eight screenshots. Type-checks, compiles, renders without
+    console errors or overflow, and passes `slop-lint` in operate mode with no findings.
+- `ux-design/tests/tools.test.mjs` — new test: the worked example passes `slop-lint`.
+- `README.md` — `ui-library/` added to "Start here". `CLAUDE.md` — the test rule now
+  covers `ui-library/`.
+- Found while building, recorded in `ui-library/README.md` §7: `palette.mjs --contrast 1`
+  lowers the dark theme's foreground slightly (L 96.5% to 95.0%) while raising muted
+  text; `palette.mjs` has no status roles, so they were solved by hand with its colour
+  library; `slop-lint` does not yet flag stock size classes (`text-sm`) in a project
+  that has removed them. No new sources were read for this change.
+
 **Blocked sources retried and processed**, on branch `claude/project-thread-ox5cth`.
 Asked to look at the doc listing sources the first pass could not reach and process
 the ones now visible. Almost every host now answers; JavaScript-only sites were

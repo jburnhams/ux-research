@@ -1,0 +1,159 @@
+/* Back Lane Clay Co-op, kiln room (Operate). The Plinth theme layer.
+   Two files, two owners:
+   - theme.generated.css: colour roles and 12-step ramps from palette.mjs. Regenerate, never hand-edit:
+       node ux-design/skill/scripts/palette.mjs --primary "#5b6e5a" --secondary "#c4621c" --contrast 0.5 --out app/theme.generated.css
+   - this file: the roles palette.mjs does not make (status, surfaces), and the non-colour tokens
+     (type, radius, elevation, motion, density), each with its reason. DESIGN.md explains the seeds. */
+
+@import "tailwindcss";
+
+/* Clear Tailwind's stock namespaces right after Tailwind's own theme loads. With these gone,
+   `bg-indigo-500`, `text-sm`, `rounded-xl` and `shadow-lg` do not compile at all: the only colours,
+   type steps, radii and shadows that exist are the ones this file names. That is the library's
+   strongest anti-drift rule, and it costs nothing at runtime. */
+@theme {
+  --color-*: initial;
+  --text-*: initial;
+  --radius-*: initial;
+  --shadow-*: initial;
+  --font-*: initial;
+}
+
+@import "./theme.generated.css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Status: fixed semantic roles, never the accent. Each is a pale tint and a dark ink of one hue;
+     the ink is solved to >= 6:1 on its tint and on the ground. Warning takes the secondary seed's
+     hue (50, the peephole glow) because in this room "hot" is the caution state; danger stays at
+     27, 23 degrees away. Success (150) sits near the celadon primary's hue (144) but at three times
+     its chroma, and every status carries a word and an icon, so colour is never the only cue. */
+  --success-subtle: oklch(95.4% 0.035 150.6);
+  --success: oklch(45.9% 0.109 150.1);
+  --warning-subtle: oklch(95.5% 0.025 52.2);
+  --warning: oklch(47.6% 0.11 50.6);
+  --danger-subtle: oklch(95.5% 0.022 27.8);
+  --danger: oklch(48% 0.111 27);
+  --info-subtle: oklch(95.5% 0.023 246);
+  --info: oklch(46.5% 0.11 244.6);
+
+  /* Surfaces: layering by tone, not shadow (Material's surface ladder). */
+  --surface-sunken: var(--neutral-2);
+
+  /* Density: control heights move together (button, input, select). 40px default, 44px on touch
+     (the kiln-room tablet), 32px when a person opts into compact. */
+  --control-h: 2.5rem;
+  --control-h-sm: 2rem;
+
+  /* Motion. Effects (colour, opacity) never overshoot; spatial gets Material Standard's barely
+     visible settle, because this is a utilitarian product. */
+  --motion-effects: 200ms;
+  --motion-spatial: 350ms;
+}
+
+.dark {
+  --success-subtle: oklch(25.9% 0.045 150.3);
+  --success: oklch(70.5% 0.09 150.1);
+  --warning-subtle: oklch(25.9% 0.045 50.1);
+  --warning: oklch(71.3% 0.09 50.9);
+  --danger-subtle: oklch(26% 0.045 27);
+  --danger: oklch(71.7% 0.089 27.3);
+  --info-subtle: oklch(26% 0.045 244.4);
+  --info: oklch(70.8% 0.09 245.3);
+  --surface-sunken: var(--neutral-1);
+}
+
+@media (pointer: coarse) {
+  :root { --control-h: 2.75rem; --control-h-sm: 2.5rem; }
+}
+[data-density="compact"] { --control-h: 2rem; --control-h-sm: 1.75rem; }
+
+/* More contrast: the text roles from the same seeds at palette.mjs --contrast 1. */
+@media (prefers-contrast: more) {
+  :root {
+    --foreground: oklch(6.7% 0 0);
+    --muted-foreground: oklch(36.7% 0.008 137.8);
+    --accent-foreground: oklch(7.9% 0.01 144.6);
+    --secondary-foreground: oklch(5.3% 0.022 29.2);
+  }
+  .dark {
+    --muted-foreground: oklch(80.2% 0.009 145.5);
+  }
+}
+
+@theme inline {
+  --color-success: var(--success);
+  --color-success-subtle: var(--success-subtle);
+  --color-warning: var(--warning);
+  --color-warning-subtle: var(--warning-subtle);
+  --color-danger: var(--danger);
+  --color-danger-subtle: var(--danger-subtle);
+  --color-info: var(--info);
+  --color-info-subtle: var(--info-subtle);
+  --color-surface-sunken: var(--surface-sunken);
+}
+
+@theme {
+  /* One family. Public Sans: plain, sturdy, true tabular figures, legible at arm's length on a
+     dusty wall tablet. No display face on an Operate surface. */
+  --font-sans: "Public Sans Variable", "Public Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* Radius by role. Optical nesting: inner = outer - padding, so a control inside a 8px overlay
+     with 4px padding is 4px, never the same value as its container. */
+  --radius-control: 4px;
+  --radius-surface: 6px;
+  --radius-overlay: 8px;
+  --radius-pill: 9999px;
+
+  /* One elevation channel per surface: hairlines for things on the page, a shadow only for
+     what floats above it. */
+  --shadow-overlay: 0 1px 2px oklch(0% 0 0 / 0.08), 0 8px 24px oklch(0% 0 0 / 0.12);
+
+  --ease-effects: cubic-bezier(0.34, 0.8, 0.34, 1);
+  --ease-spatial: cubic-bezier(0.27, 1.06, 0.18, 1);
+}
+
+/* Type steps as utilities, not --text-* keys: a compound of size, line height and weight that
+   cn() can tell apart from text colours (see lib/utils.ts). Operate scale, ratio about 1.2, fixed
+   rem; nothing above 28px. */
+@utility type-caption { font-size: 0.75rem; line-height: 1rem; font-weight: 400; }
+@utility type-label { font-size: 0.875rem; line-height: 1.25rem; font-weight: 500; }
+@utility type-body-sm { font-size: 0.875rem; line-height: 1.25rem; font-weight: 400; }
+@utility type-body { font-size: 1rem; line-height: 1.5rem; font-weight: 400; }
+@utility type-heading { font-size: 1.125rem; line-height: 1.5rem; font-weight: 600; }
+@utility type-title { font-size: 1.5rem; line-height: 2rem; font-weight: 600; letter-spacing: -0.01em; }
+@utility type-figure { font-size: 1.75rem; line-height: 2.25rem; font-weight: 500; font-variant-numeric: tabular-nums; }
+
+/* State transitions: named properties only (never `transition: all`). */
+@utility transition-state {
+  transition-property: color, background-color, border-color, opacity, box-shadow;
+  transition-duration: var(--motion-effects);
+  transition-timing-function: var(--ease-effects);
+}
+
+@layer base {
+  html { color-scheme: light; }
+  .dark { color-scheme: dark; }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.5rem;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* One focus treatment for everything focusable, so no component can forget it. */
+  :focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+  ::selection { background-color: var(--primary-5); color: var(--foreground); }
+  a { text-underline-offset: 0.2em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

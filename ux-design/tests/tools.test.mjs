@@ -69,3 +69,9 @@ test("colour maths: known WCAG and OKLab values", async () => {
   assert.equal(c.oklchToHex(c.hexToOklch("#3366cc")), "#3366cc");
   assert.ok(c.deltaE("#F4F0E4", "#F4F1EA") < 1);
 });
+
+test("ui-library worked example passes slop-lint in its configured operate mode", () => {
+  const r = lint(join(here, "..", "..", "ui-library", "examples"));
+  assert.deepEqual(r.findings, [], JSON.stringify(r.findings, null, 1));
+  assert.equal(r.code, 0);
+});
