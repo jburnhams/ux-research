@@ -19,7 +19,7 @@ const screens: Record<string, () => React.ReactElement> = {
   "kiln-room-empty": () => <KilnRoom load={{ status: "ready", data: [] }} />,
   book: () => <BookFiring />,
   "book-errors": () => <BookFiring initial={{ firing: "glaze", kiln: "2", pieces: "6", tallest: "38" }} showErrors />,
-  booked: () => <Booked pieces={6} tallest={24} />,
+  booked: () => <Booked firing="glaze" kiln="2" pieces={6} tallest={24} />,
   system: () => <SystemPage />,
 };
 

@@ -87,15 +87,32 @@ export const kilns: Record<KilnId, { name: string; shelfGapCm?: number }> = {
 };
 
 export type FiringType = "bisque" | "glaze" | "raku";
-export const firingTypes: Record<FiringType, { label: string; kilns: KilnId[]; when: string }> = {
-  bisque: { label: "Bisque, cone 04", kilns: ["1"], when: "Fridays, out on Saturday after 10:00." },
-  glaze: { label: "Glaze, cone 6", kilns: ["1", "2"], when: "Tuesdays and Thursdays." },
-  raku: { label: "Raku", kilns: ["3"], when: "Saturdays, in the yard; you take part in the firing." },
+export type NextFiring = { day: string; bringBy: string; out?: string };
+export const firingTypes: Record<FiringType, { label: string; kilns: KilnId[]; when: string; next: NextFiring }> = {
+  bisque: {
+    label: "Bisque, cone 04",
+    kilns: ["1"],
+    when: "Fridays, out on Saturday after 10:00.",
+    next: { day: "Friday", bringBy: "17:00 on Thursday", out: "on Saturday after 10:00" },
+  },
+  glaze: {
+    label: "Glaze, cone 6",
+    kilns: ["1", "2"],
+    when: "Tuesdays and Thursdays.",
+    next: { day: "Tuesday", bringBy: "17:00 on Monday", out: "usually Wednesday afternoon" },
+  },
+  raku: {
+    label: "Raku",
+    kilns: ["3"],
+    when: "Saturdays, in the yard; you take part in the firing.",
+    next: { day: "Saturday", bringBy: "10:00 on Saturday, in the yard" },
+  },
 };
 
 export const MAX_PIECES_PER_BOOKING = 20;
 
-/** Kiln 2 as loaded so far for Tuesday's glaze firing (sample). Three shelves, 30 cm apart; the
+/** Kiln 2 as loaded so far for Tuesday's glaze firing (sample; the only load the example has, so
+ *  the booking's drawing appears only for kiln 2). Three shelves, 30 cm apart; the
  *  middle one is free. Sizes are in centimetres. */
 export type Piece = { h: number; w: number };
 export const kiln2Tuesday: { shelfWidthCm: number; levels: Piece[][] } = {
@@ -106,4 +123,3 @@ export const kiln2Tuesday: { shelfWidthCm: number; levels: Piece[][] } = {
     [{ h: 8, w: 14 }, { h: 15, w: 10 }],
   ],
 };
-export const NEXT_GLAZE = { kiln: "2" as KilnId, day: "Tuesday", bringBy: "17:00 on Monday", out: "usually Wednesday afternoon" };

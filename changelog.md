@@ -62,6 +62,12 @@ this change is the middle one, and the second example is listed as a next step.
   Memphis, the aesthetic-usability papers and the humour summary.
 - `sources.md`, `README.md`, `ux-design/README.md`: sources, start-here entry, finding
   12, rule counts (46 → 51), next-pass candidates.
+- Review fixes on PR #4 (Codex review): the confirmation is now its own state rather than
+  the button's phase, which settled back to idle after two seconds and hid it; it is
+  derived from the submitted firing and kiln (`firingTypes` gains a `next` firing with
+  its day, drop-off time and collection), with the shelf drawing only for kiln 2 when the
+  pieces fit; "Book more pieces" resets the form instead of linking to the current hash;
+  and the safe-to-open temperature comes from `SAFE_TO_OPEN_C` rather than a typed 200 °C.
 - Not found: any controlled study of humour in interface error messages. The
   aesthetic-usability papers and the 2025 humour study were read only as abstracts or
   summaries; peak-end is cited from the literature, not re-read. Jakub Krehel's
