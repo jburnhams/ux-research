@@ -6,6 +6,11 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-07
 
+**Record strata-react's keyboard triage pattern** (branch `claude/project-thread-9k96br`, PR #8; strata-react PR #18). strata-react issue #7 asked for single-key shortcuts and an active-item list for screens that clear a queue; it is built there, and this records it as an extension of the design, following the frequency budget in `character.md`.
+
+- `ui-library/components.md`: an inventory row and **new** §3.16 Keyboard triage (`useHotkeys`, `KeysLegend`, `useActiveItem`, `ActiveList`): one shortcut list drives the handler and the legend, the typing and chord rules (WCAG 2.1.4), focus moving on after an answer, and what generated versions get wrong.
+- `ui-library/README.md`: §8 maps the pattern to strata-react as an extension of the design.
+
 **Present strata-react as the implementation of `ui-library/`, and install it from npm** (branch `claude/project-thread-nwljes`, PR #6). Jonathan asked for the example to use the published package and for the docs to discuss the library as the implementation of the research. strata-react 0.1.3 is on npm since today.
 
 - `ui-library/examples/package.json`, `package-lock.json`: `strata-react` is now `^0.1.3` from npm instead of a GitHub dependency pinned to `00ad35e`; the package is renamed `strata-examples`. The lock was regenerated from scratch with every platform's native packages. `npm run check` and `npm run render` pass, and the renders are unchanged (pixelmatch: at most 1 differing pixel, so the screenshots were not recommitted).
