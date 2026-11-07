@@ -127,7 +127,7 @@ Operate scale, ratio about 1.125–1.2, fixed rem, nothing above 28px (taste-ski
 real screens: titles 18–32px, figures 24–30px, "nothing at 48"). Persuade products
 add `type-display` with a clamped size.
 
-`lib/utils.ts` teaches `tailwind-merge` that `type-*` is a font-size group, so
+strata-react's [`src/lib/utils.ts`](https://github.com/jburnhams/strata-react/blob/main/src/lib/utils.ts) teaches `tailwind-merge` that `type-*` is a font-size group, so
 `cn("type-label", "text-muted-foreground")` keeps both. Without it, `cn()` cannot
 classify `type-*` and conflicts resolve unpredictably; with stock shadcn the same
 problem drops `text-muted-foreground` beside a custom `text-*` size.

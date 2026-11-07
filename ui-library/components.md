@@ -1,8 +1,12 @@
 # Components: inventory, conventions and specs
 
-Ten of these are implemented in [`examples/components/ui/`](./examples/components/ui)
-and render on the [state-matrix page](./examples/renders/system-light-1280.png). The
-rest are specified here and follow the same conventions.
+Each spec here is the design; the components marked with a source link are implemented in
+[strata-react](https://github.com/jburnhams/strata-react)
+([`src/components/`](https://github.com/jburnhams/strata-react/tree/main/src/components)), with
+a [Storybook](https://jburnhams.github.io/strata-react/) story for every state and an
+[API reference](https://jburnhams.github.io/strata-react/api/). The worked example renders them
+on the [state-matrix page](./examples/renders/system-light-1280.png). The rest are specified
+here and follow the same conventions.
 
 ## 1. Conventions every component follows
 
@@ -11,7 +15,7 @@ rest are specified here and follow the same conventions.
    (`p-[17px]`, `bg-[#…]`), no `dark:` colour overrides. After the namespace reset most
    of these do not compile anyway.
 2. **`cva` for variants, shadcn's names.** `variant` and `size` keep shadcn's values so
-   copied code and agents' knowledge transfer; Plinth changes what they look like, not
+   copied code and agents' knowledge transfer; Strata changes what they look like, not
    what they are called. New recipes are new variant names, never redefinitions.
 3. **`className` is accepted and merged with `cn()`**, for layout at the call site
    (width, grid placement, margin). It is not a styling escape hatch: the agent rules
@@ -63,7 +67,7 @@ rest are specified here and follow the same conventions.
 
 ### 3.1 Button and IconButton
 
-[`button.tsx`](./examples/components/ui/button.tsx)
+[`button.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/components/button.tsx)
 
 - **Variants**: `default` (the filled accent), `outline`, `secondary`, `ghost`,
   `destructive`, `link`. **Sizes**: `default`, `sm`, `icon`, all from `--control-h`.
@@ -83,7 +87,7 @@ rest are specified here and follow the same conventions.
 
 ### 3.2 AsyncButton
 
-[`async-button.tsx`](./examples/components/ui/async-button.tsx)
+[`async-button.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/components/async-button.tsx)
 
 - **Props**: `phase: "idle" | "pending" | "done" | "error"`, `labels: { idle, pending,
   done, error? }`, plus Button's. `useAsyncAction(fn)` returns `[phase, run]` and
@@ -101,7 +105,7 @@ rest are specified here and follow the same conventions.
 
 ### 3.3 Field and controls
 
-[`field.tsx`](./examples/components/ui/field.tsx)
+[`field.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/components/field.tsx)
 
 - **Field** takes `label`, `hint`, `error` and one control as its child, and provides
   the control's `id`, `aria-describedby` (error, then hint) and `aria-invalid` through
@@ -127,7 +131,7 @@ rest are specified here and follow the same conventions.
 
 ### 3.4 Status
 
-[`status.tsx`](./examples/components/ui/status.tsx)
+[`status.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/components/status.tsx)
 
 - **Props**: `tone: "neutral" | "info" | "success" | "warning" | "danger"`, `icon?`,
   `children: string` (required).
@@ -141,7 +145,7 @@ rest are specified here and follow the same conventions.
 
 ### 3.5 Metric and MetricStrip
 
-[`metric.tsx`](./examples/components/ui/metric.tsx)
+[`metric.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/components/metric.tsx)
 
 - **MetricStrip** is one `<dl>` split by hairlines, 1 column on phones and equal
   columns from `sm`. **Metric** takes `label`, `value` (formatted), `unit?`, `note?`.
@@ -155,7 +159,7 @@ rest are specified here and follow the same conventions.
 
 ### 3.6 DataView, EmptyState, Skeleton
 
-[`data-view.tsx`](./examples/components/ui/data-view.tsx)
+[`data-view.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/components/data-view.tsx)
 
 - `Load<T>` is `{ status: "loading" } | { status: "error"; message; retry } |
   { status: "ready"; data }`. **DataView** takes `state`, `isEmpty`, `skeleton`,
@@ -172,7 +176,7 @@ rest are specified here and follow the same conventions.
 
 ### 3.7 DataTable
 
-[`data-table.tsx`](./examples/components/ui/data-table.tsx)
+[`data-table.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/components/data-table.tsx)
 
 - **Columns**: `key`, `header`, `cell`, `numeric?`, `sort?`, `truncate?`, `className?`.
   `caption` is required: it names the table and labels its scroll region.
@@ -188,7 +192,7 @@ rest are specified here and follow the same conventions.
 
 ### 3.8 LineChart and BarChart
 
-[`line-chart.tsx`](./examples/components/ui/line-chart.tsx)
+[`line-chart.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/components/line-chart.tsx)
 
 - **LineChart**: one measured series, a 2px straight line, no fill, no markers except
   the labelled peak and current reading. Optional `planned` (dashed neutral), `band`
@@ -216,7 +220,7 @@ rest are specified here and follow the same conventions.
 
 ### 3.9 PageHeader
 
-[`page-header.tsx`](./examples/components/ui/page-header.tsx)
+[`page-header.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/components/page-header.tsx)
 
 - `title` (a noun, `type-title`), `scope` (date, range or filter), `actions` (the main
   job's control, usually the one filled button), and `finding: { text, action? }`.
@@ -227,7 +231,7 @@ rest are specified here and follow the same conventions.
 
 ### 3.10 UndoBar and AlertDialog
 
-[`undo.tsx`](./examples/components/ui/undo.tsx)
+[`undo.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/components/undo.tsx)
 
 - `useUndoable(windowMs = 8000)` returns `{ pending, schedule, undo }`. The caller
   hides the item at once, `schedule`s the commit with a message, and restores it on
@@ -270,7 +274,7 @@ links, the current section marked by weight, not colour alone. **Callout**: Aler
 
 ### 3.15 Done
 
-[`done.tsx`](./examples/components/ui/done.tsx). The completion moment, and the one
+[`done.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/components/done.tsx). The completion moment, and the one
 place the library spends a delight budget ([`character.md`](./character.md) §3).
 
 - `title` (required): what happened, past tense, with its object ("Booked: 6 pieces in

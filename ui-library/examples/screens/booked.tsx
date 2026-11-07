@@ -4,8 +4,8 @@
 // the person's own pieces on the shelf with the clearance worked out. No confetti, no "Yay!".
 // Everything is derived from what was booked: the firing, the kiln and the studio's kiln facts.
 
-import { Button } from "@/components/ui/button";
-import { Done } from "@/components/ui/done";
+import { Button } from "strata-react";
+import { Done } from "strata-react";
 import { celsius, integer } from "@/lib/format";
 import { SAFE_TO_OPEN_C, firingTypes, kiln2Tuesday, kilns, type FiringType, type KilnId, type Piece } from "./sample-data";
 import { ShelfFigure, fitsOnShelf } from "./shelf-figure";

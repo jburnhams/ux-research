@@ -3,7 +3,7 @@
 // 60 °C an hour to 1,222 °C, holds for 15 minutes, and cools on its own with the lid shut. Totals
 // on screen are summed from these rows, never typed in.
 
-import type { Point } from "@/components/ui/line-chart";
+import type { Point } from "strata-react";
 
 /** Minutes are counted from the start of the firing: Wednesday 4 November 2026, 08:00. */
 export const FIRING_START = new Date(2026, 10, 4, 8, 0);

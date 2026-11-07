@@ -1,6 +1,6 @@
-# Character: the layer that makes a Plinth product its own
+# Character: the layer that makes a Strata product its own
 
-Plinth ships no look, and until 2026-11-07 it also shipped no way to have a
+Strata ships no look, and until 2026-11-07 it also shipped no way to have a
 personality: every rule said what to leave out. This layer adds the positive half. It
 is short on tokens and long on placement, because on a work tool most character lives
 in words and in what the data is drawn as, and the rest is a question of *where*.
@@ -44,7 +44,7 @@ From Emil Kowalski's frequency gate, Rauno Freiberg's "animate less for actions
 performed constantly" and Impeccable's "keep the response satisfying after the
 hundredth use", with a row added for character that costs no time:
 
-| How often | Budget | Plinth gives you |
+| How often | Budget | Strata gives you |
 |---|---|---|
 | 100+ a day (shortcuts, navigation, typing, the command menu) | none | instant state changes |
 | Tens a day (buttons, toggles, hover, rows, the screen's own load) | near-imperceptible | `press`: `scale: 0.98` over 100ms; colour transitions at 200ms |
@@ -66,7 +66,7 @@ celebration.
 3. If the subject has a picture of the result, draw it from the person's data: their
    pieces on the shelf, their seat in the hall, their route on the line. Mark the part
    that is theirs with `enter-moment`. A drawing that is the same for everyone is an
-   illustration, and Plinth has no slot for illustrations.
+   illustration, and Strata has no slot for illustrations.
 4. Make it answer a question the person has next (in the example: where do my
    pieces go, and do they fit). If it answers nothing, cut it.
 5. Reduced motion makes it instant; focus lands on the heading; nothing loops or

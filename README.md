@@ -31,15 +31,18 @@ delight, the playful-slop tells (the Corporate Memphis precedent), and the proce
 character from the subject, placed by how often a person meets the thing, checked by
 the swap test.
 
-**[→ `ui-library/`](./ui-library)**: a design for a React + Tailwind component library
-built from this research (placeholder name Plinth). It ships structure, behaviour,
-states and a token contract but no look: a product generates its own theme from its
-subject, Tailwind's stock palette and sizes are removed so they cannot be typed, and
-loading, empty, error and pending states are part of each component's type signature.
-Written up as the stance and its decisions, tokens, components, patterns and agent rules,
-with a worked example (a pottery co-op's kiln room) that type-checks, compiles, renders
-in light and dark and passes `slop-lint`. A GitHub Pages workflow publishes the docs and
-the live example as a site.
+**[→ `ui-library/`](./ui-library)** and **[strata-react](https://github.com/jburnhams/strata-react)**:
+the research turned into a React + Tailwind component library, and the library built.
+`ui-library/` is the design and its reasons; strata-react
+([npm](https://www.npmjs.com/package/strata-react), [docs](https://jburnhams.github.io/strata-react/))
+is the implementation. It ships structure, behaviour, states and a token contract but no
+look: a product generates its own theme from its subject, Tailwind's stock palette and
+sizes are removed so they cannot be typed, and loading, empty, error and pending states are
+part of each component's type signature. The design is written up as the stance and its
+decisions, tokens, components, patterns, agent rules and a character layer, with a worked
+example (a pottery co-op's kiln room) built on strata-react that type-checks, compiles,
+renders in light and dark and passes `slop-lint`. A GitHub Pages workflow publishes the
+docs and the live example as a site.
 
 ## Synthesis docs
 
@@ -138,7 +141,7 @@ the live example as a site.
   ui-ux-pro-max, better-\* (cloned 2026-11-07, scoped only), designer-skills,
   tastemaker ([`web-articles/`](./web-articles)). Emil Kowalski's were read for
   [`ux-character.md`](./ux-character.md).
-- A second Plinth example whose subject is itself playful, to show the character
+- A second Strata example whose subject is itself playful, to show the character
   dial turned up against the calm kiln room.
 - Port Krebs's computed-style checks ([`design-slop-cop/patterns.tsv`](./design-slop-cop/patterns.tsv))
   into slop-lint's browser engine, and measure both against his 190 labels.

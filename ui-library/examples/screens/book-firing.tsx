@@ -4,9 +4,9 @@
 // first. The kiln constraints are the studio's real ones, so the errors teach them.
 
 import * as React from "react";
-import { AsyncButton, useAsyncAction } from "@/components/ui/async-button";
-import { Button } from "@/components/ui/button";
-import { ChoiceGroup, Field, Input, NativeSelect, Textarea } from "@/components/ui/field";
+import { AsyncButton, useAsyncAction } from "strata-react";
+import { Button } from "strata-react";
+import { ChoiceGroup, Field, Input, NativeSelect, Textarea } from "strata-react";
 import { Booked } from "./booked";
 import { MAX_PIECES_PER_BOOKING, firingTypes, kilns, type FiringType, type KilnId } from "./sample-data";
 

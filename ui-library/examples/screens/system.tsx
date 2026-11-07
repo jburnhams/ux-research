@@ -4,17 +4,17 @@
 
 import * as React from "react";
 import { Check, Flame, RefreshCw, Thermometer, TriangleAlert } from "lucide-react";
-import { AsyncButton, type Phase } from "@/components/ui/async-button";
-import { Button, IconButton } from "@/components/ui/button";
-import { DataTable, TableSkeleton } from "@/components/ui/data-table";
-import { DataView, EmptyState, Skeleton } from "@/components/ui/data-view";
-import { Done } from "@/components/ui/done";
-import { ChoiceGroup, Field, Input, NativeSelect, Textarea } from "@/components/ui/field";
-import { LineChart } from "@/components/ui/line-chart";
-import { PageHeader } from "@/components/ui/page-header";
-import { UndoBar } from "@/components/ui/undo";
-import { Metric, MetricStrip } from "@/components/ui/metric";
-import { Status } from "@/components/ui/status";
+import { AsyncButton, type Phase } from "strata-react";
+import { Button, IconButton } from "strata-react";
+import { DataTable, TableSkeleton } from "strata-react";
+import { DataView, EmptyState, Skeleton } from "strata-react";
+import { Done } from "strata-react";
+import { ChoiceGroup, Field, Input, NativeSelect, Textarea } from "strata-react";
+import { LineChart } from "strata-react";
+import { PageHeader } from "strata-react";
+import { UndoBar } from "strata-react";
+import { Metric, MetricStrip } from "strata-react";
+import { Status } from "strata-react";
 import { heatScale } from "./heat";
 
 function Row({ title, children }: { title: string; children: React.ReactNode }) {

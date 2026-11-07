@@ -34,7 +34,7 @@ others), which go deeper on implementation than this repo needs.
 3. **Exact values, not adjectives.** Easing curves (`cubic-bezier(0.23, 1, 0.32, 1)`
    for UI ease-out), durations by element (press 100–160ms, dropdowns 150–250ms,
    "UI animations stay under 300ms"), never `scale(0)`, never `ease-in` on UI,
-   transitions rather than keyframes for anything triggered rapidly. Plinth's
+   transitions rather than keyframes for anything triggered rapidly. Strata's
    `--ease-moment` and `--motion-press` come from here.
 4. **Restraint as the default posture.** "An opportunity finder that suggests motion
    everywhere is worse than useless."
