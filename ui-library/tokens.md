@@ -162,7 +162,11 @@ so the "hairline plus wide soft shadow on every card" tell cannot be typed.
 | `--motion-spatial` | 350ms | position and size: sheets, expanding rows |
 | `--ease-effects` | `cubic-bezier(0.34, 0.8, 0.34, 1)` | Material's default effects curve: no overshoot, ever |
 | `--ease-spatial` | `cubic-bezier(0.27, 1.06, 0.18, 1)` | Material Standard spatial: a barely visible settle |
-| `transition-state` (utility) | the named properties above | every interactive component; never `transition: all` |
+| `--motion-press` | 100ms | press feedback (`scale`) |
+| `--motion-moment`, `--ease-moment` | 500ms, `cubic-bezier(0.23, 1, 0.32, 1)` | a rare completion's one entrance; a hard ease-out with no overshoot |
+| `transition-state` (utility) | the named properties above, plus `scale` at the press duration | every interactive component; never `transition: all` |
+| `press` (utility) | `scale: 0.98` while active | buttons: the only motion on something used tens of times a day |
+| `enter-moment` (utility) | `@starting-style` opacity 0, 0.75rem up | the result in a `Done` figure; CSS only, runs once on mount |
 
 Motion on Operate surfaces conveys a state change and nothing else. The theme carries
 one reduced-motion path (`prefers-reduced-motion: reduce` collapses durations), so
@@ -201,3 +205,21 @@ Chromium with touch emulation: all buttons 44px with `data-density="compact"`).
 The library sets what no component should have to remember: page ground and ink, the
 font, one `:focus-visible` outline in `--ring` for everything focusable, the
 selection colour (`--primary-5`), underline offset, and `color-scheme`.
+
+## 13. Character tokens
+
+Most of a product's character lives in words and in what its data is drawn as, not in
+tokens ([`character.md`](./character.md)). Three kinds of token carry the rest:
+
+- **Motion budget**: `--motion-press` and `--motion-moment` above. They are the
+  library's, and the frequency table in `character.md` decides which one a thing gets.
+- **Subject colours**: a product may add a small named set of colours that are facts
+  of its world, used only where they encode that fact. The example's `--heat-unlit`,
+  `--heat-dull-red`, `--heat-cherry`, `--heat-orange` and `--heat-yellow` are the
+  colours seen through a kiln's peephole, used only on the firing line (light
+  4.3–8.1:1, dark 4.1–12.4:1 against the ground). Each one has a reason in DESIGN.md;
+  one without a reason is a review finding, as with seeds.
+- **Character allowances**: anything the frequency table would normally refuse (a
+  spring with overshoot for a product whose subject bounces, a sound for a physical
+  product's feedback) is a product token with its reason, and a `slop-lint`
+  allowance with the same reason.

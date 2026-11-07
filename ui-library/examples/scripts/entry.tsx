@@ -4,6 +4,7 @@ import "@fontsource-variable/public-sans";
 import * as React from "react";
 import { createRoot } from "react-dom/client";
 import { BookFiring } from "@/screens/book-firing";
+import { Booked } from "@/screens/booked";
 import { KilnRoom } from "@/screens/kiln-room";
 import { bookings } from "@/screens/sample-data";
 import { SystemPage } from "@/screens/system";
@@ -18,6 +19,7 @@ const screens: Record<string, () => React.ReactElement> = {
   "kiln-room-empty": () => <KilnRoom load={{ status: "ready", data: [] }} />,
   book: () => <BookFiring />,
   "book-errors": () => <BookFiring initial={{ firing: "glaze", kiln: "2", pieces: "6", tallest: "38" }} showErrors />,
+  booked: () => <Booked pieces={6} tallest={24} />,
   system: () => <SystemPage />,
 };
 

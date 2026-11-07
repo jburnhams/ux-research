@@ -53,6 +53,7 @@ const pages = [
   { src: "tokens.md", out: "tokens.html", nav: "Tokens" },
   { src: "components.md", out: "components.html", nav: "Components" },
   { src: "patterns.md", out: "patterns.html", nav: "Patterns" },
+  { src: "character.md", out: "character.html", nav: "Character" },
   { src: "agents.md", out: "agents.html", nav: "Agents" },
   { src: "examples/README.md", out: "examples.html", nav: "Example" },
 ];

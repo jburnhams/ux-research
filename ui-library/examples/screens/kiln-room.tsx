@@ -1,7 +1,9 @@
 // Operate screen. The one question: "Is my work out of the kiln yet?"
 // The finding: kiln 2 is cooling and will be safe to open at a time we can compute.
 // Signature move (the only flourish): the firing drawn the way the kiln controller is programmed,
-// ramp and hold segments, with the safe-to-open band and the current reading labelled.
+// ramp and hold segments, with the safe-to-open band and the current reading labelled. The
+// measured line is coloured the way the kiln glows at each temperature (DESIGN.md, Character):
+// unlit clay below about 525 °C, then dull red through to yellow at the peak.
 
 import * as React from "react";
 import { CalendarClock, Check, Flame, Layers, Thermometer, TriangleAlert, type LucideIcon } from "lucide-react";
@@ -14,6 +16,7 @@ import { PageHeader } from "@/components/ui/page-header";
 import { Status, type Tone } from "@/components/ui/status";
 import { UndoBar, useUndoable } from "@/components/ui/undo";
 import { celsius, clock, day, integer } from "@/lib/format";
+import { heatScale } from "./heat";
 import {
   NOW_MIN,
   SAFE_TO_OPEN_C,
@@ -147,7 +150,8 @@ export function KilnRoom({ load }: { load: Load<Booking[]> }) {
           formatX={(m) => clock.format(minuteToDate(m))}
           formatY={celsius}
           xTicks={[0, 360, 720, 1080, 1440, 1800]}
-          colour="var(--warning)"
+          colourScale={heatScale}
+          colourScaleLabel="coloured as the kiln glows"
         />
       </section>
 
@@ -161,14 +165,15 @@ export function KilnRoom({ load }: { load: Load<Booking[]> }) {
           skeleton={<TableSkeleton rows={6} columns={6} />}
           empty={
             <EmptyState
-              title="Nothing is booked into a kiln"
+              title="All three kilns are cold"
               action={
                 <Button variant="default" asChild>
                   <a href="#book">Book a firing</a>
                 </Button>
               }
             >
-              Book shelf space for a bisque, glaze or raku firing. Bookings for Friday's bisque close today at 17:00.
+              Nothing is booked in. Bookings for Friday's bisque close today at 17:00; glaze firings run on Tuesdays and
+              Thursdays.
             </EmptyState>
           }
         >

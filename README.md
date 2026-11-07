@@ -6,7 +6,7 @@ is the companion to [`jburnhams/prompts`](https://github.com/jburnhams/prompts) 
 follows the same structure: primary sources stored by source, cross-cutting synthesis
 docs, and an original design built from them.
 
-First pass: **2026-11-01**. Blocked sources retried and the component library designed: **2026-11-02**. Changes by day are in
+First pass: **2026-11-01**. Blocked sources retried and the component library designed: **2026-11-02**. Character and playfulness: **2026-11-07**. Changes by day are in
 [`changelog.md`](./changelog.md).
 
 ## Start here
@@ -21,9 +21,15 @@ disagree and how each is resolved, and how strong the evidence is.
 **[→ `ux-design/`](./ux-design)**: the output. A skill for React + Tailwind
 ([`SKILL.md`](./ux-design/skill/SKILL.md)), a dated tell registry, a mood-to-token
 procedure, Operate-surface rules, a quality audit, a zero-dependency **source linter**
-(`slop-lint`, 46 rules, mode-aware) and a **palette generator** (`palette.mjs`: seeds →
+(`slop-lint`, 51 rules, mode-aware) and a **palette generator** (`palette.mjs`: seeds →
 contrast-solved OKLCH ramps → shadcn/Tailwind v4 tokens → validation), with fixtures and
 tests (`node --test ux-design/tests/*.test.mjs`).
+
+**[→ `ux-character.md`](./ux-character.md)**: making it playful without stock
+whimsy (added 2026-11-07). Why the output read as boring, what the evidence says about
+delight, the playful-slop tells (the Corporate Memphis precedent), and the procedure:
+character from the subject, placed by how often a person meets the thing, checked by
+the swap test.
 
 **[→ `ui-library/`](./ui-library)**: a design for a React + Tailwind component library
 built from this research (placeholder name Plinth). It ships structure, behaviour,
@@ -46,6 +52,7 @@ the live example as a site.
 | [`ux-product-ui.md`](./ux-product-ui.md) | Apps, dashboards, tables and forms: why landing-page rules misfire there, "the one question", generated-dashboard tells against 23 real screens, states |
 | [`ux-material-3.md`](./ux-material-3.md) | Material 3 Expressive as of late 2026: spring motion tokens, the shape scale, the emphasized type scale, dynamic colour (HCT, ten scheme variants incl. the new two-seed CMF, contrast levels), and what transfers to Tailwind |
 | [`ux-colour-science.md`](./ux-colour-science.md) | Colour spaces (OKLCH, HCT), WCAG vs APCA, four ways to build a scale, harmony, mechanical validation, CVD, preference and emotion research, dark mode |
+| [`ux-character.md`](./ux-character.md) | How to add personality and playfulness while function stays first: the frequency budget, moments, voice, the playful-slop tells, the swap test |
 | [`ux-mood-to-theme.md`](./ux-mood-to-theme.md) | Turning a concept, keyword, mood or vibe into a theme: seven approaches in the wild, evidence that mood vocabularies converge too, and the procedure used here |
 | [`blocked-sources.md`](./blocked-sources.md) | What the first pass could not reach, what the 2026-11-02 retry found, and what is still unreached |
 | [`changelog.md`](./changelog.md) | What changed, by day |
@@ -72,6 +79,7 @@ the live example as a site.
 | [`design-slop-cop/`](./design-slop-cop) | Krebs's Show HN study and detector: 14 computed-style patterns, prevalence over 1,390 sites, 190 human labels | MIT |
 | [`pixelslop/`](./pixelslop) | A render-first anti-slop skill: 26 visual patterns, five-pillar rubric, personas | Apache-2.0 |
 | [`boardui/`](./boardui) | A React + Tailwind design system's rules for coding agents | MIT (free tier) |
+| [`emil-kowalski-skills/`](./emil-kowalski-skills) | Emil Kowalski's motion skills: the frequency gate, named purposes, exact curves and durations | MIT |
 | [`notboring/`](./notboring) | Components sold as prompts; "build every state" (analysis only) | proprietary |
 | [`web-articles/`](./web-articles) | Articles on AI purple, design-system drift and tell lists, graded (notes only) | — |
 
@@ -115,13 +123,23 @@ the live example as a site.
     hurt usability where it broke familiar patterns. Material recommends its bouncier
     Expressive motion by default but Standard for utilitarian products.
 
+12. **Character goes where it is rare.** Every source on delight puts usability
+    underneath it, and three practitioners independently set motion by how often a
+    person meets the thing. On a work tool most character is *at rest* (voice, how
+    the data is drawn); the delight budget is spent on rare, earned moments. Stock
+    whimsy (confetti, "Oops!", kit illustrations) is the median of "playful"
+    ([`ux-character.md`](./ux-character.md)).
+
 ## Candidates for the next pass
 
 - What is still unreached ([`blocked-sources.md`](./blocked-sources.md)): Wathan's post
   on X, the Stitch app.
-- Six design skills found on 2026-11-02 and not yet compared: emil-design-eng,
-  web-design-engineer, ui-ux-pro-max, better-\*, designer-skills, tastemaker
-  ([`web-articles/`](./web-articles)).
+- Five design skills found on 2026-11-02 and not yet compared: web-design-engineer,
+  ui-ux-pro-max, better-\* (cloned 2026-11-07, scoped only), designer-skills,
+  tastemaker ([`web-articles/`](./web-articles)). Emil Kowalski's were read for
+  [`ux-character.md`](./ux-character.md).
+- A second Plinth example whose subject is itself playful, to show the character
+  dial turned up against the calm kiln room.
 - Port Krebs's computed-style checks ([`design-slop-cop/patterns.tsv`](./design-slop-cop/patterns.tsv))
   into slop-lint's browser engine, and measure both against his 190 labels.
 - A browser engine for slop-lint (Playwright computed styles) for the render-only tells,

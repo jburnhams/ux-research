@@ -122,6 +122,7 @@ From [`book-firing.tsx`](./examples/screens/book-firing.tsx)
 | Reversible removal (withdraw a booking, archive) | Act at once, `UndoBar` for 8 s, commit after |
 | Irreversible (delete an account, start a firing) | `AlertDialog` naming the object and consequence; the button repeats the verb |
 | Saving a form | `AsyncButton`: idle → pending → done (→ idle), or error with "Try again" |
+| Finishing something rare that took effort (a booking, a submission, a first project) | `Done`: what happened, what next, and optionally the result drawn from the person's data; see §10 |
 | Background work finished | Toast in a polite live region |
 | Background work failed | Inline `role="alert"` where the work shows, with recovery |
 | Optimistic update | Show the result immediately; roll back and say so on failure |
@@ -150,3 +151,22 @@ on Plinth uses the same tokens, `Button`, `Prose` and type steps, plus:
 
 The procedure is the `ux-design` skill's (`../ux-design/skill/SKILL.md` §2–§5), and
 the registry of what to avoid is `../ux-design/skill/references/tells.md`.
+
+## 10. Character: where it goes on a screen
+
+The full layer is [`character.md`](./character.md). On a screen it comes down to:
+
+1. **At rest, in three places**: the voice (labels, empties, errors in the subject's
+   own words, straight-faced), the signature (how the main data is drawn, coloured by
+   a fact of the subject where there is one) and the figures. None of these cost the
+   person time, so they can be everywhere the person reads.
+2. **In motion, by frequency**: nothing on navigation and shortcuts; `press` on
+   buttons; ordinary 150–250 ms transitions on overlays and the undo bar; one moment
+   per flow, at its end, only where the flow is rare and took effort.
+3. **Never**: on the dashboard's own load, on table rows, on a routine save, on an
+   error, or anything that loops.
+
+In the example: the firing line coloured as the kiln glows (signature, at rest), "All
+three kilns are cold" (voice, empty), the controller error that says where to read the
+live temperature (voice, error), `press` on every button, and the booking's `Done`
+with the member's pieces set down on their shelf (the moment).

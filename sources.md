@@ -46,6 +46,9 @@ git -C <dir> ls-tree -r --name-only HEAD | grep -i <term>          # find paths 
 | Pixelslop | `gabelul/pixelslop` | `45cd615` (2026-08-25); npm 0.3.8 | `dist/skill/SKILL.md`, `dist/skill/resources/` | Apache-2.0 | [`pixelslop/`](./pixelslop): SKILL, pattern catalogue, scoring rubric |
 | BoardUI | `BoardUI/boardui` | `ec5c5eb` (2026-10-03) | `AGENTS.md`, `styles/` | MIT (free tier) | [`boardui/`](./boardui): `AGENTS.md` |
 | Compose Material 3 motion tokens | `android.googlesource.com/platform/frameworks/support` | `androidx-main` @ `badb0138c4` (2026-11-02) | `compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/tokens/{Expressive,Standard}MotionTokens.kt` | Apache-2.0 | [`material-3/compose-motion/`](./material-3/compose-motion) |
+| Impeccable (re-read) | `pbakaus/impeccable` | `687bc38` (2026-11-06) | `plugin/skills/impeccable/reference/{delight,bolder,overdrive,quieter}.md` | Apache-2.0 | [`impeccable/reference/`](./impeccable/reference): `delight.md`, `bolder.md` (added 2026-11-07) |
+| Emil Kowalski's skills | `emilkowalski/skills` | `c8a7962` (2026-11-04) | `skills/{animate,find-animation-opportunities,emil-design-eng}/SKILL.md` | MIT | [`emil-kowalski-skills/`](./emil-kowalski-skills): three skills |
+| Jakub Krehel's skills (`better-*`) | `jakubkrehel/skills` | `f41f027` (2026-11-07) | `skills/better-ui/`, `better-typography/`, `better-accessibility/`, `interface-review/` | MIT | not stored; cloned and scoped only, not yet compared |
 | OpenAI skills | `openai/skills` | `49f948f` (2026-06-23) | `skills/.curated/figma-create-design-system-rules/` | per-skill | not stored (no frontend-design skill found) |
 
 ## From the sibling `prompts` collection
@@ -84,3 +87,13 @@ were read with WebFetch. Abstracts came from the Europe PMC REST API.
 | https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale, https://git.apcacontrast.com/documentation/APCA_in_a_Nutshell, https://bottosson.github.io/posts/oklab/, https://oklch.com, https://harmonizer.evilmartians.com | WebFetch / browser | [`ux-colour-science.md`](./ux-colour-science.md) |
 | Europe PMC records for Palmer and Schloss 2010 (doi:10.1073/pnas.0906172107) and Valdez and Mehrabian 1994 (doi:10.1037/0096-3445.123.4.394) | REST API (abstracts) | [`ux-colour-science.md`](./ux-colour-science.md) §6 |
 | Sailop, Superdesign, OverlayQA, DEV (Alan West), prg.sh, HEY World (Kosta Canatselis), 925 Studios, Fountain Institute, Noqta, Bitdoze, impeccable.style `/slop` and `/docs`, blog.google Stitch launch | WebFetch / browser | [`web-articles/`](./web-articles) |
+
+### Read on 2026-11-07 (character and delight)
+
+| Page | Via | Used in |
+|---|---|---|
+| https://www.nngroup.com/articles/theory-user-delight/ (Fessenden, 2017) | WebFetch | [`ux-character.md`](./ux-character.md) §2, [`web-articles/`](./web-articles) |
+| https://www.joshwcomeau.com/blog/whimsical-animations (2025, updated 2026-05-05) | WebFetch | [`ux-character.md`](./ux-character.md) §3 |
+| https://rauno.me/craft/interaction-design (Freiberg, July 2023) | WebFetch | [`ux-character.md`](./ux-character.md) §3 |
+| https://styleguide.mailchimp.com/voice-and-tone/ (CC BY-NC 4.0) | WebFetch | [`ux-character.md`](./ux-character.md) §3, §5.1 |
+| Search results: Corporate Memphis criticism (Wikipedia mirrors, AIGA Eye on Design, Protocol via Slashdot); aesthetic-usability (Kurosu and Kashimura 1995, Tractinsky 1997, Tractinsky et al. 2000); humour in error messages (Science Says summary of a 2025 study) | WebSearch (snippets and summaries; cited as such) | [`ux-character.md`](./ux-character.md) §2, §4 |

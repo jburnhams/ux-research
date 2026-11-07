@@ -22,10 +22,11 @@ test("slop fixture: every catalogued tell in it is detected", () => {
     "glass", "tell-colour", "untouched-shadcn", "overused-font", "eyebrow", "accent-word", "icon-chip", "window-chrome",
     "stock-effect", "worn-icons", "numbered-markers", "hero-badge", "fade-up-everywhere", "bounce-easing", "pulse-dot",
     "buzzword", "not-just", "tricolon", "arrow-label", "emoji-icon", "generic-cta", "placeholder-identity", "vanity-stat",
+    "confetti", "stock-whimsy", "stock-illustration",
   ];
   for (const id of expected) assert.ok(r.distinctSlopRules.includes(id), `expected ${id}`);
   const quality = new Set(r.findings.filter((f) => f.cat === "quality").map((f) => f.rule));
-  for (const id of ["transition-all", "outline-none", "div-onclick", "img-dimensions", "img-alt", "reduced-motion"]) assert.ok(quality.has(id), `expected quality ${id}`);
+  for (const id of ["transition-all", "outline-none", "div-onclick", "img-dimensions", "img-alt", "reduced-motion", "vague-error", "sound-without-control"]) assert.ok(quality.has(id), `expected quality ${id}`);
 });
 
 test("clean fixture passes in its configured operate mode and in persuade mode", () => {

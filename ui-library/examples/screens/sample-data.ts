@@ -94,3 +94,16 @@ export const firingTypes: Record<FiringType, { label: string; kilns: KilnId[]; w
 };
 
 export const MAX_PIECES_PER_BOOKING = 20;
+
+/** Kiln 2 as loaded so far for Tuesday's glaze firing (sample). Three shelves, 30 cm apart; the
+ *  middle one is free. Sizes are in centimetres. */
+export type Piece = { h: number; w: number };
+export const kiln2Tuesday: { shelfWidthCm: number; levels: Piece[][] } = {
+  shelfWidthCm: 60,
+  levels: [
+    [{ h: 22, w: 10 }, { h: 18, w: 9 }, { h: 26, w: 8 }, { h: 9, w: 13 }],
+    [],
+    [{ h: 8, w: 14 }, { h: 15, w: 10 }],
+  ],
+};
+export const NEXT_GLAZE = { kiln: "2" as KilnId, day: "Tuesday", bringBy: "17:00 on Monday", out: "usually Wednesday afternoon" };

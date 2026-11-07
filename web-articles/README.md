@@ -96,3 +96,18 @@ the same rule written for agents.
   screens; voice critique; an MCP server, SDK and skills. "Vibe design" means starting
   from the business goal, the feeling, or inspiring examples instead of a wireframe.
   The Stitch app itself is a sign-in-only JavaScript app and was not inspected.
+
+## Character, delight and whimsy (read 2026-11-07)
+
+For [`../ux-character.md`](../ux-character.md). Copyrighted prose; notes and short
+quotes only.
+
+| Source | Grade | What it adds |
+|---|---|---|
+| Therese Fessenden, NN/g, "A Theory of User Delight: Why Usability Is the Foundation for Delightful Experiences" (March 5, 2017) | B | Walter's hierarchy (functional, reliable, usable, pleasurable): "a product can be delightful only if it is usable". **Surface delight** (animations, humorous microcopy, imagery, sound) is local and "can backfire"; **deep delight** is flow, "the interface behaves like a surgeon's knowledgeable assistant". Negativity bias: "users remember the bad more than the good" |
+| Josh W. Comeau, "A Million Little Secrets: Deconstructing the 'Whimsical Animations' landing page" (February 24, 2025; updated May 5, 2026) | B | The maximal end: icon "boops", sparkles fired in a cone, a hidden synth, sound on press and release, silent fireworks on success. "A crucial ingredient for whimsy is *novelty*"; "A charming, delightful effect becomes mundane and annoying surprisingly quickly!" Sound for short responses to actions only. No reduced-motion guidance; several features desktop-only |
+| Rauno Freiberg, "Invisible Details of Interaction Design" (July 2023) | B | Metaphor, kinetic physics, responsive gestures, spatial consistency; **frequency and novelty** (animate less what is done constantly; keyboard needs less motion than touch); **fidgetability**, which he flags as intuition, not research |
+| Mailchimp Content Style Guide, "Voice and Tone" (CC BY-NC 4.0) | B | "Our humor is straight-faced, subtle, and a touch eccentric"; "forced humor can be worse than none at all"; "If you're unsure, keep a straight face"; "it's always more important to be clear than entertaining"; voice stays, tone changes with the reader's state. An older (about 2013) version listed this-but-not-that pairs ("fun but not childish", "clever but not silly"), seen only second-hand |
+| Corporate Memphis: Wikipedia's article (via mirrors), AIGA Eye on Design ("what the think pieces about corporate memphis tell us…"), Protocol ("Why is tech illustration stuck on repeat?", 2021, via Slashdot) | C | Named after the 1980s Memphis Group; Facebook's Alegria system by Buck and Xoana Herrera (2017). Criticised as "generic, lazy, overused" and as sanitising big tech; defenders note flat illustration's long history and say it persisted because companies undervalued illustration. Used here only as the precedent for playful styles turning generic |
+| Aesthetic-usability effect: Kurosu and Kashimura (CHI '95 companion, "Apparent usability vs. inherent usability"); Tractinsky (CHI '97); Tractinsky, Katz and Ikar (2000, "What is beautiful is usable") | A− (from abstracts and summaries; papers not read) | Perceived usability correlates with beauty across cultures; in the 2000 study aesthetics changed post-use usability ratings and actual usability did not. Sources disagree on the 2000 co-authors' names |
+| Science Says, "Humor makes it easier to forgive AI mistakes" (summary of a 2025 Hefei University of Technology study) | C (second-hand) | People "up to 47.8%" more forgiving of an AI's errors with self-deprecating humour. About chatbots, not interface errors; the original paper was not read |

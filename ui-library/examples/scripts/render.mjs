@@ -41,6 +41,8 @@ const shots = [
   ["kiln-room-loading", "light", 1440, 900],
   ["book-errors", "light", 1440, 900],
   ["book-errors", "dark", 390, 844],
+  ["booked", "light", 1440, 900],
+  ["booked", "dark", 390, 844],
   ["system", "light", 1280, 900],
   ["system", "dark", 1280, 900],
 ];
@@ -52,6 +54,7 @@ for (const [screen, theme, width, height] of shots) {
   await page.goto(`file://${join(out, "index.html")}?theme=${theme}#${screen}`);
   await page.waitForLoadState("networkidle");
   await page.evaluate(() => document.fonts.ready);
+  await page.waitForTimeout(700); // let a one-off moment (enter-moment, 500ms) finish before the shot
   const facts = await page.evaluate(() => ({
     scrollY: window.scrollY,
     overflow: document.documentElement.scrollWidth - window.innerWidth,

@@ -50,6 +50,23 @@
      visible settle, because this is a utilitarian product. */
   --motion-effects: 200ms;
   --motion-spatial: 350ms;
+
+  /* Character (../../character.md). Press feedback is the one motion on a frequent action, so it
+     is short and small: 100ms, 2%, felt more than seen. A moment is the rare, earned one (a
+     finished booking); it is slower and eases out hard, with no overshoot. */
+  --motion-press: 100ms;
+  --motion-moment: 500ms;
+  --ease-moment: cubic-bezier(0.23, 1, 0.32, 1);
+
+  /* Heat: the colours a kiln actually shows through the peephole, used only where the colour
+     encodes temperature (the firing chart). Nothing glows below about 525 °C (the Draper point),
+     so the low end is the unlit clay brown; then dull red, cherry, orange and yellow. Lightness
+     is capped so the hottest step still clears 3:1 on the ground as a 2px line. */
+  --heat-unlit: oklch(46% 0.035 55);
+  --heat-dull-red: oklch(44% 0.14 27);
+  --heat-cherry: oklch(50% 0.17 30);
+  --heat-orange: oklch(55% 0.16 48);
+  --heat-yellow: oklch(63% 0.14 75);
 }
 
 .dark {
@@ -62,6 +79,12 @@
   --info-subtle: oklch(26% 0.045 244.4);
   --info: oklch(70.8% 0.09 245.3);
   --surface-sunken: var(--neutral-1);
+  /* On the dark ground the heat steps can be what they are: bright. */
+  --heat-unlit: oklch(62% 0.03 55);
+  --heat-dull-red: oklch(58% 0.17 27);
+  --heat-cherry: oklch(65% 0.19 33);
+  --heat-orange: oklch(74% 0.16 55);
+  --heat-yellow: oklch(86% 0.14 88);
 }
 
 [data-density="compact"] { --control-h: 2rem; --control-h-sm: 1.75rem; }
@@ -95,6 +118,11 @@
   --color-info: var(--info);
   --color-info-subtle: var(--info-subtle);
   --color-surface-sunken: var(--surface-sunken);
+  --color-heat-unlit: var(--heat-unlit);
+  --color-heat-dull-red: var(--heat-dull-red);
+  --color-heat-cherry: var(--heat-cherry);
+  --color-heat-orange: var(--heat-orange);
+  --color-heat-yellow: var(--heat-yellow);
 }
 
 @theme {
@@ -129,11 +157,28 @@
 @utility type-title { font-size: 1.5rem; line-height: 2rem; font-weight: 600; letter-spacing: -0.01em; }
 @utility type-figure { font-size: 1.75rem; line-height: 2.25rem; font-weight: 500; font-variant-numeric: tabular-nums; }
 
-/* State transitions: named properties only (never `transition: all`). */
+/* State transitions: named properties only (never `transition: all`). `scale` is listed for the
+   press feedback below and runs at the shorter press duration. */
 @utility transition-state {
-  transition-property: color, background-color, border-color, opacity, box-shadow;
-  transition-duration: var(--motion-effects);
+  transition-property: color, background-color, border-color, opacity, box-shadow, scale;
+  transition-duration: var(--motion-effects), var(--motion-effects), var(--motion-effects), var(--motion-effects),
+    var(--motion-effects), var(--motion-press);
   transition-timing-function: var(--ease-effects);
+}
+
+/* Press feedback: the control gives a little under the finger or click. 2% is the most a control
+   used tens of times a day can move without feeling slow (character.md, the frequency budget). */
+@utility press {
+  &:active:not(:disabled) { scale: 0.98; }
+}
+
+/* A moment's entrance: CSS only, no JS, starts from a visible-enough state and runs once when the
+   element mounts. Reduced motion collapses it to an instant change with the rest of the theme. */
+@utility enter-moment {
+  transition-property: opacity, translate;
+  transition-duration: var(--motion-moment);
+  transition-timing-function: var(--ease-moment);
+  @starting-style { opacity: 0; translate: 0 -0.75rem; }
 }
 
 @layer base {
@@ -149,6 +194,9 @@
   }
   /* One focus treatment for everything focusable, so no component can forget it. */
   :focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+  /* Except where a script moved focus to a heading to announce a result (Done): the heading is
+     not a control, so a ring around it says "press me" to nobody. */
+  h1[tabindex="-1"]:focus-visible, h2[tabindex="-1"]:focus-visible { outline: none; }
   ::selection { background-color: var(--primary-5); color: var(--foreground); }
   a { text-underline-offset: 0.2em; }
 }

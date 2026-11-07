@@ -6,12 +6,12 @@ than invented from scratch. Three parts:
 
 | Part | What it is |
 |---|---|
-| [`skill/SKILL.md`](skill/SKILL.md) | The agent skill: mode → subject → direction → token contract → build through the layers → check → hand over |
-| [`skill/references/`](skill/references) | `tells.md` (dated registry), `direction.md` (mood/vibe → tokens), `product-ui.md` (Operate surfaces), `audit.md` (quality floor) |
-| [`skill/scripts/slop-lint.mjs`](skill/scripts/slop-lint.mjs) | Zero-dependency source linter: 45 file rules + 1 project rule, `slop` (P0/P1/P2) vs `quality` (error/warn), mode-aware, inline disables, `.sloplintrc.json` allowances with reasons |
+| [`skill/SKILL.md`](skill/SKILL.md) | The agent skill: mode → subject → direction → character → token contract → build through the layers → check → hand over |
+| [`skill/references/`](skill/references) | `tells.md` (dated registry, now with playful slop), `direction.md` (mood/vibe → tokens), `character.md` (personality by frequency, the moment, the swap test), `product-ui.md` (Operate surfaces), `audit.md` (quality floor) |
+| [`skill/scripts/slop-lint.mjs`](skill/scripts/slop-lint.mjs) | Zero-dependency source linter: 50 file rules + 1 project rule (five playful-slop rules added 2026-11-07), `slop` (P0/P1/P2) vs `quality` (error/warn), mode-aware, inline disables, `.sloplintrc.json` allowances with reasons |
 | [`skill/scripts/palette.mjs`](skill/scripts/palette.mjs) | Seeds → contrast-solved 12-step OKLCH ramps → shadcn/Tailwind v4 roles (light + dark) → validation (WCAG, CVD-safe charts, tell clusters, dislike, second-job) |
 | [`skill/assets/DESIGN.template.md`](skill/assets/DESIGN.template.md) | DESIGN.md (Google format) with the reference sentence, reasons and lint allowances |
-| [`fixtures/`](fixtures) + [`tests/`](tests) | A deliberately sloppy landing page and a clean Operate screen; `node --test ux-design/tests/*.test.mjs` |
+| [`fixtures/`](fixtures) + [`tests/`](tests) | A deliberately sloppy landing page, a playful-slop settings screen and a clean Operate screen; `node --test ux-design/tests/*.test.mjs` |
 
 ## 1. Starting brief
 

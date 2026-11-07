@@ -7,6 +7,7 @@ import * as React from "react";
 import { AsyncButton, useAsyncAction } from "@/components/ui/async-button";
 import { Button } from "@/components/ui/button";
 import { ChoiceGroup, Field, Input, NativeSelect, Textarea } from "@/components/ui/field";
+import { Booked } from "./booked";
 import { MAX_PIECES_PER_BOOKING, firingTypes, kilns, type FiringType, type KilnId } from "./sample-data";
 
 type Values = { firing: string; kiln: string; pieces: string; tallest: string; notes: string };
@@ -95,6 +96,9 @@ export function BookFiring({ initial, showErrors = false }: { initial?: Partial<
     }
     void run();
   };
+
+  // Finished: the form gives way to the completion moment, which says what happened and what next.
+  if (phase === "done") return <Booked pieces={Number(values.pieces)} tallest={Number(values.tallest)} />;
 
   return (
     <main className="mx-auto grid grid-cols-[minmax(0,1fr)] max-w-2xl gap-8 px-4 py-6 sm:px-6">
