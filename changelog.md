@@ -6,6 +6,10 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-07
 
+**LineChart y-axis pins and thinning x labels, from strata-react** (branch `claude/project-thread-jaj9fq`). strata-react issue #23 asked for `yMax` (and maybe `yMin`) so a percentage chart does not autoscale a near-idle machine into a busy-looking one; the strata-react change also fixes the kiln chart's x labels overlapping at phone width.
+
+- `ui-library/components.md` §3.8: adds the y-axis rule (zero to a nice maximum by default, `yMin`/`yMax` for a range that is a fact of the subject, a pin never crops a reading) and the x labels thinning evenly when they would collide. The section did not say before where the y-axis starts.
+
 **Undo bar failure state, from strata-react** (branch `claude/project-thread-0n52d4`). strata-react issue #8 asked for `flush()`, a promise-returning commit and a way to restore an item when the commit fails; strata-react PR #17 implements it and extends the design in §3.10, which said nothing about a failed commit.
 
 - `ui-library/components.md` §3.10: adds what strata-react 0.2 does (the hook owns hidden items, `flush()`, failure shown in the bar with Try again and Dismiss, one pending removal, commit on unmount). The 0.1 description is kept, since the examples pin `^0.1.3`; `ui-library/examples/screens/kiln-room.tsx` and `system.tsx` will need `UndoBar undoable={...}` and a `failure` sentence when they move to 0.2.
