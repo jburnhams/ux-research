@@ -62,6 +62,7 @@ here and follow the same conventions.
 | Toast, Alert | live region | spec | [§3.13](#313-toast-and-alert) |
 | Prose, TableOfContents, Callout | – | spec | [§3.14](#314-read-surfaces) |
 | Done | – | example | [§3.15](#315-done) |
+| Meter, CompositionBar, LinkCard, compact ColorSchemeChoice | `role="meter"`, `<table>`, `<a>`, native radios | strata-react | [§3.16](#316-status-dashboards) |
 
 ## 3. Specs
 
@@ -303,3 +304,44 @@ place the library spends a delight budget ([`character.md`](./character.md) §3)
 - **Generated versions get wrong**: confetti; "Yay!" or "You're all set!"; a stock
   illustration of people high-fiving; no next step; a toast that disappears before it
   is read; focus left on a button that no longer exists.
+
+### 3.16 Status dashboards
+
+Added 2026-11-07 from strata-react issue #25 (jburnhams/homepage hand-rolled all four):
+[`meter.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/components/meter.tsx),
+[`composition.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/components/composition.tsx),
+[`link-card.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/components/link-card.tsx),
+[`theme.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/components/theme.tsx).
+These apply rules already set out here (§3.4, §3.8, `patterns.md` §3 and §5) to new shapes,
+not new findings.
+
+- **Meter** (a level such as disk space): `role="meter"`, not `progressbar`, because
+  the level can go down as well as up. Its name is what is measured; its
+  `aria-valuetext` is the printed reading ("72% used"). The figure is always beside the
+  bar. Thresholds are what the reading is compared against (as `band` is on a chart),
+  drawn as notches. **Each threshold must name its state** ("Nearly full"); once it is
+  crossed the fill takes the status ink and the word is shown as a `Status` (§3.4), so
+  colour is never the only cue. Thresholds are shares of the maximum, so one set
+  covers disks of every size; `worseWhen="lower"` turns them round for a battery. Below
+  every threshold the fill is `--chart-1`, as on a LineChart: "fine" needs no colour.
+- **CompositionBar** (what a whole is made of): a stacked bar for proportion over a
+  table that names every part, its amount and its share, in the caller's order. The
+  bar is hidden from screen readers because the table holds it all. Parts take
+  `--chart-1…5` in order (the palette checked for colour-blind separation); a sixth
+  part has no token, which is the cue to make an "Other" part. A remainder that the
+  parts do not fill must be named ("Free").
+- **LinkCard** (a destination, such as an app on a homepage): a card is right because
+  each destination is a separate object (`patterns.md` §3). One link per card, on the
+  title, stretched over the card with `::after`, so the name is the title and the
+  description and status marks are the link's description; one tab stop; nothing else
+  on the card is interactive. Links that leave the app carry an arrow. No lift or
+  shadow on hover ([`character.md`](./character.md): a homepage card is pressed many
+  times a day).
+- **ColorSchemeChoice `compact`**: for an app with no settings page, the three choices
+  (system, light, dark) as icon segments named "Appearance", still native radios with
+  each choice's words as its name and tooltip. Never a two-way toggle, which loses
+  "match this device" the first time it is pressed.
+- **Generated versions get wrong**: a bare bar with the percentage only in a tooltip; a
+  bar that turns red with no word; a donut chart with a legend for memory; a card whose
+  whole text is the link's name, or a card with a button inside a link; a sun/moon
+  toggle with no system option.
