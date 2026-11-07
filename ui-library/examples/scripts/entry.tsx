@@ -1,6 +1,7 @@
 // Mounts one example screen per URL hash, for the render script and for local viewing.
 // ?theme=dark renders the dark theme; ?density=compact the compact density.
 import "@fontsource-variable/public-sans";
+import "@fontsource-variable/archivo/wdth.css";
 import * as React from "react";
 import { createRoot } from "react-dom/client";
 import { BookFiring } from "@/screens/book-firing";

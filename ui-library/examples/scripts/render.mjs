@@ -58,12 +58,12 @@ for (const [screen, theme, width, height] of shots) {
   const facts = await page.evaluate(() => ({
     scrollY: window.scrollY,
     overflow: document.documentElement.scrollWidth - window.innerWidth,
-    font: document.fonts.check('16px "Public Sans Variable"'),
+    font: document.fonts.check('16px "Public Sans Variable"') && document.fonts.check('800 28px "Archivo Variable"'),
     root: document.getElementById("root")?.childElementCount ?? 0,
   }));
   if (facts.scrollY !== 0) problems.push(`${screen}/${theme}/${width}: loads scrolled (${facts.scrollY})`);
   if (facts.overflow > 0) problems.push(`${screen}/${theme}/${width}: horizontal overflow ${facts.overflow}px`);
-  if (!facts.font) problems.push(`${screen}/${theme}/${width}: Public Sans did not load`);
+  if (!facts.font) problems.push(`${screen}/${theme}/${width}: Public Sans or Archivo did not load`);
   if (!facts.root) problems.push(`${screen}/${theme}/${width}: blank page`);
   await page.screenshot({ path: join(root, "renders", `${screen}-${theme}-${width}.png`), fullPage: true });
   await page.close();

@@ -1,7 +1,7 @@
 /* Back Lane Clay Co-op, kiln room (Operate). The Plinth theme layer.
    Two files, two owners:
    - theme.generated.css: colour roles and 12-step ramps from palette.mjs. Regenerate, never hand-edit:
-       node ux-design/skill/scripts/palette.mjs --primary "#5b6e5a" --secondary "#c4621c" --contrast 0.5 --out app/theme.generated.css
+       node ux-design/skill/scripts/palette.mjs --primary "#4d7a52" --secondary "#c4621c" --contrast 0.5 --out app/theme.generated.css
    - this file: the roles palette.mjs does not make (status, surfaces), and the non-colour tokens
      (type, radius, elevation, motion, density), each with its reason. DESIGN.md explains the seeds. */
 
@@ -67,6 +67,17 @@
   --heat-cherry: oklch(50% 0.17 30);
   --heat-orange: oklch(55% 0.16 48);
   --heat-yellow: oklch(63% 0.14 75);
+
+  /* Glazes: the co-op's test tiles by the kiln-room door, as swatches beside each firing so a
+     member finds their work by its glaze as they would on the shelf. Objects, not text, so they
+     keep their colour in both themes; the word always sits beside the swatch. */
+  --glaze-celadon: oklch(74% 0.07 158);
+  --glaze-tenmoku: oklch(33% 0.06 45);
+  --glaze-shino: oklch(76% 0.1 60);
+  --glaze-cobalt: oklch(45% 0.16 262);
+  --glaze-copper-red: oklch(44% 0.16 22);
+  --glaze-bisque: oklch(84% 0.05 62);
+  --glaze-raku: oklch(38% 0.05 200);
 }
 
 .dark {
@@ -99,8 +110,8 @@
   /* :not(.dark), so these light-theme inks never land on a dark root. */
   :root:not(.dark) {
     --foreground: oklch(6.7% 0 0);
-    --muted-foreground: oklch(36.7% 0.008 137.8);
-    --accent-foreground: oklch(7.9% 0.01 144.6);
+    --muted-foreground: oklch(37% 0.009 145.4);
+    --accent-foreground: oklch(7.3% 0.025 142.5);
     --secondary-foreground: oklch(5.3% 0.022 29.2);
   }
   .dark {
@@ -123,6 +134,13 @@
   --color-heat-cherry: var(--heat-cherry);
   --color-heat-orange: var(--heat-orange);
   --color-heat-yellow: var(--heat-yellow);
+  --color-glaze-celadon: var(--glaze-celadon);
+  --color-glaze-tenmoku: var(--glaze-tenmoku);
+  --color-glaze-shino: var(--glaze-shino);
+  --color-glaze-cobalt: var(--glaze-cobalt);
+  --color-glaze-copper-red: var(--glaze-copper-red);
+  --color-glaze-bisque: var(--glaze-bisque);
+  --color-glaze-raku: var(--glaze-raku);
 }
 
 @theme {
@@ -130,6 +148,9 @@
      dusty wall tablet. No display face on an Operate surface. */
   --font-sans: "Public Sans Variable", "Public Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  /* The one display face: Archivo, expanded (wdth 125) and heavy, the lettering cast into a kiln
+     maker's nameplate. Page titles only, one per screen; everything else stays Public Sans. */
+  --font-display: "Archivo Variable", "Public Sans Variable", ui-sans-serif, system-ui, sans-serif;
 
   /* Radius by role. Optical nesting: inner = outer - padding, so a control inside a 8px overlay
      with 4px padding is 4px, never the same value as its container. */
@@ -148,13 +169,20 @@
 
 /* Type steps as utilities, not --text-* keys: a compound of size, line height and weight that
    cn() can tell apart from text colours (see lib/utils.ts). Operate scale, ratio about 1.2, fixed
-   rem; nothing above 28px. */
+   rem; nothing above 28px. The page title is the one place the display face appears. */
 @utility type-caption { font-size: 0.75rem; line-height: 1rem; font-weight: 400; }
 @utility type-label { font-size: 0.875rem; line-height: 1.25rem; font-weight: 500; }
 @utility type-body-sm { font-size: 0.875rem; line-height: 1.25rem; font-weight: 400; }
 @utility type-body { font-size: 1rem; line-height: 1.5rem; font-weight: 400; }
 @utility type-heading { font-size: 1.125rem; line-height: 1.5rem; font-weight: 600; }
-@utility type-title { font-size: 1.5rem; line-height: 2rem; font-weight: 600; letter-spacing: -0.01em; }
+@utility type-title {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  line-height: 2.25rem;
+  font-weight: 800;
+  font-stretch: 125%;
+  letter-spacing: -0.015em;
+}
 @utility type-figure { font-size: 1.75rem; line-height: 2.25rem; font-weight: 500; font-variant-numeric: tabular-nums; }
 
 /* State transitions: named properties only (never `transition: all`). `scale` is listed for the

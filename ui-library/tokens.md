@@ -19,7 +19,7 @@ behind each section: [`../ux-colour-science.md`](../ux-colour-science.md),
 | `app/globals.css` | the product, from the library's template | namespace reset, status roles, surfaces, density, motion, contrast-more overrides, type utilities, radius, elevation, base layer | hand, with a reason beside each value |
 
 ```bash
-node ux-design/skill/scripts/palette.mjs --primary "#5b6e5a" --secondary "#c4621c" --contrast 0.5 \
+node ux-design/skill/scripts/palette.mjs --primary "#4d7a52" --secondary "#c4621c" --contrast 0.5 \
   --out app/theme.generated.css
 # palette checks: 42 pass, 0 warn, 0 fail
 ```
@@ -66,7 +66,7 @@ shadcn's names are kept (`--background`, `--foreground`, `--primary`, `--muted`,
 `--popover`, `--chart-1…5`), so anything written for shadcn reads them correctly.
 
 **Seeds come from the subject.** In the example the primary is the studio's celadon
-glaze (`#5b6e5a`) and the secondary is the colour of the kiln's peephole at about
+glaze where it pools thick (`#4d7a52`) and the secondary is the colour of the kiln's peephole at about
 1,000 °C (`#c4621c`). Both reasons are in
 [`examples/DESIGN.md`](./examples/DESIGN.md). A seed with no reason in DESIGN.md is a
 review finding.
