@@ -6,6 +6,11 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-07
 
+**Record row selection, BulkBar, Checkbox and RowAction as built in strata-react** (branch `claude/project-thread-pkwejq`). strata-react issue #11 (raised from strata-listory) asked for row selection and named row actions on `DataTable`; they were built in strata-react PR #20, and this records where that follows and departs from the spec here.
+
+- `ui-library/components.md`: Checkbox is now built, as the native control rather than Radix as first specified (a departure, with the reason); Switch stays a spec. §3.7 gains `RowAction` (row actions named for their row, header hidden rather than empty) and opt-in selection (`selection`, `useSelection` pruning to rows that exist, `BulkBar` with the count in its own polite live region). The inventory table lists them.
+- `ui-library/README.md`: the inventory's "Built in strata-react" column now includes Checkbox, RowAction and row selection.
+
 **Present strata-react as the implementation of `ui-library/`, and install it from npm** (branch `claude/project-thread-nwljes`, PR #6). Jonathan asked for the example to use the published package and for the docs to discuss the library as the implementation of the research. strata-react 0.1.3 is on npm since today.
 
 - `ui-library/examples/package.json`, `package-lock.json`: `strata-react` is now `^0.1.3` from npm instead of a GitHub dependency pinned to `00ad35e`; the package is renamed `strata-examples`. The lock was regenerated from scratch with every platform's native packages. `npm run check` and `npm run render` pass, and the renders are unchanged (pixelmatch: at most 1 differing pixel, so the screenshots were not recommitted).

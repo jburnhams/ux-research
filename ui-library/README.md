@@ -154,10 +154,10 @@ Full specs in [`components.md`](./components.md).
 
 | Group | Components | Built in strata-react |
 |---|---|---|
-| Actions | Button, IconButton, AsyncButton, `useAsyncAction` | all |
-| Form | Field, Input, Textarea, NativeSelect, ChoiceGroup, Checkbox, Switch, ToggleGroup | Field, Input, Textarea, NativeSelect, ChoiceGroup |
+| Actions | Button, IconButton, RowAction, AsyncButton, `useAsyncAction` | all |
+| Form | Field, Input, Textarea, NativeSelect, ChoiceGroup, Checkbox, Switch, ToggleGroup | all but Switch and ToggleGroup |
 | Status and figures | Status, Metric, MetricStrip | all |
-| Data | DataView (+ `Load<T>`, `useLoad`), DataTable, TableSkeleton, EmptyState, Skeleton, VirtualList, LineChart, BarChart | all but BarChart |
+| Data | DataView (+ `Load<T>`, `useLoad`), DataTable (+ row selection, `useSelection`, BulkBar), TableSkeleton, EmptyState, Skeleton, VirtualList, LineChart, BarChart | all but BarChart |
 | Page | PageHeader, AppShell (side nav, breadcrumb), Tabs, CommandMenu | all but CommandMenu |
 | Overlays | Dialog, AlertDialog, Sheet, Popover, Menu, Tooltip (Radix, always titled) | none |
 | Feedback | UndoBar + `useUndoable`, Toast (polite live region), Alert, Done | UndoBar, Done |
