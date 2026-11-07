@@ -9,6 +9,14 @@ git history on 2026-11-02 and kept up to date with every change since (see
 **LineChart y-axis pins and thinning x labels, from strata-react** (branch `claude/project-thread-jaj9fq`). strata-react issue #23 asked for `yMax` (and maybe `yMin`) so a percentage chart does not autoscale a near-idle machine into a busy-looking one; the strata-react change also fixes the kiln chart's x labels overlapping at phone width.
 
 - `ui-library/components.md` §3.8: adds the y-axis rule (zero to a nice maximum by default, `yMin`/`yMax` for a range that is a fact of the subject, a pin never crops a reading) and the x labels thinning evenly when they would collide. The section did not say before where the y-axis starts.
+**Record row selection, BulkBar, Checkbox and RowAction as built in strata-react** (branch `claude/project-thread-pkwejq`). strata-react issue #11 (raised from strata-listory) asked for row selection and named row actions on `DataTable`; they were built in strata-react PR #20, and this records where that follows and departs from the spec here.
+
+- `ui-library/components.md`: Checkbox is now built, as the native control rather than Radix as first specified (a departure, with the reason); Switch stays a spec. §3.7 gains `RowAction` (row actions named for their row, header hidden rather than empty) and opt-in selection (`selection`, `useSelection` pruning to rows that exist, `BulkBar` with the count in its own polite live region). The inventory table lists them.
+- `ui-library/README.md`: the inventory's "Built in strata-react" column now includes Checkbox, RowAction and row selection.
+**Record strata-react's keyboard triage pattern** (branch `claude/project-thread-9k96br`, PR #8; strata-react PR #18). strata-react issue #7 asked for single-key shortcuts and an active-item list for screens that clear a queue; it is built there, and this records it as an extension of the design, following the frequency budget in `character.md`.
+
+- `ui-library/components.md`: an inventory row and **new** §3.16 Keyboard triage (`useHotkeys`, `KeysLegend`, `useActiveItem`, `ActiveList`): one shortcut list drives the handler and the legend, the typing and chord rules (WCAG 2.1.4), focus moving on after an answer, and what generated versions get wrong.
+- `ui-library/README.md`: §8 maps the pattern to strata-react as an extension of the design.
 
 **Undo bar failure state, from strata-react** (branch `claude/project-thread-0n52d4`). strata-react issue #8 asked for `flush()`, a promise-returning commit and a way to restore an item when the commit fails; strata-react PR #17 implements it and extends the design in §3.10, which said nothing about a failed commit.
 

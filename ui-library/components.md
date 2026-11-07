@@ -48,17 +48,20 @@ here and follow the same conventions.
 | AsyncButton, `useAsyncAction` | Button | example | [§3.2](#32-asyncbutton) |
 | Field, Input, Textarea, NativeSelect | native elements | example | [§3.3](#33-field-and-controls) |
 | ChoiceGroup | native radios in a fieldset | example | [§3.3](#33-field-and-controls) |
-| Checkbox, Switch, ToggleGroup | Radix | spec | [§3.3](#33-field-and-controls) |
+| Checkbox | native checkbox | strata-react | [§3.3](#33-field-and-controls) |
+| Switch, ToggleGroup | Radix | spec | [§3.3](#33-field-and-controls) |
 | Status | `<span>` | example | [§3.4](#34-status) |
 | Metric, MetricStrip | `<dl>` | example | [§3.5](#35-metric-and-metricstrip) |
 | DataView, `Load<T>`, EmptyState, Skeleton | – | example | [§3.6](#36-dataview-emptystate-skeleton) |
 | DataTable, TableSkeleton | `<table>` | example | [§3.7](#37-datatable) |
+| RowAction, `useSelection`, BulkBar | Button, live region | strata-react | [§3.7](#37-datatable) |
 | LineChart | SVG | example | [§3.8](#38-linechart-and-barchart) |
 | BarChart | SVG | spec | [§3.8](#38-linechart-and-barchart) |
 | PageHeader | – | example | [§3.9](#39-pageheader) |
 | UndoBar, `useUndoable` | live region | example | [§3.10](#310-undobar-and-alertdialog) |
 | AlertDialog, Dialog, Sheet, Popover, Menu, Tooltip | Radix | spec | [§3.11](#311-overlays) |
 | AppShell, Tabs, CommandMenu, Breadcrumb | Radix, `cmdk` | spec | [§3.12](#312-navigation) |
+| `useHotkeys`, KeysLegend, `useActiveItem`, ActiveList | window `keydown`, `<dl>`, `<ul>` | strata-react | [§3.16](#316-keyboard-triage) |
 | Toast, Alert | live region | spec | [§3.13](#313-toast-and-alert) |
 | Prose, TableOfContents, Callout | – | spec | [§3.14](#314-read-surfaces) |
 | Done | – | example | [§3.15](#315-done) |
@@ -123,8 +126,14 @@ here and follow the same conventions.
   control so the whole row is one hit target; `accent-primary` themes the native mark.
   Use for 2–5 options that benefit from a sentence of detail each. Use `ToggleGroup`
   for 2–7 short options that switch a view.
-- **Checkbox, Switch** (spec): Radix, label and control share one target, `Switch` only
-  for settings that apply immediately.
+- **Checkbox** (built in strata-react, [`checkbox.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/components/checkbox.tsx)):
+  the native control, not Radix as first specified, for the same reason as ChoiceGroup:
+  keyboard, forms and `accent-primary` come free. Label and control share one target;
+  `label` is required; a hidden label is the aria-label, never visually hidden text
+  (strata-react issue #11: a hidden span joined to visible text did not form a name with
+  its space); `checked="mixed"` for a select-all over part of a list.
+- **Switch** (spec): Radix, label and control share one target, only for settings that
+  apply immediately.
 - **Generated versions get wrong**: placeholders as labels; errors only on submit at
   the top of the form; `required` stars with no explanation; custom selects that break
   keyboard typeahead.
@@ -187,6 +196,19 @@ here and follow the same conventions.
   `aria-sort` on the `<th>`.
 - The table sits in a focusable, labelled region that scrolls horizontally on narrow
   screens. Cells that do not need to wrap are marked `whitespace-nowrap`.
+- **Row actions** are `RowAction`: a small ghost button that shows its verb and is
+  named "<verb> <row>" ("Withdraw Tom Ellery"), so eight rows do not give eight
+  controls called "Withdraw"; the column header is hidden, not empty (`hideHeader`).
+  It keeps the row's pitch, so rows with and without the action are the same height.
+- **Selection** (built in strata-react, issue #11) is opt-in, because checkboxes belong
+  only where a bulk action exists (one of 23 product screens in the study had them).
+  `selection` adds a checkbox column named per row (`rowLabel` is required) with a
+  "Select all shown" header that is mixed when partly chosen and skips rows
+  `isSelectable` rules out. `useSelection` prunes the chosen keys to rows that exist, so
+  a bulk action never reaches a row that a removal, refetch or filter took away.
+  `BulkBar` holds the count in a polite live region of its own, the actions (one filled,
+  named with its count: "Withdraw 2") and Clear selection. A reversible bulk removal goes
+  through `useUndoable`, as a single one does.
 - **Generated versions get wrong**: uppercase tracked headers; zebra rows; checkbox,
   avatar, chip and kebab on every row; left-aligned proportional numbers.
 
@@ -311,3 +333,31 @@ place the library spends a delight budget ([`character.md`](./character.md) §3)
 - **Generated versions get wrong**: confetti; "Yay!" or "You're all set!"; a stock
   illustration of people high-fiving; no next step; a toast that disappears before it
   is read; focus left on a button that no longer exists.
+
+### 3.16 Keyboard triage
+
+[`hotkeys.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/components/hotkeys.tsx),
+[`active-list.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/components/active-list.tsx)
+
+Added in strata-react for Operate screens that clear a queue (approve, return, next),
+raised from an app built on it (strata-react issue #7). It follows from the frequency
+budget in [`character.md`](./character.md): an answer given a hundred times a day gets
+one key and an instant change.
+
+- **One list of shortcuts** (`{ keys, label, run }`) drives both `useHotkeys` and
+  `KeysLegend`, so a key cannot work without being shown, and the legend cannot show a
+  key that does nothing.
+- `useHotkeys` ignores keys typed into inputs, textareas, selects and contenteditable
+  (WCAG 2.1.4 Character Key Shortcuts), chords with Ctrl, Meta or Alt, IME
+  composition, and held keys unless the shortcut is marked `repeat` (moving is,
+  answering is not).
+- `useActiveItem` tracks the active item by key; it is a roving tab stop with
+  `aria-current`. When it leaves the list, the item that took its place becomes active
+  and focus follows if it was in the list, so the next key still works. An Undo that
+  puts it back makes it active again, which is how it pairs with `useUndoable`.
+- **ActiveList** marks the active row with a rule in ink as well as a tint, moves with
+  the arrow keys, Home and End inside the list, and requires an `empty` state.
+- **KeysLegend** is a caption-sized `<dl>` of `<kbd>`s, hidden on coarse pointers.
+- **Generated versions get wrong**: shortcuts that fire while typing in a search box;
+  a legend kept by hand that drifts from the handler; focus dropped to `<body>` after
+  an answer, so the next key does nothing; the active row shown by colour alone.
