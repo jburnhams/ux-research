@@ -257,8 +257,17 @@ here and follow the same conventions.
 - `useUndoable(windowMs = 8000)` returns `{ pending, schedule, undo }`. The caller
   hides the item at once, `schedule`s the commit with a message, and restores it on
   `undo`. A second removal commits the first.
+  From strata-react 0.2 ([PR #17](https://github.com/jburnhams/strata-react/pull/17))
+  the hook owns which items are out of view (`isRemoved(id)`), so the caller filters
+  rather than keeping its own hidden set; `commit` may return a promise; `flush()`
+  commits now for an action that depends on the removal; and a failed commit brings
+  the item back and shows the removal's `failure` sentence and the described error in
+  the same bar, with Try again and Dismiss. Only one removal is pending at a time, and
+  unmounting inside the window commits rather than drops it.
 - **UndoBar** is a polite live region, always mounted, fixed to the bottom; the page
-  keeps bottom padding so it never covers the focused row.
+  keeps bottom padding so it never covers the focused row. A failure stays until it is
+  retried or dismissed: the screen said the removal was done, so a failure that times
+  out unseen leaves the screen lying.
 - **AlertDialog** (spec, Radix) is for what cannot be undone. Its title names the
   object and the consequence; the confirm button repeats the verb ("Delete 3
   firings"), not "OK".
