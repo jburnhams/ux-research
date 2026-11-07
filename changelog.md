@@ -6,6 +6,10 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-07
 
+**Undo bar failure state, from strata-react** (branch `claude/project-thread-0n52d4`). strata-react issue #8 asked for `flush()`, a promise-returning commit and a way to restore an item when the commit fails; strata-react PR #17 implements it and extends the design in §3.10, which said nothing about a failed commit.
+
+- `ui-library/components.md` §3.10: adds what strata-react 0.2 does (the hook owns hidden items, `flush()`, failure shown in the bar with Try again and Dismiss, one pending removal, commit on unmount). The 0.1 description is kept, since the examples pin `^0.1.3`; `ui-library/examples/screens/kiln-room.tsx` and `system.tsx` will need `UndoBar undoable={...}` and a `failure` sentence when they move to 0.2.
+
 **Present strata-react as the implementation of `ui-library/`, and install it from npm** (branch `claude/project-thread-nwljes`, PR #6). Jonathan asked for the example to use the published package and for the docs to discuss the library as the implementation of the research. strata-react 0.1.3 is on npm since today.
 
 - `ui-library/examples/package.json`, `package-lock.json`: `strata-react` is now `^0.1.3` from npm instead of a GitHub dependency pinned to `00ad35e`; the package is renamed `strata-examples`. The lock was regenerated from scratch with every platform's native packages. `npm run check` and `npm run render` pass, and the renders are unchanged (pixelmatch: at most 1 differing pixel, so the screenshots were not recommitted).
