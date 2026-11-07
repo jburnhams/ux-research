@@ -78,7 +78,7 @@ export function KilnRoom({ load }: { load: Load<Booking[]> }) {
       key: "firing",
       header: "Firing",
       // The glaze's test tile beside the firing, so a member finds their work by its colour.
-      cell: (r) => <GlazeLabel glaze={r.glaze}>{r.glaze === "bisque" || r.glaze === "raku" ? r.firing : `${glazeNames[r.glaze]}, cone 6`}</GlazeLabel>,
+      cell: (r) => <GlazeLabel glaze={r.glaze}>{r.firing.replace(/^Glaze\b/, glazeNames[r.glaze])}</GlazeLabel>,
       className: "whitespace-nowrap",
     },
     {
@@ -139,7 +139,7 @@ export function KilnRoom({ load }: { load: Load<Booking[]> }) {
             figure: `${kiln1Shelves.booked} of ${kiln1Shelves.total}`,
             unit: "shelves",
             note: "Friday's bisque. Bookings close today at 17:00.",
-            glazes: rows.filter((r) => r.kiln === 1 && r.state !== "ready").map((r) => ({ glaze: r.glaze, who: r.member })),
+            glazes: visible.filter((r) => r.kiln === 1 && r.state !== "ready").map((r) => ({ glaze: r.glaze, who: r.member })),
           },
           {
             name: "Kiln 2, small electric",
@@ -155,7 +155,7 @@ export function KilnRoom({ load }: { load: Load<Booking[]> }) {
             status: { ...states.booked, label: "Cold" },
             figure: "Saturday",
             note: "Raku in the yard; you take part in the firing.",
-            glazes: rows.filter((r) => r.kiln === 3).map((r) => ({ glaze: r.glaze, who: r.member })),
+            glazes: visible.filter((r) => r.kiln === 3).map((r) => ({ glaze: r.glaze, who: r.member })),
           },
         ]}
       />
