@@ -6,6 +6,10 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-07
 
+**Record row selection, BulkBar, Checkbox and RowAction as built in strata-react** (branch `claude/project-thread-pkwejq`). strata-react issue #11 (raised from strata-listory) asked for row selection and named row actions on `DataTable`; they were built in strata-react PR #20, and this records where that follows and departs from the spec here.
+
+- `ui-library/components.md`: Checkbox is now built, as the native control rather than Radix as first specified (a departure, with the reason); Switch stays a spec. §3.7 gains `RowAction` (row actions named for their row, header hidden rather than empty) and opt-in selection (`selection`, `useSelection` pruning to rows that exist, `BulkBar` with the count in its own polite live region). The inventory table lists them.
+- `ui-library/README.md`: the inventory's "Built in strata-react" column now includes Checkbox, RowAction and row selection.
 **Record strata-react's keyboard triage pattern** (branch `claude/project-thread-9k96br`, PR #8; strata-react PR #18). strata-react issue #7 asked for single-key shortcuts and an active-item list for screens that clear a queue; it is built there, and this records it as an extension of the design, following the frequency budget in `character.md`.
 
 - `ui-library/components.md`: an inventory row and **new** §3.16 Keyboard triage (`useHotkeys`, `KeysLegend`, `useActiveItem`, `ActiveList`): one shortcut list drives the handler and the legend, the typing and chord rules (WCAG 2.1.4), focus moving on after an answer, and what generated versions get wrong.
