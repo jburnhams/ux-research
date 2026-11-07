@@ -12,7 +12,7 @@ Research: [`../ux-product-ui.md`](../ux-product-ui.md),
 ## 1. Before any component: mode, question, finding
 
 1. **Mode** of the surface (not the product): Operate, Read, Persuade or Experience.
-   Plinth's components assume Operate; §7 and §8 say what changes for the others.
+   Strata's components assume Operate; §7 and §8 say what changes for the others.
 2. **The one question** the screen answers, in the user's words. The example's kiln
    room answers "Is my work out of the kiln yet?" It decides what is biggest and what
    comes first.
@@ -136,9 +136,9 @@ what is next).
 
 ## 9. Persuade surfaces
 
-Plinth ships no hero, feature grid, logo cloud, testimonial, pricing or stats blocks,
+Strata ships no hero, feature grid, logo cloud, testimonial, pricing or stats blocks,
 because those are where the stock section waterfall comes from. A landing page built
-on Plinth uses the same tokens, `Button`, `Prose` and type steps, plus:
+on Strata uses the same tokens, `Button`, `Prose` and type steps, plus:
 
 1. Write the page as claims, each with its proof, one line per section. The claims
    decide which sections exist and in what order.

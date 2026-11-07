@@ -90,7 +90,7 @@ Where they disagree, and how it is resolved here:
 | Question | One side | Other side | Resolution |
 |---|---|---|---|
 | Sound | Comeau: press and release sounds, slider ticks | Impeccable: never "without consent or ignore mute settings"; Emil and Rauno silent on it | Off by default on Operate; opt-in, short, tied to an action, never the only feedback. `slop-lint` warns on sound with no off switch |
-| Empty-state illustration | anti-ai-slop: highest-yield place for personality | Plinth's `EmptyState`: "no illustration slot exists, on purpose" | Keep the empty state text-first (it must teach the next action). Personality goes into its *words*, from the subject ("All three kilns are cold"). A picture is allowed only on a completion, drawn from the person's data (see §5) |
+| Empty-state illustration | anti-ai-slop: highest-yield place for personality | Strata's `EmptyState`: "no illustration slot exists, on purpose" | Keep the empty state text-first (it must teach the next action). Personality goes into its *words*, from the subject ("All three kilns are cold"). A picture is allowed only on a completion, drawn from the person's data (see §5) |
 | Bounce | Emil: springs with bounce 0.1–0.3 for "playful interactions"; Material Expressive springs | Our tell registry: overshoot is dated; `slop-lint bounce-easing` | Still no overshoot on Operate components. A product whose subject *is* bouncy (a children's game, a trampoline park) records an allowance in DESIGN.md with that reason |
 | Expressive by default | Material | Impeccable Operate, this repo | Unchanged: Standard on Operate. Expressiveness is spent on moments, not raised everywhere |
 
@@ -168,7 +168,7 @@ and moments; nouns only become palettes.
 | How often the person meets it | Budget | Examples |
 |---|---|---|
 | 100+ a day: keyboard shortcuts, navigation, typing, the command menu | **None.** Instant | No open animation on the command menu |
-| Tens a day: buttons, toggles, hover, list rows, the dashboard's own load | **Near-imperceptible feedback**: 100–160 ms, small (2% press, a colour change) | Plinth's `press` utility |
+| Tens a day: buttons, toggles, hover, list rows, the dashboard's own load | **Near-imperceptible feedback**: 100–160 ms, small (2% press, a colour change) | Strata's `press` utility |
 | Occasional: dialogs, sheets, toasts, a successful save | **Ordinary craft**: 150–250 ms, no overshoot, said plainly ("Saved") | Undo bar sliding in |
 | Rare and earned: first use, finishing something that took effort, a milestone, recovering from a failure | **The moment**: one per flow, drawn from the subject, proportional to the stakes, once | The booking's shelf drawing |
 | Always, but read rather than used: the screen's signature, the voice, the data encodings | **Character at rest**: no motion, carried by what things are and what they say | The kiln-glow firing chart; "All three kilns are cold" |
@@ -195,7 +195,7 @@ For each rare moment: say what happened (past tense, with its object), say what
 happens next and when, and, if there is one, show the result in the subject's own
 picture made from the person's data. Animate the part that is the result, once, with
 a hard ease-out and no overshoot; make it instant under reduced motion; move focus to
-the result. Plinth now has a `Done` component that requires the first two
+the result. Strata now has a `Done` component that requires the first two
 ([`ui-library/components.md`](./ui-library/components.md) §3.15).
 
 ### 5.6 Check

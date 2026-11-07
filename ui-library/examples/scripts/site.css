@@ -1,4 +1,4 @@
-/* Stylesheet for the GitHub Pages site: the example's own Plinth theme, plus typography for the
+/* Stylesheet for the GitHub Pages site: the example's own Strata theme, plus typography for the
    rendered docs. Everything reads the theme's tokens, so the docs are themed exactly like the demo. */
 @import "../app/globals.css";
 @source "../components";

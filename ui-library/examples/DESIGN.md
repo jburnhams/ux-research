@@ -21,7 +21,7 @@ character:
   moments: [booking finished]
 ---
 
-> SAMPLE. Back Lane Clay Co-op is fictional. This file shows what a Plinth project's
+> SAMPLE. Back Lane Clay Co-op is fictional. This file shows what a Strata project's
 > DESIGN.md contains; the screens in `screens/` are built to it.
 
 ## Overview
@@ -143,7 +143,7 @@ reduced motion.
 
 ## Components
 
-Plinth: Button, IconButton, AsyncButton, Field and controls, Status, Metric,
+Strata: Button, IconButton, AsyncButton, Field and controls, Status, Metric,
 DataView, DataTable, LineChart (with `colourScale` for the heat line), PageHeader,
 UndoBar, Done. Product-specific: `ShelfFigure`, the booking's drawing. Icons: Lucide, one stroke weight,
 beside labels only.

@@ -1,8 +1,8 @@
 # Worked example: the kiln room at Back Lane Clay Co-op
 
-One fictional product built end to end on Plinth, so every rule in the design docs can
-be seen working. Since 2026-11-07 its components come from
-[strata-react](https://github.com/jburnhams/strata-react), the library built from this design;
+One fictional product built end to end on [strata-react](https://github.com/jburnhams/strata-react),
+the implementation of the design in [`../`](../README.md), so every rule in the design docs
+can be seen working in a product. It installs `strata-react` from npm like any other app;
 this folder holds only what a product owns: its theme, its screens and its sample data. Everything here is invented for illustration: the co-op, its members
 and its data. The code is real: it type-checks, compiles with Tailwind 4, renders in
 Chromium in light and dark at desktop and phone widths, and passes `slop-lint` in
@@ -26,7 +26,7 @@ How the subject became a theme (seeds, face, signature move) is in
 | Path | What it shows | Design doc |
 |---|---|---|
 | [`DESIGN.md`](./DESIGN.md) | The product's token contract and reasons, with the alternates it rejected | [`../tokens.md`](../tokens.md) |
-| [`AGENTS.md`](./AGENTS.md) | The rules block Plinth writes for coding agents | [`../agents.md`](../agents.md) |
+| [`AGENTS.md`](./AGENTS.md) | The rules block Strata writes for coding agents | [`../agents.md`](../agents.md) |
 | [`app/theme.generated.css`](./app/theme.generated.css) | `palette.mjs` output, unedited | [`../tokens.md`](../tokens.md) §1, §3 |
 | [`app/globals.css`](./app/globals.css) | Imports strata-react's token contract (namespace reset, type, radius, elevation, motion, density, base), then the product's own layer: status roles, the title's voice, faces, contrast, heat and glaze colours | [`../tokens.md`](../tokens.md) |
 | [`lib/format.ts`](./lib/format.ts) | The `Intl` formatters the screens use, from strata-react's `format` | [`../components.md`](../components.md) §1 |

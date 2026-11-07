@@ -1,10 +1,12 @@
 # Components: inventory, conventions and specs
 
-These are implemented in [strata-react](https://github.com/jburnhams/strata-react)
-([`src/components/`](https://github.com/jburnhams/strata-react/tree/main/src/components), with
-a Storybook story for every state), the library built from this design since 2026-11-07. The
-worked example imports them and renders them on the [state-matrix page](./examples/renders/system-light-1280.png). The
-rest are specified here and follow the same conventions.
+Each spec here is the design; the components marked with a source link are implemented in
+[strata-react](https://github.com/jburnhams/strata-react)
+([`src/components/`](https://github.com/jburnhams/strata-react/tree/main/src/components)), with
+a [Storybook](https://jburnhams.github.io/strata-react/) story for every state and an
+[API reference](https://jburnhams.github.io/strata-react/api/). The worked example renders them
+on the [state-matrix page](./examples/renders/system-light-1280.png). The rest are specified
+here and follow the same conventions.
 
 ## 1. Conventions every component follows
 
@@ -13,7 +15,7 @@ rest are specified here and follow the same conventions.
    (`p-[17px]`, `bg-[#…]`), no `dark:` colour overrides. After the namespace reset most
    of these do not compile anyway.
 2. **`cva` for variants, shadcn's names.** `variant` and `size` keep shadcn's values so
-   copied code and agents' knowledge transfer; Plinth changes what they look like, not
+   copied code and agents' knowledge transfer; Strata changes what they look like, not
    what they are called. New recipes are new variant names, never redefinitions.
 3. **`className` is accepted and merged with `cn()`**, for layout at the call site
    (width, grid placement, margin). It is not a styling escape hatch: the agent rules

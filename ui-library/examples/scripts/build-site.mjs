@@ -1,7 +1,7 @@
 // Builds the GitHub Pages site into dist/site/:
 //   index.html, tokens.html, components.html, patterns.html, agents.html, examples.html
 //                       the ui-library docs, rendered from Markdown (fonts come from demo/app.css) and styled with the example's own
-//                       Plinth theme (the docs use the library's tokens, so the site is a demo too)
+//                       Strata theme (the docs use the library's tokens, so the site is a demo too)
 //   demo/               the live example app: kiln room, booking form, state matrix, in light and dark
 //   renders/            the committed screenshots
 // Links between the docs become .html links; links into the rest of the repo point at GitHub.
@@ -41,7 +41,7 @@ await build({
 const themeScript = `<script>try{var t=new URLSearchParams(location.search).get("theme");if(t?t==="dark":matchMedia("(prefers-color-scheme: dark)").matches)document.documentElement.classList.add("dark")}catch(e){}</script>`;
 writeFileSync(
   join(out, "demo", "index.html"),
-  `<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Kiln room: Plinth example</title>${themeScript}<link rel="stylesheet" href="../site.css"><link rel="stylesheet" href="app.css"></head><body><div id="root"></div><script src="app.js"></script></body></html>`,
+  `<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Kiln room: Strata example</title>${themeScript}<link rel="stylesheet" href="../site.css"><link rel="stylesheet" href="app.css"></head><body><div id="root"></div><script src="app.js"></script></body></html>`,
 );
 
 // 3. Screenshots.
@@ -121,7 +121,7 @@ for (const page of pages) {
   writeFileSync(
     join(out, page.out),
     `<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${title}</title>${themeScript}<link rel="stylesheet" href="site.css"><link rel="stylesheet" href="demo/app.css"></head>
-<body><header class="site-nav"><a class="site-name" href="index.html">Plinth</a><nav aria-label="Docs">${nav(page.out)}</nav></header>
+<body><header class="site-nav"><a class="site-name" href="index.html">Strata</a><nav aria-label="Docs">${nav(page.out)}</nav></header>
 <main class="doc">${page.out === "index.html" || page.out === "examples.html" ? body.replace(/(<\/h1>\n)/, `$1${demoLinks}`) : body}</main>
 <footer class="site-foot">Built from <a href="${repo}/tree/${branch}/ui-library">ui-library/</a> in ux-research.</footer></body></html>`,
   );
