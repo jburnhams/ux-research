@@ -1,7 +1,9 @@
 # Worked example: the kiln room at Back Lane Clay Co-op
 
 One fictional product built end to end on Plinth, so every rule in the design docs can
-be seen working. Everything here is invented for illustration: the co-op, its members
+be seen working. Since 2026-11-07 its components come from
+[strata-react](https://github.com/jburnhams/strata-react), the library built from this design;
+this folder holds only what a product owns: its theme, its screens and its sample data. Everything here is invented for illustration: the co-op, its members
 and its data. The code is real: it type-checks, compiles with Tailwind 4, renders in
 Chromium in light and dark at desktop and phone widths, and passes `slop-lint` in
 operate mode with no findings.
@@ -26,9 +28,9 @@ How the subject became a theme (seeds, face, signature move) is in
 | [`DESIGN.md`](./DESIGN.md) | The product's token contract and reasons, with the alternates it rejected | [`../tokens.md`](../tokens.md) |
 | [`AGENTS.md`](./AGENTS.md) | The rules block Plinth writes for coding agents | [`../agents.md`](../agents.md) |
 | [`app/theme.generated.css`](./app/theme.generated.css) | `palette.mjs` output, unedited | [`../tokens.md`](../tokens.md) §1, §3 |
-| [`app/globals.css`](./app/globals.css) | Namespace reset, status, surfaces, type, radius, elevation, motion, density, contrast, base | [`../tokens.md`](../tokens.md) |
-| [`lib/utils.ts`](./lib/utils.ts), [`lib/format.ts`](./lib/format.ts) | `cn()` that knows `type-*`; all `Intl` formatting | [`../components.md`](../components.md) §1 |
-| [`components/ui/`](./components/ui) | Button, IconButton, AsyncButton, Field (+ Input, Textarea, NativeSelect, ChoiceGroup), Status, Metric, DataView (+ EmptyState, Skeleton), DataTable, LineChart (with `colourScale`), PageHeader, UndoBar, Done | [`../components.md`](../components.md) §3 |
+| [`app/globals.css`](./app/globals.css) | Imports strata-react's token contract (namespace reset, type, radius, elevation, motion, density, base), then the product's own layer: status roles, the title's voice, faces, contrast, heat and glaze colours | [`../tokens.md`](../tokens.md) |
+| [`lib/format.ts`](./lib/format.ts) | The `Intl` formatters the screens use, from strata-react's `format` | [`../components.md`](../components.md) §1 |
+| [strata-react](https://github.com/jburnhams/strata-react) (dependency) | Button, IconButton, AsyncButton, Field (+ Input, Textarea, NativeSelect, ChoiceGroup), Status, Metric, DataView (+ EmptyState, Skeleton), DataTable, LineChart (with `colourScale`), PageHeader, UndoBar, Done (imported, not copied; `cn()` and the token contract `strata.css` come from it too) | [`../components.md`](../components.md) §3 |
 | [`screens/kiln-room.tsx`](./screens/kiln-room.tsx) | The Operate dashboard: question, finding, figures, the signature chart, a table with undoable withdraw | [`../patterns.md`](../patterns.md) §1–§5, §7 |
 | [`screens/book-firing.tsx`](./screens/book-firing.tsx) | The form: Field wiring, specific errors, focus on first error, AsyncButton, unsaved-changes warning | [`../patterns.md`](../patterns.md) §6 |
 | [`screens/booked.tsx`](./screens/booked.tsx), [`screens/shelf-figure.tsx`](./screens/shelf-figure.tsx) | The completion moment: `Done`, with kiln 2 drawn in section and the member's pieces set down on their shelf | [`../character.md`](../character.md) §4 |

@@ -1,27 +1,21 @@
-/* Back Lane Clay Co-op, kiln room (Operate). The Plinth theme layer.
-   Two files, two owners:
+/* Back Lane Clay Co-op, kiln room (Operate). The product's theme layer on strata-react
+   (https://github.com/jburnhams/strata-react), the implementation of this repo's ui-library design.
+   Three files, three owners:
+   - strata-react/strata.css: the library's token contract, namespace reset, type steps, motion
+     utilities and base layer, with the non-colour defaults (radius, elevation, motion, density).
    - theme.generated.css: colour roles and 12-step ramps from palette.mjs. Regenerate, never hand-edit:
        node ux-design/skill/scripts/palette.mjs --primary "#4d7a52" --secondary "#c4621c" --contrast 0.5 --out app/theme.generated.css
-   - this file: the roles palette.mjs does not make (status, surfaces), and the non-colour tokens
-     (type, radius, elevation, motion, density), each with its reason. DESIGN.md explains the seeds. */
+   - this file: what the library names but does not choose (status roles, faces, the title's voice)
+     and the subject's own colours (heat, glazes), each with its reason. DESIGN.md explains the seeds. */
 
 @import "tailwindcss";
 
-/* Clear Tailwind's stock namespaces right after Tailwind's own theme loads. With these gone,
-   `bg-indigo-500`, `text-sm`, `rounded-xl` and `shadow-lg` do not compile at all: the only colours,
-   type steps, radii and shadows that exist are the ones this file names. That is the library's
-   strongest anti-drift rule, and it costs nothing at runtime. */
-@theme {
-  --color-*: initial;
-  --text-*: initial;
-  --radius-*: initial;
-  --shadow-*: initial;
-  --font-*: initial;
-}
+/* strata-react: the token contract, namespace reset (no bg-indigo-500, text-sm, rounded-xl or
+   shadow-lg), type steps, motion utilities and base layer. Its classes are picked up from the
+   built package by its own @source. Everything below is the kiln room's own. */
+@import "strata-react/strata.css";
 
 @import "./theme.generated.css";
-
-@custom-variant dark (&:is(.dark *));
 
 :root {
   /* Status: fixed semantic roles, never the accent. Each is a pale tint and a dark ink of one hue;
@@ -38,25 +32,11 @@
   --info-subtle: oklch(95.5% 0.023 246);
   --info: oklch(46.5% 0.11 244.6);
 
-  /* Surfaces: layering by tone, not shadow (Material's surface ladder). */
-  --surface-sunken: var(--neutral-2);
-
-  /* Density: control heights move together (button, input, select). 40px default, 44px on touch
-     (the kiln-room tablet), 32px when a person opts into compact. */
-  --control-h: 2.5rem;
-  --control-h-sm: 2rem;
-
-  /* Motion. Effects (colour, opacity) never overshoot; spatial gets Material Standard's barely
-     visible settle, because this is a utilitarian product. */
-  --motion-effects: 200ms;
-  --motion-spatial: 350ms;
-
-  /* Character (../../character.md). Press feedback is the one motion on a frequent action, so it
-     is short and small: 100ms, 2%, felt more than seen. A moment is the rare, earned one (a
-     finished booking); it is slower and eases out hard, with no overshoot. */
-  --motion-press: 100ms;
-  --motion-moment: 500ms;
-  --ease-moment: cubic-bezier(0.23, 1, 0.32, 1);
+  /* The page title's voice: Archivo, expanded (wdth 125) and heavy, the lettering cast into a kiln
+     maker's nameplate. strata-react's type-title reads these. */
+  --title-weight: 800;
+  --title-stretch: 125%;
+  --title-tracking: -0.015em;
 
   /* Heat: the colours a kiln actually shows through the peephole, used only where the colour
      encodes temperature (the firing chart). Nothing glows below about 525 °C (the Draper point),
@@ -89,20 +69,12 @@
   --danger: oklch(71.7% 0.089 27.3);
   --info-subtle: oklch(26% 0.045 244.4);
   --info: oklch(70.8% 0.09 245.3);
-  --surface-sunken: var(--neutral-1);
   /* On the dark ground the heat steps can be what they are: bright. */
   --heat-unlit: oklch(62% 0.03 55);
   --heat-dull-red: oklch(58% 0.17 27);
   --heat-cherry: oklch(65% 0.19 33);
   --heat-orange: oklch(74% 0.16 55);
   --heat-yellow: oklch(86% 0.14 88);
-}
-
-[data-density="compact"] { --control-h: 2rem; --control-h-sm: 1.75rem; }
-/* After the compact rule, so a coarse pointer always wins: every control, small or compact,
-   stays a 44px target on touch. */
-@media (pointer: coarse) {
-  :root, [data-density="compact"] { --control-h: 2.75rem; --control-h-sm: 2.75rem; }
 }
 
 /* More contrast: the text roles from the same seeds at palette.mjs --contrast 1. */
@@ -120,15 +92,6 @@
 }
 
 @theme inline {
-  --color-success: var(--success);
-  --color-success-subtle: var(--success-subtle);
-  --color-warning: var(--warning);
-  --color-warning-subtle: var(--warning-subtle);
-  --color-danger: var(--danger);
-  --color-danger-subtle: var(--danger-subtle);
-  --color-info: var(--info);
-  --color-info-subtle: var(--info-subtle);
-  --color-surface-sunken: var(--surface-sunken);
   --color-heat-unlit: var(--heat-unlit);
   --color-heat-dull-red: var(--heat-dull-red);
   --color-heat-cherry: var(--heat-cherry);
@@ -151,88 +114,4 @@
   /* The one display face: Archivo, expanded (wdth 125) and heavy, the lettering cast into a kiln
      maker's nameplate. Page titles only, one per screen; everything else stays Public Sans. */
   --font-display: "Archivo Variable", "Public Sans Variable", ui-sans-serif, system-ui, sans-serif;
-
-  /* Radius by role. Optical nesting: inner = outer - padding, so a control inside a 8px overlay
-     with 4px padding is 4px, never the same value as its container. */
-  --radius-control: 4px;
-  --radius-surface: 6px;
-  --radius-overlay: 8px;
-  --radius-pill: 9999px;
-
-  /* One elevation channel per surface: hairlines for things on the page, a shadow only for
-     what floats above it. */
-  --shadow-overlay: 0 1px 2px oklch(0% 0 0 / 0.08), 0 8px 24px oklch(0% 0 0 / 0.12);
-
-  --ease-effects: cubic-bezier(0.34, 0.8, 0.34, 1);
-  --ease-spatial: cubic-bezier(0.27, 1.06, 0.18, 1);
-}
-
-/* Type steps as utilities, not --text-* keys: a compound of size, line height and weight that
-   cn() can tell apart from text colours (see lib/utils.ts). Operate scale, ratio about 1.2, fixed
-   rem; nothing above 28px. The page title is the one place the display face appears. */
-@utility type-caption { font-size: 0.75rem; line-height: 1rem; font-weight: 400; }
-@utility type-label { font-size: 0.875rem; line-height: 1.25rem; font-weight: 500; }
-@utility type-body-sm { font-size: 0.875rem; line-height: 1.25rem; font-weight: 400; }
-@utility type-body { font-size: 1rem; line-height: 1.5rem; font-weight: 400; }
-@utility type-heading { font-size: 1.125rem; line-height: 1.5rem; font-weight: 600; }
-@utility type-title {
-  font-family: var(--font-display);
-  font-size: 1.75rem;
-  line-height: 2.25rem;
-  font-weight: 800;
-  font-stretch: 125%;
-  letter-spacing: -0.015em;
-}
-@utility type-figure { font-size: 1.75rem; line-height: 2.25rem; font-weight: 500; font-variant-numeric: tabular-nums; }
-
-/* State transitions: named properties only (never `transition: all`). `scale` is listed for the
-   press feedback below and runs at the shorter press duration. */
-@utility transition-state {
-  transition-property: color, background-color, border-color, opacity, box-shadow, scale;
-  transition-duration: var(--motion-effects), var(--motion-effects), var(--motion-effects), var(--motion-effects),
-    var(--motion-effects), var(--motion-press);
-  transition-timing-function: var(--ease-effects);
-}
-
-/* Press feedback: the control gives a little under the finger or click. 2% is the most a control
-   used tens of times a day can move without feeling slow (character.md, the frequency budget). */
-@utility press {
-  &:active:not(:disabled) { scale: 0.98; }
-}
-
-/* A moment's entrance: CSS only, no JS, starts from a visible-enough state and runs once when the
-   element mounts. Reduced motion collapses it to an instant change with the rest of the theme. */
-@utility enter-moment {
-  transition-property: opacity, translate;
-  transition-duration: var(--motion-moment);
-  transition-timing-function: var(--ease-moment);
-  @starting-style { opacity: 0; translate: 0 -0.75rem; }
-}
-
-@layer base {
-  html { color-scheme: light; }
-  .dark { color-scheme: dark; }
-  body {
-    background-color: var(--background);
-    color: var(--foreground);
-    font-family: var(--font-sans);
-    font-size: 1rem;
-    line-height: 1.5rem;
-    -webkit-font-smoothing: antialiased;
-  }
-  /* One focus treatment for everything focusable, so no component can forget it. */
-  :focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
-  /* Except where a script moved focus to a heading to announce a result (Done): the heading is
-     not a control, so a ring around it says "press me" to nobody. */
-  h1[tabindex="-1"]:focus-visible, h2[tabindex="-1"]:focus-visible { outline: none; }
-  ::selection { background-color: var(--primary-5); color: var(--foreground); }
-  a { text-underline-offset: 0.2em; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
 }

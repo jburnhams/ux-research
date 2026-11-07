@@ -39,7 +39,9 @@ loading, empty, error and pending states are part of each component's type signa
 Written up as the stance and its decisions, tokens, components, patterns and agent rules,
 with a worked example (a pottery co-op's kiln room) that type-checks, compiles, renders
 in light and dark and passes `slop-lint`. A GitHub Pages workflow publishes the docs and
-the live example as a site.
+the live example as a site. The design is implemented as
+[strata-react](https://github.com/jburnhams/strata-react) (2026-11-07), and the example
+imports its components from there.
 
 ## Synthesis docs
 

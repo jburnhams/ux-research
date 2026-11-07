@@ -6,7 +6,7 @@
 <!-- plinth:rules:start -->
 ## UI: Plinth
 
-This project's UI is built on Plinth components in `components/ui/`. Its look is set
+This project's UI is built on Plinth components, imported from `strata-react`. Its look is set
 by `app/theme.generated.css` (generated), `app/globals.css` (tokens) and `DESIGN.md`
 (the reasons). Read DESIGN.md before changing anything visual.
 

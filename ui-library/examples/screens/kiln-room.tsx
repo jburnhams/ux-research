@@ -7,13 +7,13 @@
 
 import * as React from "react";
 import { CalendarClock, Check, Flame, Layers, Thermometer, TriangleAlert, type LucideIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { DataTable, TableSkeleton, type Column } from "@/components/ui/data-table";
-import { DataView, EmptyState, type Load } from "@/components/ui/data-view";
-import { LineChart } from "@/components/ui/line-chart";
-import { PageHeader } from "@/components/ui/page-header";
-import { Status, type Tone } from "@/components/ui/status";
-import { UndoBar, useUndoable } from "@/components/ui/undo";
+import { Button } from "strata-react";
+import { DataTable, TableSkeleton, type Column } from "strata-react";
+import { DataView, EmptyState, type Load } from "strata-react";
+import { LineChart } from "strata-react";
+import { PageHeader } from "strata-react";
+import { Status, type Tone } from "strata-react";
+import { UndoBar, useUndoable } from "strata-react";
 import { celsius, clock, day, integer } from "@/lib/format";
 import { heatScale } from "./heat";
 import { GlazeLabel } from "./glaze-tile";

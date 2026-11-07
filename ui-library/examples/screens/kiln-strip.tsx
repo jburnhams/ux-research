@@ -6,8 +6,8 @@
 // The traces have no text in them, so they scale with a viewBox; the figures and words are HTML.
 
 import * as React from "react";
-import type { Point } from "@/components/ui/line-chart";
-import { Status, type Tone } from "@/components/ui/status";
+import type { Point } from "strata-react";
+import { Status, type Tone } from "strata-react";
 import type { LucideIcon } from "lucide-react";
 import { GlazeTile } from "./glaze-tile";
 import { heatScale } from "./heat";

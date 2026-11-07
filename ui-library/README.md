@@ -6,6 +6,12 @@ research in this repo. It plays the same role for UI that `prompts/agent-design/
 that could be implemented directly, with a worked example that compiles, renders and
 passes the repo's own linter.
 
+**Implemented as [strata-react](https://github.com/jburnhams/strata-react)** (2026-11-07): the
+components, `strata.css` token contract, Storybook with every state, and visual regression
+tests, as a package. The worked example below now imports it. Where strata-react departs from
+this design (a package rather than a copy-in registry; TanStack Query, Table and Virtual and
+React Router underneath), its `CLAUDE.md` and changelog say so.
+
 Placeholder name used throughout: **Plinth** (the base a piece stands on; the product
 is the piece). Swap it freely; nothing depends on the name.
 
@@ -172,9 +178,10 @@ the chart (a `<table>` ignores `width: 1px`), which no source check would have f
 
 ## 7. Known limits
 
-- **Designed, not published.** The registry format, `plinth init` and the MCP server
-  are specified here and not built. The eleven example components are real code; the
-  other thirteen are specs.
+- **Built as a package, not a registry.** strata-react implements the eleven example
+  components plus an app shell, URL tabs and a virtual list; the registry format, `plinth
+  init` and the MCP server are still only specified here, and the other specified components
+  (overlays, toasts, command menu, read surfaces) are still specs.
 - **Character is shown at its calm end only.** The example is a shared work tool;
   no product whose subject is itself playful has been built on Plinth yet
   ([`character.md`](./character.md) §7).
