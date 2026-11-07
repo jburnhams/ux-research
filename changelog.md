@@ -6,6 +6,11 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-07
 
+**Record strata-react's keyboard triage pattern** (branch `claude/project-thread-9k96br`, PR #8; strata-react PR #18). strata-react issue #7 asked for single-key shortcuts and an active-item list for screens that clear a queue; it is built there, and this records it as an extension of the design, following the frequency budget in `character.md`.
+
+- `ui-library/components.md`: an inventory row and **new** §3.16 Keyboard triage (`useHotkeys`, `KeysLegend`, `useActiveItem`, `ActiveList`): one shortcut list drives the handler and the legend, the typing and chord rules (WCAG 2.1.4), focus moving on after an answer, and what generated versions get wrong.
+- `ui-library/README.md`: §8 maps the pattern to strata-react as an extension of the design.
+
 **Undo bar failure state, from strata-react** (branch `claude/project-thread-0n52d4`). strata-react issue #8 asked for `flush()`, a promise-returning commit and a way to restore an item when the commit fails; strata-react PR #17 implements it and extends the design in §3.10, which said nothing about a failed commit.
 
 - `ui-library/components.md` §3.10: adds what strata-react 0.2 does (the hook owns hidden items, `flush()`, failure shown in the bar with Try again and Dismiss, one pending removal, commit on unmount). The 0.1 description is kept, since the examples pin `^0.1.3`; `ui-library/examples/screens/kiln-room.tsx` and `system.tsx` will need `UndoBar undoable={...}` and a `failure` sentence when they move to 0.2.
