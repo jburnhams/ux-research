@@ -27,7 +27,12 @@ by `app/theme.generated.css` (generated), `app/globals.css` (tokens) and `DESIGN
 7. Numbers and dates go through `lib/format.ts`.
 8. Sample data is labelled as sample, believable, and its totals add up. Missing facts
    are visible placeholders like `[PRICE]`, never invented.
-9. Before you finish: `npm run check` (types, CSS, slop-lint) and `npm run render`
+9. Character goes where DESIGN.md's Character section says, and nowhere else: subject
+   words in labels, empties and errors; no jokes on errors; motion only by the
+   frequency table in Plinth's `character.md`; a rare, earned completion uses `Done`.
+   No confetti, stock illustrations, "Oops"-style copy, emoji or sound without an off
+   switch (slop-lint checks these).
+10. Before you finish: `npm run check` (types, CSS, slop-lint) and `npm run render`
    (console errors, overflow, fonts). Fix every quality finding; a slop finding is
    either fixed or allowed in `.sloplintrc.json` with the brief's reason.
 <!-- plinth:rules:end -->

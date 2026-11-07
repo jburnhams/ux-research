@@ -12,7 +12,12 @@ typography:
   scale: { ratio: 1.2, base: 16px }
 rounded: { control: 4px, surface: 6px, overlay: 8px, pill: 9999px }
 spacing: { base: 4px }
-motion: { state: 200ms, spatial: 350ms, reduced: "durations collapsed" }
+motion: { state: 200ms, spatial: 350ms, press: 100ms, moment: 500ms, reduced: "durations collapsed" }
+character:
+  sentence: "The kiln room should feel like the kiln team is looking after your work: exact about heat and time, and pleased with you when you have made something."
+  voice: [plain, exact, unhurried]
+  signature: "the firing chart, its line coloured as the kiln glows"
+  moments: [booking finished]
 ---
 
 > SAMPLE. Back Lane Clay Co-op is fictional. This file shows what a Plinth project's
@@ -56,8 +61,15 @@ tablet's glare.
 - Status: success 150°, warning 50° (from the secondary), danger 27°, info 245°; tint
   and ink pairs solved to ≥ 6:1. Success sits 6° from the primary's hue at three times
   its chroma; accepted because statuses always carry a word and an icon.
-- Charts: the firing curve uses `--warning` (it *is* heat); the plan is dashed
-  `--muted-foreground`.
+- Charts: the firing curve is coloured by its own temperature with the `--heat-*`
+  steps (below); the plan is dashed `--muted-foreground`.
+- Heat: five product tokens, `--heat-unlit` to `--heat-yellow`, the colours seen
+  through the peephole. Nothing glows below about 525 °C (the Draper point), so the
+  low end is unlit clay; then dull red (600 °C), cherry (800), orange (1,000) and
+  yellow (1,200). Lightness is capped so every step clears 3:1 against the ground
+  as a line (light: 4.3–8.1:1; dark: 4.1–12.4:1, checked with
+  `ux-design/skill/scripts/lib/color.mjs`). They are used only where colour encodes
+  temperature.
 
 ## Typography
 
@@ -83,20 +95,52 @@ studio's tool, and well short of the soft-everything default.
 
 ## Motion
 
-State changes only, 200ms on colour and opacity. No page-load motion. The spinner in
-the booking button and the skeleton pulse are switched off under reduced motion.
+State changes, 200ms on colour and opacity. Buttons give 2% under a press, over
+100ms, which is all the motion something used tens of times a day gets. One moment:
+when a booking is finished, the member's pieces set down on their shelf in the
+drawing (500ms, hard ease-out, no overshoot, once). No page-load motion. The spinner
+in the booking button, the skeleton pulse and the moment are switched off under
+reduced motion.
+
+## Character
+
+- **Sentence**: the kiln room should feel like the kiln team is looking after your
+  work: exact about heat and time, and pleased with you when you have made
+  something.
+- **Voice**, this but not that: plain, not cute; exact ("212 °C", "about 14:50"), not
+  approximate; unhurried, not chirpy. Kiln-room words ("bisque", "cone 6", "the
+  to-fire shelf", "safe to open") rather than app words. No jokes about failed
+  firings: a cracked pot is a loss to someone.
+- **Signature**: the firing chart, drawn as the controller runs it, its line coloured
+  as the kiln glows. The colour is a fact of the subject, not a gradient for its own
+  sake, and the y position still carries the value.
+- **Moments** (the delight budget, spent where it is rare and earned):
+  - *Booking finished* ([`screens/booked.tsx`](./screens/booked.tsx)): what was
+    booked, what to do next and by when, and a drawing of kiln 2 with the member's
+    pieces set down on their shelf and the clearance under the shelf above. It is
+    the shelf map from alternate B, used where it is good (showing a result) instead
+    of where it was slow (as the form).
+  - *Work ready to collect*: a green status with the words "Ready to collect". It is
+    good news, but it is read many times a day by everyone in the room, so it stays
+    a status; nothing celebrates on a dashboard.
+  - *Empty*: "All three kilns are cold", then what to book and by when.
+  - *Error*: says which controller, how old the reading is and where to read the
+    live one (the panel by the door).
+- **Not here**: confetti, sound, a mascot, stock illustrations, "Oops", emoji,
+  animation on the dashboard's own load, anything on the table rows or the nav.
 
 ## Components
 
 Plinth: Button, IconButton, AsyncButton, Field and controls, Status, Metric,
-DataView, DataTable, LineChart, PageHeader, UndoBar. Icons: Lucide, one stroke weight,
+DataView, DataTable, LineChart (with `colourScale` for the heat line), PageHeader,
+UndoBar, Done. Product-specific: `ShelfFigure`, the booking's drawing. Icons: Lucide, one stroke weight,
 beside labels only.
 
 ## Do's and Don'ts
 
 - Do: say temperatures and times exactly, with units ("212 °C", "about 14:50").
 - Do: explain the kiln constraints in hints and errors, so the form teaches them.
-- Don't: use the warning orange for anything that is not heat.
+- Don't: use the warning orange or the heat steps for anything that is not heat.
 - Don't: show a kiln as "ready" until it is below 200 °C.
 
 ## Lint allowances

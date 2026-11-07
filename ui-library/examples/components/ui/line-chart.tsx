@@ -8,6 +8,12 @@ import { cn } from "@/lib/utils";
 // readers. Optional extras exist only where they answer a question: a dashed `planned` series, a
 // horizontal `band` (a threshold that matters), and a `now` marker.
 //
+//
+// `colourScale` colours the measured line by its own value, for subjects where that colour is a
+// fact rather than decoration: a kiln's glow by temperature, water by depth. The y position still
+// carries the value, so the colour is never the only cue. Without a reason in DESIGN.md, use one
+// hue.
+//
 // It draws in real pixels (measured with ResizeObserver) rather than scaling a fixed viewBox, so
 // the 12px labels stay 12px on a phone.
 
@@ -26,6 +32,11 @@ export type LineChartProps = {
   xTicks: number[];
   /** CSS colour for the measured series. Defaults to the first chart token. */
   colour?: string;
+  /** Colour the measured series by value: each stop applies from `at` upwards, blending to the
+   *  next. Only where the colour means something in the subject; record the reason in DESIGN.md. */
+  colourScale?: { at: number; colour: string }[];
+  /** Says what the colours mean, shown beside the legend swatch when `colourScale` is set. */
+  colourScaleLabel?: string;
   height?: number;
   className?: string;
 };
@@ -63,10 +74,13 @@ export function LineChart({
   formatY,
   xTicks,
   colour = "var(--chart-1)",
+  colourScale,
+  colourScaleLabel,
   height = 280,
   className,
 }: LineChartProps) {
   const [ref, width] = useWidth<HTMLDivElement>();
+  const gradientId = `heat-${React.useId().replace(/[^\w-]/g, "")}`;
   const all = [...series, ...(planned ?? [])];
   const xMin = Math.min(...all.map((p) => p.x));
   const xMax = Math.max(...all.map((p) => p.x));
@@ -82,12 +96,27 @@ export function LineChart({
 
   const last = series[series.length - 1];
   const peak = series.reduce((a, b) => (b.y > a.y ? b : a), series[0]);
+  const stops = colourScale ? [...colourScale].sort((a, b) => a.at - b.at) : [];
+  /** The colour a value lands on: the highest stop at or below it. Used for the labelled points. */
+  const colourAt = (y: number) => (stops.length ? [...stops].reverse().find((s) => s.at <= y)?.colour ?? stops[0].colour : colour);
+  const stroke = stops.length ? `url(#${gradientId})` : colour;
 
   return (
     <figure className={cn("grid min-w-0 gap-2", className)}>
       <div ref={ref} className="min-w-0">
         {width > 0 && (
           <svg width={width} height={height} role="img" aria-label={label} className="block overflow-visible">
+            {stops.length > 0 && (
+              // A vertical gradient in chart space, so a colour sits at a temperature, not at a
+              // point along the line: the line is the same red wherever it crosses 600 °C.
+              <defs>
+                <linearGradient id={gradientId} gradientUnits="userSpaceOnUse" x1={0} x2={0} y1={sy(0)} y2={sy(yMax)}>
+                  {stops.map((s) => (
+                    <stop key={s.at} offset={Math.min(1, Math.max(0, s.at / yMax))} stopColor={s.colour} />
+                  ))}
+                </linearGradient>
+              </defs>
+            )}
             {band && (
               <g>
                 <rect x={pad.left} y={sy(band.below)} width={w} height={sy(0) - sy(band.below)} fill="var(--success-subtle)" />
@@ -112,14 +141,14 @@ export function LineChart({
             {planned && (
               <path d={path(planned)} fill="none" stroke="var(--muted-foreground)" strokeWidth={1.5} strokeDasharray="4 4" />
             )}
-            <path d={path(series)} fill="none" stroke={colour} strokeWidth={2} strokeLinejoin="round" strokeLinecap="round" />
+            <path d={path(series)} fill="none" stroke={stroke} strokeWidth={stops.length ? 2.5 : 2} strokeLinejoin="round" strokeLinecap="round" />
             {/* Direct labels instead of a legend and a tooltip. */}
-            <circle cx={sx(peak.x)} cy={sy(peak.y)} r={3} fill={colour} />
+            <circle cx={sx(peak.x)} cy={sy(peak.y)} r={3} fill={colourAt(peak.y)} />
             <text x={sx(peak.x) + 8} y={sy(peak.y) - 8} className="fill-foreground type-caption tabular-nums">
               {formatY(peak.y)} peak
             </text>
             <line x1={sx(last.x)} x2={sx(last.x)} y1={pad.top} y2={pad.top + h} stroke="var(--foreground)" strokeWidth={1} />
-            <circle cx={sx(last.x)} cy={sy(last.y)} r={3.5} fill={colour} />
+            <circle cx={sx(last.x)} cy={sy(last.y)} r={3.5} fill={colourAt(last.y)} />
             <text
               x={sx(last.x) - 8}
               y={sy(last.y) - 10}
@@ -133,10 +162,19 @@ export function LineChart({
       </div>
       <figcaption className="flex flex-wrap gap-x-5 gap-y-1 type-caption text-muted-foreground">
         <span className="inline-flex items-center gap-2">
-          <svg width="16" height="2" aria-hidden>
-            <line x1="0" x2="16" y1="1" y2="1" stroke={colour} strokeWidth={2} />
-          </svg>
+          {stops.length ? (
+            <svg width={stops.length * 8} height="3" aria-hidden>
+              {stops.map((s, i) => (
+                <line key={s.at} x1={i * 8} x2={i * 8 + 8} y1="1.5" y2="1.5" stroke={s.colour} strokeWidth={3} />
+              ))}
+            </svg>
+          ) : (
+            <svg width="16" height="2" aria-hidden>
+              <line x1="0" x2="16" y1="1" y2="1" stroke={colour} strokeWidth={2} />
+            </svg>
+          )}
           {seriesLabel}
+          {stops.length > 0 && colourScaleLabel && <span>({colourScaleLabel})</span>}
         </span>
         {planned && plannedLabel && (
           <span className="inline-flex items-center gap-2">

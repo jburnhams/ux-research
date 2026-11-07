@@ -64,6 +64,25 @@ generated look.
 | Decorative grid-line or stripe backgrounds with no canvas, map or blueprint under them | judge |
 | "X theater" framing in copy | judge |
 
+## Playful slop (any wave; added 2026-11-07)
+
+What "make it fun" produces by default. The precedent is Corporate Memphis (2017 on):
+a friendly style adopted wholesale until it read as generic. Test: could a
+neighbouring product ship it unchanged? See `character.md`.
+
+| Tell | Det |
+|---|---|
+| Confetti, fireworks or a full-screen celebration on a routine action | `slop-lint confetti` |
+| Stock whimsy copy: "Oops!", "Whoops", "Uh-oh", "Yay!", "Woohoo", "You're all set!", "Houston, we have a problem", "Looks like you're lost", "It's quiet in here", "Hang tight", "working our magic" | `slop-lint stock-whimsy` |
+| "Something went wrong" (vague, not playful, but it travels with the above) | `slop-lint vague-error` |
+| Stock illustration kits: unDraw, Humaaans, Open Peeps, Storyset, Blush, generic Lottie files | `slop-lint stock-illustration` |
+| Sound with no off switch | `slop-lint sound-without-control` |
+| A mascot that talks on every screen | judge |
+| Perpetual loops (pulse, float, shimmer, typewriter) on components at rest | judge; `pulse-dot` |
+| Pastel blobs, rounded-everything and "bold colors" because the brief said "fun" | judge |
+| Streaks, badges and points on a tool nobody asked to gamify | judge |
+| Fake waiting jokes; a delay staged before a flourish | judge |
+
 ## Structure (any wave)
 
 | Tell | Det |

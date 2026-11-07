@@ -7,6 +7,7 @@ import * as React from "react";
 import { AsyncButton, useAsyncAction } from "@/components/ui/async-button";
 import { Button } from "@/components/ui/button";
 import { ChoiceGroup, Field, Input, NativeSelect, Textarea } from "@/components/ui/field";
+import { Booked } from "./booked";
 import { MAX_PIECES_PER_BOOKING, firingTypes, kilns, type FiringType, type KilnId } from "./sample-data";
 
 type Values = { firing: string; kiln: string; pieces: string; tallest: string; notes: string };
@@ -58,9 +59,14 @@ export function BookFiring({ initial, showErrors = false }: { initial?: Partial<
   const [dirty, setDirty] = React.useState(false);
   const formRef = React.useRef<HTMLFormElement>(null);
 
-  const submit = React.useCallback(async () => {
+  // A finished booking is its own state, not the button's phase: the button settles back to idle
+  // after two seconds, and the confirmation must stay until the person leaves or books again.
+  const [booked, setBooked] = React.useState<Values | null>(null);
+
+  const submit = React.useCallback(async (v: Values) => {
     await new Promise((r) => setTimeout(r, 900)); // sample: stands in for the booking request
     setDirty(false);
+    setBooked(v);
   }, []);
   const [phase, run] = useAsyncAction(submit);
 
@@ -93,8 +99,25 @@ export function BookFiring({ initial, showErrors = false }: { initial?: Partial<
       (el instanceof RadioNodeList ? (el[0] as HTMLElement) : (el as HTMLElement | null))?.focus();
       return;
     }
-    void run();
+    void run(values);
   };
+
+  // Finished: the form gives way to the completion moment, which says what happened and what next.
+  if (booked)
+    return (
+      <Booked
+        firing={booked.firing as FiringType}
+        kiln={booked.kiln as KilnId}
+        pieces={Number(booked.pieces)}
+        tallest={Number(booked.tallest)}
+        onBookMore={() => {
+          setBooked(null);
+          setValues({ firing: "", kiln: "2", pieces: "", tallest: "", notes: "" });
+          setErrors({});
+          window.scrollTo(0, 0);
+        }}
+      />
+    );
 
   return (
     <main className="mx-auto grid grid-cols-[minmax(0,1fr)] max-w-2xl gap-8 px-4 py-6 sm:px-6">

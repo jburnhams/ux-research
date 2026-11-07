@@ -11,8 +11,10 @@ import { cn } from "@/lib/utils";
 //    put the accent on every button; 12 of 23 real product screens had no filled primary at all.
 // 2. Heights come from --control-h, shared with Input and NativeSelect, so density changes move
 //    every control together.
+// 3. `press`: the button gives 2% under a click or a finger, over 100ms. Buttons are used tens of
+//    times a day, so that is all the motion they get (character.md, the frequency budget).
 export const buttonVariants = cva(
-  "inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-control type-label transition-state disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-control type-label transition-state press disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {

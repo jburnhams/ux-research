@@ -57,6 +57,7 @@ rest are specified here and follow the same conventions.
 | AppShell, Tabs, CommandMenu, Breadcrumb | Radix, `cmdk` | spec | [§3.12](#312-navigation) |
 | Toast, Alert | live region | spec | [§3.13](#313-toast-and-alert) |
 | Prose, TableOfContents, Callout | – | spec | [§3.14](#314-read-surfaces) |
+| Done | – | example | [§3.15](#315-done) |
 
 ## 3. Specs
 
@@ -198,7 +199,15 @@ rest are specified here and follow the same conventions.
 - It draws in real pixels measured with `ResizeObserver`, so 12px labels stay 12px on
   a phone instead of shrinking with a scaled `viewBox`.
 - Colour: one hue, passed by the caller from the tokens (`--chart-1…5`, or a status
-  ink when the series *is* a status, as the example's temperature uses `--warning`).
+  ink when the series *is* a status).
+- `colourScale` (added 2026-11-07): colours the line by its own value, for subjects
+  where that colour is a fact (a kiln's glow by temperature, water by depth, a
+  heart-rate zone). The gradient runs in chart space, so a colour always sits at the
+  same value; the peak and current points take the colour of their value; the key
+  shows the steps with `colourScaleLabel` ("coloured as the kiln glows"). The y
+  position still carries the value, so colour is never the only cue. Every step must
+  clear 3:1 against the ground. Without a subject reason in DESIGN.md it is the
+  "gradient that encodes nothing" tell; use one hue.
 - **BarChart** (spec): bars start at zero; values printed on or beside bars; one hue,
   with a second hue only to mark the one bar the finding is about.
 - **Generated versions get wrong**: gradient area fills; smoothed splines; a dot on
@@ -258,3 +267,26 @@ action. Neither has a coloured side stripe on a rounded box.
 steps, links underlined with `text-primary-11`. **TableOfContents**: a list of anchor
 links, the current section marked by weight, not colour alone. **Callout**: Alert with
 `tone`.
+
+### 3.15 Done
+
+[`done.tsx`](./examples/components/ui/done.tsx). The completion moment, and the one
+place the library spends a delight budget ([`character.md`](./character.md) §3).
+
+- `title` (required): what happened, past tense, with its object ("Booked: 6 pieces in
+  kiln 2's glaze firing on Tuesday").
+- `next` (required): what the person does now, or what happens next and when. A finish
+  with no next step is a dead end however pleasant it looks.
+- `figure` (optional): a drawing of the result made from the person's own data in the
+  subject's terms (their pieces on a shelf, their route, their seat). Never a stock
+  illustration. The part that *is* the result carries the `enter-moment` utility
+  (500ms, hard ease-out, no overshoot, once; instant under reduced motion).
+- `actions` (optional): one filled button at most, as everywhere.
+- Focus moves to the heading on mount (`focusOnMount`, default on), so keyboard and
+  screen-reader users land on the result. The base layer hides the focus ring on a
+  script-focused heading, which is not a control.
+- Used only for rare, earned completions (a booking, a submission, an import, a
+  first project). A routine save gets the `AsyncButton`'s "Saved", not a `Done`.
+- **Generated versions get wrong**: confetti; "Yay!" or "You're all set!"; a stock
+  illustration of people high-fiving; no next step; a toast that disappears before it
+  is read; focus left on a button that no longer exists.

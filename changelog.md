@@ -4,6 +4,75 @@ All notable changes to this repository, grouped by day, newest first. Backfilled
 git history on 2026-11-02 and kept up to date with every change since (see
 [`CLAUDE.md`](./CLAUDE.md)).
 
+## 2026-11-07
+
+**Character without slop: making the output playful while function stays first**, on
+branch `claude/project-thread-l74ku1`. Asked why the docs and library read as boring
+and how to make them interesting and playful without losing the focus on function or
+falling into the AI-slop look. Three scopes were offered (research and rules only; that
+plus a character layer and a reworked kiln example; that plus a second, louder example);
+this change is the middle one, and the second example is listed as a next step.
+
+- `ux-character.md` — **new**: why the output read as boring (the rules only subtract,
+  every Operate dial at its calm end, the subject reaching the palette but not the
+  behaviour), the evidence on delight with grades, ten sources compared, the
+  disagreements and their resolutions (sound, empty-state illustration, bounce,
+  Expressive by default), playful slop with the Corporate Memphis precedent, and the
+  procedure: character sentence and voice pairs, behaviours in the inventory, placement
+  by frequency, channels by mode, the moment, and four checks (swap, hundredth time,
+  bad day, remove).
+- `ui-library/character.md` — **new**: the character layer: what the library ships and
+  what the product supplies, the DESIGN.md Character section, the frequency budget,
+  how to build a moment, voice in component slots, the checks, known limits.
+- `ui-library/README.md`: decisions 17–19 (character by frequency, a completion is a
+  component, colour may encode a fact of the subject); the "Expressive motion not
+  adopted" note now says the character layer keeps it; inventory and counts (24
+  specified, 11 in the example); enforcement table and known limits updated.
+- `ui-library/tokens.md`: motion table gains `--motion-press`, `--motion-moment`,
+  `--ease-moment`, `press` and `enter-moment`; new §13 on character tokens.
+- `ui-library/components.md`: new §3.15 `Done`; `LineChart` gains `colourScale`.
+  **Correction**: §3.8 said the example's temperature line uses `--warning`; it now
+  uses the heat scale.
+- `ui-library/patterns.md`: a row for rare completions; new §10 on where character
+  goes on a screen. `ui-library/agents.md` and `examples/AGENTS.md`: a rule for
+  character and a step for the flow's moment.
+- `ui-library/examples/`: `globals.css` gains five `--heat-*` subject colours (checked
+  at 4.3–8.1:1 light and 4.1–12.4:1 dark against the ground), press and moment motion
+  tokens, and a base rule hiding the focus ring on a script-focused heading;
+  `Button` gets `press`; `LineChart` gets `colourScale`; **new** `components/ui/done.tsx`,
+  `screens/booked.tsx`, `screens/shelf-figure.tsx`, `screens/heat.ts`; the kiln room's
+  firing line is coloured as the kiln glows and its empty state reads "All three kilns
+  are cold"; the booking form now ends in the `Done` view with kiln 2 drawn in section
+  and the member's pieces set down on their shelf; the state-matrix page shows `Done`,
+  the heat line and a more specific controller error. `DESIGN.md` gains a Character
+  section. Render script: two new views (`booked`, light 1440 and dark 390) and a
+  700ms wait for the moment; all ten screenshots re-rendered. The Pages site gains a
+  Character page.
+- `ux-design/skill/`: **new** `references/character.md`; `SKILL.md` gains step 3b and
+  character checks in step 6, and its description now covers "correct but boring";
+  `references/tells.md` gains a playful-slop section; `assets/DESIGN.template.md` gains
+  a Character section and front-matter keys.
+- `ux-design/skill/scripts/slop-lint.mjs`: five rules: `confetti`, `stock-whimsy`,
+  `stock-illustration` (slop P1), `vague-error` and `sound-without-control` (quality
+  warn). 50 file rules plus one project rule. **New** fixture
+  `ux-design/fixtures/slop/app/playful.tsx`; the test expects all five.
+- `emil-kowalski-skills/` — **new** (MIT): three skills stored with a README.
+  `impeccable/reference/delight.md` and `bolder.md` — **new**, from `687bc38`.
+- `web-articles/README.md`: notes on NN/g, Comeau, Freiberg, Mailchimp, Corporate
+  Memphis, the aesthetic-usability papers and the humour summary.
+- `sources.md`, `README.md`, `ux-design/README.md`: sources, start-here entry, finding
+  12, rule counts (46 → 51), next-pass candidates.
+- Review fixes on PR #4 (Codex review): the confirmation is now its own state rather than
+  the button's phase, which settled back to idle after two seconds and hid it; it is
+  derived from the submitted firing and kiln (`firingTypes` gains a `next` firing with
+  its day, drop-off time and collection), with the shelf drawing only for kiln 2 when the
+  pieces fit; "Book more pieces" resets the form instead of linking to the current hash;
+  and the safe-to-open temperature comes from `SAFE_TO_OPEN_C` rather than a typed 200 °C.
+- Not found: any controlled study of humour in interface error messages. The
+  aesthetic-usability papers and the 2025 humour study were read only as abstracts or
+  summaries; peak-end is cited from the literature, not re-read. Jakub Krehel's
+  `better-*` skills were cloned but not compared.
+
 ## 2026-11-02
 
 **Component library design: `ui-library/`**, on branch `claude/project-thread-2o640l`.

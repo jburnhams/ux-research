@@ -20,6 +20,7 @@ inside the agent, and as a browser overlay.
 | `reference/mode-operate.md`, `mode-persuade.md` | Mode rules for directions and comps |
 | `reference/critique.md`, `audit.md`, `polish.md` | Evaluate and refine playbooks |
 | `reference/typeset.md`, `colorize.md`, `layout.md`, `animate.md`, `clarify.md` | Per-dimension enhancement playbooks |
+| `reference/delight.md`, `reference/bolder.md` | **Added 2026-11-07 from `main` @ `687bc38` (2026-11-06)**: the personality playbook (one "delight thesis", moments by emotion, "a neighboring product could not use it unchanged") and the amplification playbook ("reaching for more effects is the opposite of bold"). Read for [`../ux-character.md`](../ux-character.md) |
 | `antipatterns.tsv` | **Extracted by us** from `crates/foundation/src/registry.rs`: all 62 rules with id, category (`slop` or `quality`, 31 each), severity and description |
 
 Not stored: the Rust engine, live mode, native iOS and Android references,

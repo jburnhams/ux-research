@@ -212,6 +212,17 @@ rule("pulse-dot", "slop", "P2", (ctx) =>
   eachClass(ctx, (s, t) => (t.includes("animate-ping") || t.includes("animate-pulse")) && t.includes("rounded-full") && t.some((x) => /^(?:size|h|w)-(?:1|1\.5|2|2\.5|3)$/.test(x)),
     "decorative pulsing 'live' dot: reserve pulse for genuinely live data"));
 
+// --- slop: playful (stock whimsy; ../../../ux-character.md §4). Personality that any product
+// could ship unchanged is the corpus median of "playful", the way indigo is the median of "modern".
+rule("confetti", "slop", "P1", (ctx) =>
+  [...ctx.text.matchAll(/from\s+["'](?:canvas-confetti|react-confetti(?:-explosion)?|js-confetti|party-js|react-rewards|@tsparticles\/confetti|tsparticles-confetti)["']|\bconfetti\(\s*\{/g)]
+    .map((m) => ({ i: m.index, msg: "confetti: celebration out of a box. Match the response to the effort and how rare it is; usually a plain sentence of what happened and what next, at most a moment drawn from the subject" })));
+const WHIMSY = /^(?:oops|whoops|uh[- ]?oh|yay|woo-?hoo|hooray|oh,? snap|aw,? snap|ta-?da|yikes|high five)\b|houston, we have a problem|looks like you(?:'|’)re lost|nothing to see here|it(?:'|’)s (?:a (?:little|bit) )?(?:quiet|lonely|empty) (?:in|around) here|\bcrickets\b|you(?:'|’)re all set!|\b(?:hang|sit) tight\b|grab a coffee|reticulating splines|(?:working|doing) (?:our|its|some|the) magic|sprinkling (?:some )?magic|\bmagic happens\b/i;
+rule("stock-whimsy", "slop", "P1", (ctx) => ctx.texts.filter((t) => WHIMSY.test(t.s)).map((t) => ({ i: t.i, msg: `"${t.s.slice(0, 50)}": stock whimsy. Say what happened in the product's own words; on errors, the problem and the way out, straight-faced` })));
+rule("stock-illustration", "slop", "P1", (ctx) =>
+  [...ctx.text.matchAll(/undraw[._-]|humaaans|open-?peeps|storyset|blush\.design|manypixels|drawkit|lottiefiles\.com|@lottiefiles\//gi)]
+    .map((m) => ({ i: m.index, msg: "stock illustration kit (the Corporate Memphis lineage): draw from the product's own data and objects, or use none" })));
+
 // --- slop: copy
 const BUZZ = /\b(supercharge[sd]?|unlock(?:s|ing)? the power|elevate[sd]? your|empower(?:s|ing)?|seamless(?:ly)?|streamline[sd]?|leverage[sd]?|cutting[- ]edge|world[- ]class|best[- ]in[- ]class|next[- ]gen(?:eration)?|game[- ]chang(?:er|ing)|all[- ]in[- ]one|revolutioni[sz]e|effortless(?:ly)?|unleash|take your \w+ to the next level|build the future of|reimagine[ds]?)\b/i;
 rule("buzzword", "slop", "P1", (ctx) => ctx.texts.filter((t) => BUZZ.test(t.s)).map((t) => ({ i: t.i, msg: `"${t.s.match(BUZZ)[0]}": benefit-speak. Say what the product literally does, for whom` })));
@@ -261,6 +272,10 @@ rule("icon-button-label", "quality", "error", (ctx) => [...ctx.text.matchAll(/<B
 rule("dark-override", "quality", "warn", (ctx) => eachClass(ctx, (s) => new RegExp(`\\bdark:(?:bg|text|border)-(?:${PALETTE}|${NEUTRAL})(?:-\\d{2,3})?\\b`).test(s), "manual dark: colour override: the token is missing. Use semantic tokens (bg-background, text-muted-foreground)"));
 rule("token-bypass", "quality", "warn", (ctx) =>
   ctx.project.themed ? eachClass(ctx, (s, t) => t.some((x) => new RegExp(`^(?:bg|text|border|ring)-(?:${PALETTE.replace("|indigo|violet|purple|fuchsia", "")})-\\d{3}$`).test(x)), (s) => `raw palette colour in a themed project (${s.match(new RegExp(`(?:bg|text|border|ring)-(?:${PALETTE})-\\d{3}`))?.[0]}): use a role token so the theme stays in one place`) : []);
+rule("vague-error", "quality", "warn", (ctx) => ctx.texts.filter((t) => /^(?:something went wrong|an (?:unexpected |unknown )?error (?:has )?occurred|error!?|unknown error)[.!]?$/i.test(t.s)).map((t) => ({ i: t.i, msg: `"${t.s}": say what failed, what it means for the person's work, and what to do next` })));
+rule("sound-without-control", "quality", "warn", (ctx) =>
+  /\bmute|\bmuted\b|sound(?:On|Off|Enabled)|soundEnabled|enableSound|prefersSound/i.test(ctx.text) ? [] :
+    [...ctx.text.matchAll(/\bnew Audio\(|from\s+["'](?:use-sound|howler)["']/g)].map((m) => ({ i: m.index, msg: "interface sound with no off switch in sight: sound is opt-in or easy to mute, and never the only feedback" })));
 rule("autofocus", "quality", "warn", (ctx) => [...ctx.text.matchAll(/\bautoFocus\b/g)].map((m) => ({ i: m.index, msg: "autoFocus: desktop-only, single primary input, with a reason" })));
 
 // ---------------------------------------------------------------- project-level facts

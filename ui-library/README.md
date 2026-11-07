@@ -16,7 +16,8 @@ is the piece). Swap it freely; nothing depends on the name.
 | [`components.md`](./components.md) | The inventory, the API conventions, and a spec for each component: job, props, states, accessibility, and what generated versions get wrong |
 | [`patterns.md`](./patterns.md) | How components compose into screens: the Operate screen shape, figures, tables, charts, forms, destructive actions, async feedback; what Read and Persuade surfaces get |
 | [`agents.md`](./agents.md) | How a coding agent works inside a Plinth project: the rules file, the order of work, the checks, and how the library is maintained |
-| [`examples/`](./examples) | One fictional product end to end: a generated theme, ten components, a dashboard, a form and a state-matrix page, with screenshots |
+| [`character.md`](./character.md) | Where personality goes without becoming stock whimsy: the frequency budget, the moment, voice in components, the checks |
+| [`examples/`](./examples) | One fictional product end to end: a generated theme, eleven components, a dashboard, a form, its completion moment and a state-matrix page, with screenshots |
 
 The docs and the live example are also published as a site (GitHub Pages, built by
 `.github/workflows/pages.yml`), styled with the example's own theme.
@@ -72,6 +73,9 @@ agent cannot forget it.
 | 14 | **Undo before confirm** for reversible removals; confirm dialogs only for what cannot be undone | `ux-product-ui.md` §5 ("confirm or undo window, never immediate"); Vercel WIG | A modal on every delete |
 | 15 | **Agent-facing rules ship with the library** (an `AGENTS.md` block, a lint config, a design-system page) and **comments carry the reasons** | BoardUI's `AGENTS.md`; notboring ("keep the comments, they say why the numbers are what they are"); shadcn's design-system page and coverage check | Rules that live only in a human style guide |
 | 16 | **Checked mechanically, then looked at once**: typecheck, `slop-lint`, palette gates, a render script that fails on console errors, overflow, scroll position and unloaded fonts | `ux-design` skill step 6; `ux-design/skill/references/audit.md` "Robust" | Judging by eye in an unbounded loop |
+| 17 | **Character by frequency** (added 2026-11-07): nothing on actions done 100+ times a day, near-imperceptible feedback (`press`) on those done tens of times, the delight budget only on rare, earned moments, and most character *at rest* in voice and data encodings | Emil Kowalski's frequency gate; Rauno Freiberg; Impeccable `delight` ("delight is saved for moments, not pages"); NN/g's delight hierarchy (`../ux-character.md` §2–§3) | The library's earlier silence, which left Operate products with no place for character; or "make it playful" applied everywhere |
+| 18 | **A completion is a component**: `Done` requires what happened and what next; its optional figure is drawn from the person's data | Impeccable `delight` (success "proportional to the effort"); `../ux-character.md` §5.5 | Confetti, "You're all set!", a stock illustration |
+| 19 | **Colour may encode a fact of the subject** (`LineChart` `colourScale`; product colours such as the example's `--heat-*`), with the reason in DESIGN.md | `../ux-character.md` §5.4; the gradient tells, which are gradients that encode nothing | A single hue forever, or decorative gradients |
 
 Not adopted, and why:
 
@@ -87,7 +91,9 @@ Not adopted, and why:
 - **Expressive (bouncy) motion tokens.** Material recommends them by default; this
   repo's resolution keeps Standard-like damping for Operate surfaces
   (`../ux-material-3.md` §1). A product may add an Expressive spring for one hero
-  moment on a Persuade page, recorded in DESIGN.md.
+  moment on a Persuade page, recorded in DESIGN.md. The character layer (2026-11-07)
+  keeps this: moments use a hard ease-out without overshoot (`--ease-moment`), and
+  an overshooting spring is a product allowance for a subject that actually bounces.
 - **A Figma library first.** Impeccable's evals found image comps of working screens
   scored worse and were less complete than code-led builds
   (`../ux-product-ui.md` §7); the state-matrix page is the visual reference.
@@ -140,10 +146,10 @@ Full specs in [`components.md`](./components.md).
 | Data | DataView (+ `Load<T>`), DataTable, TableSkeleton, EmptyState, Skeleton, LineChart, BarChart | all but BarChart |
 | Page | PageHeader, AppShell (side nav, breadcrumb), Tabs, CommandMenu | PageHeader |
 | Overlays | Dialog, AlertDialog, Sheet, Popover, Menu, Tooltip (Radix, always titled) | none |
-| Feedback | UndoBar + `useUndoable`, Toast (polite live region), Alert | UndoBar |
+| Feedback | UndoBar + `useUndoable`, Toast (polite live region), Alert, Done | UndoBar, Done |
 | Read surfaces | Prose (measure, rhythm), TableOfContents, Callout | none |
 
-Twenty-three components are specified; ten are implemented in the example, chosen
+Twenty-four components are specified; eleven are implemented in the example, chosen
 because they are the ones generated UI gets most wrong. The rest are thin restyles of
 shadcn/Radix components and follow the same conventions.
 
@@ -154,10 +160,11 @@ shadcn/Radix components and follow the same conventions.
 | Namespace reset in `globals.css` | raw palette colours, stock sizes, radii, shadows: they do not compile | [`examples/app/globals.css`](./examples/app/globals.css) |
 | TypeScript | unlabelled icon buttons, data views without empty or loading states, statuses without words, async buttons without a finished label | the component types; demonstrated with a negative check in [`examples/README.md`](./examples/README.md) |
 | `palette.mjs` gates | text contrast, chart separation under colour-vision deficiency, known tell clusters | `../ux-design/skill/scripts/palette.mjs` |
-| `slop-lint --mode operate` | the source-visible tells and quality defects (46 rules) | `../ux-design/skill/scripts/slop-lint.mjs`; the example is linted by `node --test ux-design/tests/*.test.mjs` |
+| `slop-lint --mode operate` | the source-visible tells and quality defects (51 rules) | `../ux-design/skill/scripts/slop-lint.mjs`; the example is linted by `node --test ux-design/tests/*.test.mjs` |
 | Render script | console errors, horizontal overflow at 390px, loading scrolled, fonts not loading, blank pages | [`examples/scripts/render.mjs`](./examples/scripts/render.mjs) |
 | The state-matrix page | anything a reviewer has to see: every component in every state, light and dark | [`examples/screens/system.tsx`](./examples/screens/system.tsx) |
-| A person | whether the screen answers its question, whether the theme belongs to the subject | DESIGN.md review |
+| `slop-lint` playful rules | confetti, stock whimsy copy, stock illustration kits, vague errors, sound with no off switch | [`character.md`](./character.md) §6 |
+| A person | whether the screen answers its question, whether the theme belongs to the subject, whether each touch of character passes the swap and hundredth-time tests | DESIGN.md review |
 
 The render script earned its place while building the example: it caught a 34px
 horizontal overflow on the phone layout, caused by a screen-reader-only table inside
@@ -166,8 +173,11 @@ the chart (a `<table>` ignores `width: 1px`), which no source check would have f
 ## 7. Known limits
 
 - **Designed, not published.** The registry format, `plinth init` and the MCP server
-  are specified here and not built. The ten example components are real code; the
+  are specified here and not built. The eleven example components are real code; the
   other thirteen are specs.
+- **Character is shown at its calm end only.** The example is a shared work tool;
+  no product whose subject is itself playful has been built on Plinth yet
+  ([`character.md`](./character.md) §7).
 - **Status roles are hand-solved.** `palette.mjs` does not generate them; the example's
   values were solved in OKLCH for ≥ 6:1 ink on tint and on the ground with the repo's
   colour library (`../ux-design/skill/scripts/lib/color.mjs`). Adding a `--status`

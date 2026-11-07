@@ -8,12 +8,14 @@ import { AsyncButton, type Phase } from "@/components/ui/async-button";
 import { Button, IconButton } from "@/components/ui/button";
 import { DataTable, TableSkeleton } from "@/components/ui/data-table";
 import { DataView, EmptyState, Skeleton } from "@/components/ui/data-view";
+import { Done } from "@/components/ui/done";
 import { ChoiceGroup, Field, Input, NativeSelect, Textarea } from "@/components/ui/field";
 import { LineChart } from "@/components/ui/line-chart";
 import { PageHeader } from "@/components/ui/page-header";
 import { UndoBar } from "@/components/ui/undo";
 import { Metric, MetricStrip } from "@/components/ui/metric";
 import { Status } from "@/components/ui/status";
+import { heatScale } from "./heat";
 
 function Row({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -167,7 +169,8 @@ export function SystemPage() {
           formatX={(m) => `${m / 60} h`}
           formatY={(c) => `${c.toLocaleString("en-GB")}\u00a0°C`}
           xTicks={[0, 120, 240, 360]}
-          colour="var(--warning)"
+          colourScale={heatScale}
+          colourScaleLabel="coloured as the kiln glows"
           height={200}
         />
       </Row>
@@ -193,13 +196,22 @@ export function SystemPage() {
           {() => null}
         </DataView>
         <DataView
-          state={{ status: "error", message: "The kiln controller has not reported for 20 minutes. Readings may be out of date.", retry: noop }}
+          state={{ status: "error", message: "Kiln 2's controller has not reported since 13:50, so these readings are 20 minutes old. The panel by the kiln-room door shows the live temperature.", retry: noop }}
           isEmpty={() => false}
           skeleton={null}
           empty={null}
         >
           {() => null}
         </DataView>
+      </Row>
+
+      <Row title="Done">
+        <Done
+          focusOnMount={false}
+          title="Booked: 6 pieces in kiln 2's glaze firing on Tuesday"
+          next={<p>Put them on the to-fire shelf, labelled, by 17:00 on Monday. We will message you when they are out.</p>}
+          actions={<Button>Back to the kiln room</Button>}
+        />
       </Row>
 
       <Row title="TableSkeleton">

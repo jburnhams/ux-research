@@ -1,6 +1,6 @@
 ---
 name: ux-design
-description: Design and build React + Tailwind (and shadcn/ui) interfaces that are specific to their subject instead of the generated median ("AI slop"). Use when creating or restyling a page, app screen, dashboard, form, component or design system; when choosing a palette, typeface, theme or motion; when turning a mood, keyword or vibe into a theme; or when someone says a UI looks generic, templated or AI-made. Includes a source linter (slop-lint) and a contrast-solved palette generator (palette).
+description: Design and build React + Tailwind (and shadcn/ui) interfaces that are specific to their subject instead of the generated median ("AI slop"). Use when creating or restyling a page, app screen, dashboard, form, component or design system; when choosing a palette, typeface, theme or motion; when turning a mood, keyword or vibe into a theme; when someone says a UI looks generic, templated or AI-made; or when it is correct but boring and needs personality or playfulness. Includes a source linter (slop-lint) and a contrast-solved palette generator (palette).
 ---
 
 # UX design for React + Tailwind
@@ -77,6 +77,24 @@ including turning moods and vibes into tokens. In short:
    move** (for example a timetable's column rhythm, a transit-map status view). It never
    supplies the layout, the navigation model or the controls, which stay the standard
    ones the user already knows.
+
+## 3b. Give it character
+
+Removing tells leaves an empty page with good manners; character is what goes in
+their place. Read [`references/character.md`](references/character.md). In short:
+
+1. Write the **character sentence** and three or four **voice pairs** ("plain, not
+   cute") in DESIGN.md, and add 3–5 **behaviours** of the subject to the inventory
+   (what physically happens, sounds, rituals).
+2. **Place it by frequency**: nothing on what is used 100+ times a day, a
+   near-imperceptible response on what is used tens of times, the delight budget only
+   on rare, earned moments (first use, a finished piece of work, recovery). On
+   Operate surfaces most character is *at rest*: the subject's words in labels,
+   empties and errors, and the signature (how the main data is drawn, coloured by a
+   fact of the subject where there is one).
+3. **Swap test** every touch: if a neighbouring product could ship it unchanged, it is
+   stock whimsy (confetti, "Oops!", kit illustrations, emoji, bounce), which is the
+   corpus median of "playful". Replace it with something from the subject or remove it.
 
 ## 4. Write the token contract
 
@@ -169,7 +187,10 @@ Operate surfaces: also read [`references/product-ui.md`](references/product-ui.m
    their place is an empty page with good manners, and blind judges prefer the richer
    page *with* tells. If the lint is clean and the page is thin, go back to the
    inventory and add substance (real content, the product's own data, committed type,
-   a real picture), not ornament.
+   a real picture), not ornament. If it is correct but dull, go back to step 3b.
+5. **Character checks**, on the render: the swap test, the hundredth-time test (still
+   welcome the hundredth time?), the bad-day test (still helpful to someone whose work
+   just failed?) and the remove test (slower or less clear without it?).
 
 ## 7. Hand over
 

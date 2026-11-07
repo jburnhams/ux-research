@@ -15,7 +15,12 @@ typography:
   scale: { ratio: 1.2, base: 16px }
 rounded: { control: _px, card: _px, dialog: _px, pill: 9999px }
 spacing: { base: 4px }
-motion: { state: 200ms, spring: { stiffness: 700, damping-ratio: 0.9 }, reduced: "opacity only" }
+motion: { state: 200ms, press: 100ms, moment: 500ms, spring: { stiffness: 700, damping-ratio: 0.9 }, reduced: "opacity only" }
+character:
+  sentence: "[what the person should feel, and why that belongs to this product]"
+  voice: [plain, exact, …]         # each is the first half of a this-but-not-that pair below
+  signature: "[the one thing on the main screen that could only be this product]"
+  moments: [ … ]                   # rare, earned: first use, a finished piece of work, recovery
 ---
 
 ## Overview
@@ -58,6 +63,18 @@ what each is for.]
 ## Motion
 
 [What moves, why, how long; the reduced-motion path.]
+
+## Character
+
+See `references/character.md`.
+
+- **Sentence**: [what the person should feel, and why that belongs to this product]
+- **Voice**, this but not that: [plain, not cute] · [exact, not approximate] · [ … ]
+- **Words**: [the subject's own terms] instead of [the app words they replace]
+- **Behaviours** from the inventory: [what physically happens, sounds, rituals]
+- **Signature**: [concrete; at rest, costs the person no time]
+- **Moments** (rare and earned only): [moment: what it shows, made from what data]
+- **Not here**: [considered and left out, and why]
 
 ## Components
 

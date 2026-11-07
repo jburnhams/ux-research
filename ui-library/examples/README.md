@@ -28,9 +28,11 @@ How the subject became a theme (seeds, face, signature move) is in
 | [`app/theme.generated.css`](./app/theme.generated.css) | `palette.mjs` output, unedited | [`../tokens.md`](../tokens.md) §1, §3 |
 | [`app/globals.css`](./app/globals.css) | Namespace reset, status, surfaces, type, radius, elevation, motion, density, contrast, base | [`../tokens.md`](../tokens.md) |
 | [`lib/utils.ts`](./lib/utils.ts), [`lib/format.ts`](./lib/format.ts) | `cn()` that knows `type-*`; all `Intl` formatting | [`../components.md`](../components.md) §1 |
-| [`components/ui/`](./components/ui) | Button, IconButton, AsyncButton, Field (+ Input, Textarea, NativeSelect, ChoiceGroup), Status, Metric, DataView (+ EmptyState, Skeleton), DataTable, LineChart, PageHeader, UndoBar | [`../components.md`](../components.md) §3 |
+| [`components/ui/`](./components/ui) | Button, IconButton, AsyncButton, Field (+ Input, Textarea, NativeSelect, ChoiceGroup), Status, Metric, DataView (+ EmptyState, Skeleton), DataTable, LineChart (with `colourScale`), PageHeader, UndoBar, Done | [`../components.md`](../components.md) §3 |
 | [`screens/kiln-room.tsx`](./screens/kiln-room.tsx) | The Operate dashboard: question, finding, figures, the signature chart, a table with undoable withdraw | [`../patterns.md`](../patterns.md) §1–§5, §7 |
 | [`screens/book-firing.tsx`](./screens/book-firing.tsx) | The form: Field wiring, specific errors, focus on first error, AsyncButton, unsaved-changes warning | [`../patterns.md`](../patterns.md) §6 |
+| [`screens/booked.tsx`](./screens/booked.tsx), [`screens/shelf-figure.tsx`](./screens/shelf-figure.tsx) | The completion moment: `Done`, with kiln 2 drawn in section and the member's pieces set down on their shelf | [`../character.md`](../character.md) §4 |
+| [`screens/heat.ts`](./screens/heat.ts) | The kiln's glow as a colour scale for the firing chart | [`../character.md`](../character.md) §1 |
 | [`screens/system.tsx`](./screens/system.tsx) | The state-matrix page: every component in every state | [`../agents.md`](../agents.md) §3 |
 | [`screens/sample-data.ts`](./screens/sample-data.ts) | Sample data shaped like a real firing; totals computed, not typed | [`../patterns.md`](../patterns.md) §3 |
 | [`scripts/render.mjs`](./scripts/render.mjs), [`scripts/entry.tsx`](./scripts/entry.tsx) | Build, screenshot, and the audit's mechanical render checks | [`../README.md`](../README.md) §6 |
@@ -43,9 +45,12 @@ How the subject became a theme (seeds, face, signature move) is in
 | Kiln room | [1440](./renders/kiln-room-light-1440.png) | [1440](./renders/kiln-room-dark-1440.png) | [390](./renders/kiln-room-light-390.png) |
 | Kiln room, loading | [1440](./renders/kiln-room-loading-light-1440.png) | | |
 | Book a firing, with errors | [1440](./renders/book-errors-light-1440.png) | | [390, dark](./renders/book-errors-dark-390.png) |
+| Booked (the completion moment) | [1440](./renders/booked-light-1440.png) | | [390, dark](./renders/booked-dark-390.png) |
 | Components and states | [1280](./renders/system-light-1280.png) | [1280](./renders/system-dark-1280.png) | |
 
 ![The kiln room, light, 1440px](./renders/kiln-room-light-1440.png)
+
+![Booked: the member's pieces set down on kiln 2's middle shelf, light, 1440px](./renders/booked-light-1440.png)
 
 ## Running the checks
 
@@ -53,7 +58,7 @@ How the subject became a theme (seeds, face, signature move) is in
 cd ui-library/examples
 npm install
 npm run check    # tsc --noEmit · tailwindcss compile · slop-lint (operate mode)
-npm run render   # build with esbuild, screenshot 8 views, fail on console errors,
+npm run render   # build with esbuild, screenshot 10 views, fail on console errors,
                  # horizontal overflow, scrolled load, unloaded font or blank page
 npm run site     # the GitHub Pages site in dist/site: the docs, styled with this
                  # theme, plus the live demo and the screenshots
