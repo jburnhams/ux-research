@@ -6,6 +6,24 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-07
 
+**More colour in the kiln room**, on branch `claude/project-thread-l74ku1` (a fresh
+branch from `main` after PR #4 merged). Jonathan found the playful pass too subtle and
+asked for more colour and visual flair. All of it is drawn from the subject, so it
+stays within `ux-character.md`.
+
+- `ui-library/examples/app/theme.generated.css`: regenerated from a deeper celadon seed,
+  `#4d7a52` (primary chroma 0.079, up from 0.038); 42 checks pass. `globals.css`: the
+  contrast-more inks re-taken from the new seed; seven `--glaze-*` tokens; a display
+  face (Archivo, wdth 125, weight 800) on `type-title`, now 28px.
+- **New** `screens/kiln-strip.tsx`: the three kilns side by side, replacing the plain
+  metric strip on the kiln room. Each shows its state, its figure, a temperature trace in
+  the glow colours, and a glaze tile per booking. **New** `screens/glaze-tile.tsx`: a
+  test-tile swatch, used beside each firing in the table ("Celadon, cone 6").
+- `screens/sample-data.ts`: bookings carry a glaze. `scripts/entry.tsx` loads Archivo;
+  `scripts/render.mjs` checks that it loaded. `package.json`: `@fontsource-variable/archivo`.
+- `DESIGN.md`, `ui-library/tokens.md`: the new seed, the glazes, the display face and
+  the strip, with reasons. All screenshots re-rendered.
+
 **Character without slop: making the output playful while function stays first**, on
 branch `claude/project-thread-l74ku1`. Asked why the docs and library read as boring
 and how to make them interesting and playful without losing the focus on function or

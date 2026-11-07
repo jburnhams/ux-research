@@ -11,12 +11,13 @@ import { Button } from "@/components/ui/button";
 import { DataTable, TableSkeleton, type Column } from "@/components/ui/data-table";
 import { DataView, EmptyState, type Load } from "@/components/ui/data-view";
 import { LineChart } from "@/components/ui/line-chart";
-import { Metric, MetricStrip } from "@/components/ui/metric";
 import { PageHeader } from "@/components/ui/page-header";
 import { Status, type Tone } from "@/components/ui/status";
 import { UndoBar, useUndoable } from "@/components/ui/undo";
 import { celsius, clock, day, integer } from "@/lib/format";
 import { heatScale } from "./heat";
+import { GlazeLabel } from "./glaze-tile";
+import { KilnStrip } from "./kiln-strip";
 import {
   NOW_MIN,
   SAFE_TO_OPEN_C,
@@ -25,6 +26,7 @@ import {
   planned,
   readings,
   safeAtMin,
+  glazeNames,
   type Booking,
   type KilnState,
 } from "./sample-data";
@@ -72,7 +74,13 @@ export function KilnRoom({ load }: { load: Load<Booking[]> }) {
     { key: "member", header: "Member", cell: (r) => r.member, truncate: true, sort: (a, b) => a.member.localeCompare(b.member) },
     { key: "pieces", header: "Pieces", numeric: true, cell: (r) => integer.format(r.pieces), sort: (a, b) => a.pieces - b.pieces },
     { key: "kiln", header: "Kiln", numeric: true, cell: (r) => r.kiln, sort: (a, b) => a.kiln - b.kiln },
-    { key: "firing", header: "Firing", cell: (r) => r.firing, className: "whitespace-nowrap" },
+    {
+      key: "firing",
+      header: "Firing",
+      // The glaze's test tile beside the firing, so a member finds their work by its colour.
+      cell: (r) => <GlazeLabel glaze={r.glaze}>{r.firing.replace(/^Glaze\b/, glazeNames[r.glaze])}</GlazeLabel>,
+      className: "whitespace-nowrap",
+    },
     {
       key: "state",
       header: "Status",
@@ -123,15 +131,34 @@ export function KilnRoom({ load }: { load: Load<Booking[]> }) {
         }}
       />
 
-      <MetricStrip label="Kilns right now">
-        <Metric label="Kiln 2 temperature" value={integer.format(now.y)} unit="°C" note={`Safe to open below ${celsius(SAFE_TO_OPEN_C)}`} />
-        <Metric label="Pieces waiting in kiln 2" value={integer.format(piecesInKiln2)} note={`From ${inKiln2.length} members`} />
-        <Metric
-          label="Kiln 1 shelves booked for Friday"
-          value={`${kiln1Shelves.booked} of ${kiln1Shelves.total}`}
-          note="Bookings close today at 17:00"
-        />
-      </MetricStrip>
+      <KilnStrip
+        kilns={[
+          {
+            name: "Kiln 1, large electric",
+            status: states.loading,
+            figure: `${kiln1Shelves.booked} of ${kiln1Shelves.total}`,
+            unit: "shelves",
+            note: "Friday's bisque. Bookings close today at 17:00.",
+            glazes: visible.filter((r) => r.kiln === 1 && r.state !== "ready").map((r) => ({ glaze: r.glaze, who: r.member })),
+          },
+          {
+            name: "Kiln 2, small electric",
+            status: states.cooling,
+            figure: integer.format(now.y),
+            unit: "°C",
+            readings,
+            note: `Safe to open at about ${safeAt}. ${integer.format(piecesInKiln2)} pieces from ${inKiln2.length} members.`,
+            glazes: inKiln2.map((r) => ({ glaze: r.glaze, who: r.member })),
+          },
+          {
+            name: "Kiln 3, raku",
+            status: { ...states.booked, label: "Cold" },
+            figure: "Saturday",
+            note: "Raku in the yard; you take part in the firing.",
+            glazes: visible.filter((r) => r.kiln === 3).map((r) => ({ glaze: r.glaze, who: r.member })),
+          },
+        ]}
+      />
 
       <section aria-labelledby="firing" className="grid gap-3">
         <div className="grid gap-0.5">

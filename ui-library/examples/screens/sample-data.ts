@@ -54,25 +54,38 @@ export const minuteToDate = (m: number) => new Date(FIRING_START.getTime() + m *
 
 export type KilnState = "booked" | "loading" | "firing" | "cooling" | "ready" | "fault";
 
+/** The co-op's glazes, as on the test tiles by the kiln-room door. Bisque is unglazed. */
+export type Glaze = "celadon" | "tenmoku" | "shino" | "cobalt" | "copper-red" | "bisque" | "raku";
+export const glazeNames: Record<Glaze, string> = {
+  celadon: "Celadon",
+  tenmoku: "Tenmoku",
+  shino: "Shino",
+  cobalt: "Cobalt blue",
+  "copper-red": "Copper red",
+  bisque: "Unglazed",
+  raku: "Raku crackle",
+};
+
 export type Booking = {
   id: string;
   member: string;
   pieces: number;
   kiln: 1 | 2 | 3;
   firing: string;
+  glaze: Glaze;
   state: KilnState;
   out: string;
 };
 
 export const bookings: Booking[] = [
-  { id: "b-2041", member: "Priya Natarajan", pieces: 6, kiln: 2, firing: "Glaze, cone 6", state: "cooling", out: "Today, about 14:50" },
-  { id: "b-2042", member: "Tom Ellery", pieces: 3, kiln: 2, firing: "Glaze, cone 6", state: "cooling", out: "Today, about 14:50" },
-  { id: "b-2043", member: "Aoife Byrne", pieces: 2, kiln: 2, firing: "Glaze, cone 6", state: "cooling", out: "Today, about 14:50" },
-  { id: "b-2044", member: "Sam Okafor", pieces: 3, kiln: 2, firing: "Glaze, cone 6", state: "cooling", out: "Today, about 14:50" },
-  { id: "b-2050", member: "Marta Kowalczyk", pieces: 11, kiln: 1, firing: "Bisque, cone 04", state: "loading", out: "Saturday after 10:00" },
-  { id: "b-2051", member: "Dev Raman", pieces: 8, kiln: 1, firing: "Bisque, cone 04", state: "booked", out: "Saturday after 10:00" },
-  { id: "b-2055", member: "Hannah Lowe", pieces: 4, kiln: 3, firing: "Raku", state: "booked", out: "Saturday, during the firing" },
-  { id: "b-2033", member: "Joe Pryce", pieces: 5, kiln: 1, firing: "Bisque, cone 04", state: "ready", out: "Ready since Tuesday" },
+  { id: "b-2041", member: "Priya Natarajan", pieces: 6, kiln: 2, firing: "Glaze, cone 6", glaze: "celadon", state: "cooling", out: "Today, about 14:50" },
+  { id: "b-2042", member: "Tom Ellery", pieces: 3, kiln: 2, firing: "Glaze, cone 6", glaze: "tenmoku", state: "cooling", out: "Today, about 14:50" },
+  { id: "b-2043", member: "Aoife Byrne", pieces: 2, kiln: 2, firing: "Glaze, cone 6", glaze: "shino", state: "cooling", out: "Today, about 14:50" },
+  { id: "b-2044", member: "Sam Okafor", pieces: 3, kiln: 2, firing: "Glaze, cone 6", glaze: "cobalt", state: "cooling", out: "Today, about 14:50" },
+  { id: "b-2050", member: "Marta Kowalczyk", pieces: 11, kiln: 1, firing: "Bisque, cone 04", glaze: "bisque", state: "loading", out: "Saturday after 10:00" },
+  { id: "b-2051", member: "Dev Raman", pieces: 8, kiln: 1, firing: "Bisque, cone 04", glaze: "bisque", state: "booked", out: "Saturday after 10:00" },
+  { id: "b-2055", member: "Hannah Lowe", pieces: 4, kiln: 3, firing: "Raku", glaze: "raku", state: "booked", out: "Saturday, during the firing" },
+  { id: "b-2033", member: "Joe Pryce", pieces: 5, kiln: 1, firing: "Bisque, cone 04", glaze: "bisque", state: "ready", out: "Ready since Tuesday" },
 ];
 
 export const kiln1Shelves = { booked: 9, total: 14 };
