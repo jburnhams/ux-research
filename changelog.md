@@ -6,7 +6,7 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-07
 
-**Record strata-react's keyboard triage pattern** (branch `claude/project-thread-9k96br`). strata-react issue #7 asked for single-key shortcuts and an active-item list for screens that clear a queue; it is built there, and this records it as an extension of the design, following the frequency budget in `character.md`.
+**Record strata-react's keyboard triage pattern** (branch `claude/project-thread-9k96br`, PR #8; strata-react PR #18). strata-react issue #7 asked for single-key shortcuts and an active-item list for screens that clear a queue; it is built there, and this records it as an extension of the design, following the frequency budget in `character.md`.
 
 - `ui-library/components.md`: an inventory row and **new** §3.16 Keyboard triage (`useHotkeys`, `KeysLegend`, `useActiveItem`, `ActiveList`): one shortcut list drives the handler and the legend, the typing and chord rules (WCAG 2.1.4), focus moving on after an answer, and what generated versions get wrong.
 - `ui-library/README.md`: §8 maps the pattern to strata-react as an extension of the design.
