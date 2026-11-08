@@ -154,10 +154,10 @@ Full specs in [`components.md`](./components.md).
 
 | Group | Components | Built in strata-react |
 |---|---|---|
-| Actions | Button, IconButton, AsyncButton, `useAsyncAction` | all |
-| Form | Field, Input, Textarea, NativeSelect, ChoiceGroup, Checkbox, Switch, ToggleGroup | Field, Input, Textarea, NativeSelect, ChoiceGroup |
+| Actions | Button, IconButton, RowAction, AsyncButton, `useAsyncAction` | all |
+| Form | Field, Input, Textarea, NativeSelect, ChoiceGroup, Checkbox, Switch, ToggleGroup | all but Switch and ToggleGroup |
 | Status and figures | Status, Metric, MetricStrip | all |
-| Data | DataView (+ `Load<T>`, `useLoad`), DataTable, TableSkeleton, EmptyState, Skeleton, VirtualList, LineChart, BarChart | all but BarChart |
+| Data | DataView (+ `Load<T>`, `useLoad`), DataTable (+ row selection, `useSelection`, BulkBar), TableSkeleton, EmptyState, Skeleton, VirtualList, LineChart, BarChart | all but BarChart |
 | Page | PageHeader, AppShell (side nav, breadcrumb), Tabs, CommandMenu | all but CommandMenu |
 | Overlays | Dialog, AlertDialog, Sheet, Popover, Menu, Tooltip (Radix, always titled) | none |
 | Feedback | UndoBar + `useUndoable`, Toast (polite live region), Alert, Done | UndoBar, Done |
@@ -226,6 +226,7 @@ the chart (a `<table>` ignores `width: 1px`), which no source check would have f
 | §6 enforcement | Storybook, unit tests with MSW, visual baselines in CI, TypeDoc API reference from TSDoc on every export | adds the visual and unit layers the design left to the example |
 | [`agents.md`](./agents.md) rules | strata-react's own `CLAUDE.md` holds the rules for building the library; the block in `agents.md` is for products built on it | as designed |
 | [`character.md`](./character.md) frequency budget | `press` and `transition-state` utilities, `enter-moment`, `Done` | as designed |
+| Keyboard flow on Operate screens (not in the design) | `useHotkeys`, `KeysLegend`, `useActiveItem`, `ActiveList` ([`components.md` §3.16](./components.md#316-keyboard-triage)) | extends the design, from an app built on it |
 
 Where to look: the [docs site](https://jburnhams.github.io/strata-react/) (Storybook, API
 reference, baselines gallery), the [repository](https://github.com/jburnhams/strata-react)
