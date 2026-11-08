@@ -4,6 +4,13 @@ All notable changes to this repository, grouped by day, newest first. Backfilled
 git history on 2026-11-02 and kept up to date with every change since (see
 [`CLAUDE.md`](./CLAUDE.md)).
 
+## 2026-11-08
+
+**Record Thumbnail as built in strata-react** (branch `claude/project-thread-vlns5m`). strata-react issue #33, raised while porting the Bright Horizons review app, asked for a lazy image with a fixed aspect ratio, a skeleton and a named fallback for crops that 404. It is built in strata-react on the same branch; this records it against the DataView spec it extends.
+
+- `ui-library/components.md`: §3.6 gains Thumbnail and ThumbnailSkeleton (the four DataView states for one image, required `alt` and `missing`, loading on approach, no fade-in by the character-by-frequency rule); the inventory table lists them.
+- `ui-library/README.md`: the inventory's Data row includes Thumbnail.
+
 ## 2026-11-07
 
 **Record row selection, BulkBar, Checkbox and RowAction as built in strata-react** (branch `claude/project-thread-pkwejq`). strata-react issue #11 (raised from strata-listory) asked for row selection and named row actions on `DataTable`; they were built in strata-react PR #20, and this records where that follows and departs from the spec here.

@@ -53,6 +53,7 @@ here and follow the same conventions.
 | Status | `<span>` | example | [§3.4](#34-status) |
 | Metric, MetricStrip | `<dl>` | example | [§3.5](#35-metric-and-metricstrip) |
 | DataView, `Load<T>`, EmptyState, Skeleton | – | example | [§3.6](#36-dataview-emptystate-skeleton) |
+| Thumbnail, ThumbnailSkeleton | `<img>`, IntersectionObserver | strata-react | [§3.6](#36-dataview-emptystate-skeleton) |
 | DataTable, TableSkeleton | `<table>` | example | [§3.7](#37-datatable) |
 | RowAction, `useSelection`, BulkBar | Button, live region | strata-react | [§3.7](#37-datatable) |
 | LineChart | SVG | example | [§3.8](#38-linechart-and-barchart) |
@@ -180,6 +181,14 @@ here and follow the same conventions.
 - **EmptyState** takes `title`, a sentence, and an action. There is no illustration
   slot: an empty state teaches the next action. For an empty *chart*, draw the zero
   line and one sentence in the frame instead.
+- **Thumbnail** (built in strata-react, issue #33) is the same four states for one remote
+  image: a box with its `aspect` ratio before anything loads (no layout shift), a
+  `Skeleton` while it loads, the photo, and on failure or `src={null}` the required
+  `missing` words ("Photo not found") as an `img` named "<alt>: <missing>", never the
+  browser's broken-image icon. `alt` is required. The request waits until the box nears the
+  screen (the same IntersectionObserver hook as InfiniteList's sentinel) and the photo
+  replaces its skeleton without a fade, since thumbnails are seen many times a day.
+  `ThumbnailSkeleton` is its shape for a DataView skeleton.
 - Other data-view states a product still has to design: zero (a real zero is not
   "empty"), sparse, dense, and very long strings (`min-w-0`, `truncate`).
 
