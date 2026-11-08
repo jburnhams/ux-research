@@ -6,7 +6,7 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-08
 
-**Record the date and date-time formatters built in strata-react** (branch `claude/project-thread-2h7kpg`). strata-react issue #31, from porting the Bright Horizons review app, asked for a date-with-time formatter because the History screen had built its own `Intl.DateTimeFormat`; strata-react added `format.date` and `format.dateTime` and made every date formatter callable with a Date, ISO string or epoch milliseconds. This follows the rule here that numbers and dates go through `format`, and names the formatter so agents stop hand-building one.
+**Record the date and date-time formatters built in strata-react** (branch `claude/project-thread-2h7kpg`, PR #12; strata-react PR #36). strata-react issue #31, from porting the Bright Horizons review app, asked for a date-with-time formatter because the History screen had built its own `Intl.DateTimeFormat`; strata-react added `format.date` and `format.dateTime` and made every date formatter callable with a Date, ISO string or epoch milliseconds. This follows the rule here that numbers and dates go through `format`, and names the formatter so agents stop hand-building one.
 
 - `ui-library/components.md`: rule 7 names the date formatters and when each is used.
 - `ui-library/agents.md`: rule 7 says a history row is `format.dateTime(row.at)` and forbids an `Intl.DateTimeFormat` in a screen.
