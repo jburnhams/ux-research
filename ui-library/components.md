@@ -55,6 +55,7 @@ here and follow the same conventions.
 | DataView, `Load<T>`, EmptyState, Skeleton | – | example | [§3.6](#36-dataview-emptystate-skeleton) |
 | DataTable, TableSkeleton | `<table>` | example | [§3.7](#37-datatable) |
 | RowAction, `useSelection`, BulkBar | Button, live region | strata-react | [§3.7](#37-datatable) |
+| Disclosure, `useExpanded`, DataTable `expansion` | `<button aria-expanded>` | strata-react | [§3.17](#317-disclosure-and-expandable-rows) |
 | LineChart | SVG | example | [§3.8](#38-linechart-and-barchart) |
 | BarChart | SVG | spec | [§3.8](#38-linechart-and-barchart) |
 | PageHeader | – | example | [§3.9](#39-pageheader) |
@@ -209,6 +210,8 @@ here and follow the same conventions.
   `BulkBar` holds the count in a polite live region of its own, the actions (one filled,
   named with its count: "Withdraw 2") and Clear selection. A reversible bulk removal goes
   through `useUndoable`, as a single one does.
+- **Expandable rows** (built in strata-react, issue #34) are opt-in through `expansion`;
+  see [§3.17](#317-disclosure-and-expandable-rows).
 - **Generated versions get wrong**: uppercase tracked headers; zebra rows; checkbox,
   avatar, chip and kebab on every row; left-aligned proportional numbers.
 
@@ -353,3 +356,40 @@ one key and an instant change.
 - **Generated versions get wrong**: shortcuts that fire while typing in a search box;
   a legend kept by hand that drifts from the handler; focus dropped to `<body>` after
   an answer, so the next key does nothing; the active row shown by colour alone.
+
+### 3.17 Disclosure and expandable rows
+
+[`disclosure.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/components/disclosure.tsx),
+[`data-table.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/components/data-table.tsx)
+
+Added in strata-react for a row that shows more of itself in place (a batch's faces under
+it in a history list, a firing's pieces under its line in the log), raised from the Bright
+Horizons review app, which had written its own `<details>` (strata-react issue #34).
+
+- **Not `<details>`.** A closed `<details>` still mounts its content, so a list of forty
+  rows whose bodies each load their own data makes forty requests on load. `Disclosure`
+  mounts its body only while open: a `useLoad` in the body runs on first open, and the
+  query cache answers a later one. The body owns its loading, empty and error states
+  through `DataView`, inside the open row, so one failed detail does not take the list
+  down.
+- The trigger is a native button with `aria-expanded`, and `aria-controls` while the
+  body exists (WAI-ARIA disclosure pattern). The summary is the button's name, so it
+  holds text and marks, never controls; a row's action sits beside it (`actions`). Focus
+  stays on the button through open and close.
+- **`useExpanded`** holds the open keys for a whole list or table, and with `param`
+  keeps them in the URL (`?open=f-0411`, one parameter per key), so an opened row can be
+  linked and survives a reload (the URL rule in [`patterns.md`](./patterns.md) and §3.12). `single` makes an accordion;
+  it is off by default because people compare two rows.
+- **In a table**, `DataTable`'s `expansion` adds a toggle column (header kept for screen
+  readers as "Details"). Each toggle is named for what it shows ("Work in Bisque, cone 04
+  in Kiln 1, Mon 06:05"), with the state in `aria-expanded`, not the name. The detail is a
+  row under its row with no rule between them, spanning the data columns so it starts
+  under the first; `isExpandable` drops the toggle from rows with nothing to show. A
+  virtualised table measures each detail row.
+- **No height animation.** Emil Kowalski's recipes give accordions a height transition,
+  but rows in a list are opened tens of times a session, which [`character.md`](./character.md)
+  §5.3 puts at "near-imperceptible" or none. Only the chevron turns.
+- **Generated versions get wrong**: `<details>` or a hidden `div` that mounts every body
+  and fires every request on load; a chevron `div` with a click handler and no button;
+  toggles all called "Expand"; buttons nested inside the summary; open state lost on
+  reload.

@@ -4,6 +4,13 @@ All notable changes to this repository, grouped by day, newest first. Backfilled
 git history on 2026-11-02 and kept up to date with every change since (see
 [`CLAUDE.md`](./CLAUDE.md)).
 
+## 2026-11-08
+
+**Record Disclosure and expandable table rows as built in strata-react** (branch `claude/project-thread-d9xjs0`). strata-react issue #34 (from the Bright Horizons port) asked for a disclosure with a summary slot and a lazily loaded body, in place of each app's own `<details>`; it is built in strata-react as `Disclosure`, `useExpanded` and `DataTable`'s `expansion`, and this records it as an extension of the design.
+
+- `ui-library/components.md`: an inventory row, a pointer from §3.7 DataTable, and **new** §3.17 Disclosure and expandable rows: why not `<details>` (it mounts every closed body, so every row's request runs on load), the button and naming rules, open keys in the URL through `useExpanded`, the table's detail row, and why there is no height animation despite Emil Kowalski's accordion recipe (the frequency budget in `character.md` §5.3).
+- `ui-library/README.md`: the inventory's Data row lists expandable rows and Disclosure, and §8's URL row names `useExpanded({ param })`.
+
 ## 2026-11-07
 
 **Record row selection, BulkBar, Checkbox and RowAction as built in strata-react** (branch `claude/project-thread-pkwejq`). strata-react issue #11 (raised from strata-listory) asked for row selection and named row actions on `DataTable`; they were built in strata-react PR #20, and this records where that follows and departs from the spec here.
