@@ -6,6 +6,11 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-08
 
+**Record Disclosure and expandable table rows as built in strata-react** (branch `claude/project-thread-d9xjs0`, PR #16). strata-react issue #34 (from the Bright Horizons port) asked for a disclosure with a summary slot and a lazily loaded body, in place of each app's own `<details>`; it is built in strata-react as `Disclosure`, `useExpanded` and `DataTable`'s `expansion`, and this records it as an extension of the design.
+
+- `ui-library/components.md`: an inventory row, a pointer from §3.7 DataTable, and **new** §3.18 Disclosure and expandable rows (numbered 3.18 when merged, after §3.17 Status dashboards): why not `<details>` (it mounts every closed body, so every row's request runs on load), the button and naming rules, open keys in the URL through `useExpanded`, the table's detail row, and why there is no height animation despite Emil Kowalski's accordion recipe (the frequency budget in `character.md` §5.3).
+- `ui-library/README.md`: the inventory's Data row lists expandable rows and Disclosure, and §8's URL row names `useExpanded({ param })`.
+
 **Record the stale state of `DataView` as built in strata-react** (branch `claude/project-thread-vqq9vb`). strata-react issue #26 found that a refetch failing after a good read turned a polling dashboard into an error panel, because TanStack Query keeps the data but sets the query's status to error and `toLoad` mapped that to `Load`'s error. strata-react now keeps the data with a `stale` reason; this records the new state in the spec it implements.
 
 - `ui-library/components.md`: §3.6 gains the **stale** state (`Load`'s ready carries an optional `stale`; `DataView` shows a polite `StaleNotice` with the reason, the time the data was read and Try again; screens can pass their own words), and says only a read that never produced data is an error. The reasons cite `taste-skill/references/app-screens.md`, which already said a refresh keeps the old values and an error says when the data was last good; the earlier spec had no state for that.
