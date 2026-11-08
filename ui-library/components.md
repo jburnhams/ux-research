@@ -176,12 +176,23 @@ here and follow the same conventions.
 [`data-view.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/components/data-view.tsx)
 
 - `Load<T>` is `{ status: "loading" } | { status: "error"; message; retry } |
-  { status: "ready"; data }`. **DataView** takes `state`, `isEmpty`, `skeleton`,
+  { status: "ready"; data; stale? }`. **DataView** takes `state`, `isEmpty`, `skeleton`,
   `empty` and a render function for the data; `skeleton` and `empty` are required.
 - **Loading**: a skeleton that mirrors the final layout (`TableSkeleton` for tables),
   `aria-busy` on the container, never a spinner in the middle of content.
 - **Error**: `role="alert"`, the message in plain words, and a "Try again" that calls
-  `retry`.
+  `retry`. Only a read that never produced data is an error.
+- **Stale**: a refresh that fails after a good read keeps the data on screen. `stale`
+  carries the reason, when the data was read and a retry, and `DataView` shows a
+  `StaleNotice` above the data: a polite status (not an alert, since nothing was lost),
+  the reason, "Showing data from 13:50." (the weekday too when it was not today) and Try
+  again. A screen with readings passes its own words ("These readings are from 13:50.").
+  Replacing a dashboard with an error panel on one failed poll throws away numbers the
+  person was using; failing silently lets them act on old numbers as live. Follows
+  [`taste-skill` app-screens](../taste-skill/references/app-screens.md) (a refresh keeps
+  the old values; an error says when the data was last good). Added in strata-react
+  issue #26, found when a polling dashboard (jburnhams/homepage) went blank on a failed
+  refetch, because TanStack Query keeps the data but sets the query's status to error.
 - **EmptyState** takes `title`, a sentence, and an action. There is no illustration
   slot: an empty state teaches the next action. For an empty *chart*, draw the zero
   line and one sentence in the frame instead.

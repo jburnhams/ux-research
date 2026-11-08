@@ -6,6 +6,11 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-08
 
+**Record the stale state of `DataView` as built in strata-react** (branch `claude/project-thread-vqq9vb`). strata-react issue #26 found that a refetch failing after a good read turned a polling dashboard into an error panel, because TanStack Query keeps the data but sets the query's status to error and `toLoad` mapped that to `Load`'s error. strata-react now keeps the data with a `stale` reason; this records the new state in the spec it implements.
+
+- `ui-library/components.md`: §3.6 gains the **stale** state (`Load`'s ready carries an optional `stale`; `DataView` shows a polite `StaleNotice` with the reason, the time the data was read and Try again; screens can pass their own words), and says only a read that never produced data is an error. The reasons cite `taste-skill/references/app-screens.md`, which already said a refresh keeps the old values and an error says when the data was last good; the earlier spec had no state for that.
+- `ui-library/README.md`: §8 gains a row mapping the stale state to `toLoad` and `useInfiniteLoad`.
+
 **Record Thumbnail as built in strata-react** (branch `claude/project-thread-vlns5m`). strata-react issue #33, raised while porting the Bright Horizons review app, asked for a lazy image with a fixed aspect ratio, a skeleton and a named fallback for crops that 404. It is built in strata-react on the same branch; this records it against the DataView spec it extends.
 
 - `ui-library/components.md`: §3.6 gains Thumbnail and ThumbnailSkeleton (the four DataView states for one image, required `alt` and `missing`, loading on approach, no fade-in by the character-by-frequency rule); the inventory table lists them.
