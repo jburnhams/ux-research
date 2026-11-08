@@ -6,6 +6,10 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-07
 
+**Status dashboard components, from strata-react** (branch `claude/project-thread-4qi9pb`, PR #11). strata-react issue #25 asked for a usage bar with thresholds, a composition bar with a table, a destination card and a compact Appearance control, after jburnhams/homepage hand-rolled them; strata-react PR #29 builds them as `Meter`, `CompositionBar`, `LinkCard` and `ColorSchemeChoice compact`. They follow rules already set out here rather than adding new findings, so this records how they apply.
+
+- `ui-library/components.md`: **new** §3.17 "Status dashboards" (numbered 3.17 when merged, because §3.16 is Keyboard triage) and an inventory row. It covers the meter role and value text, named thresholds shown as status words, the composition bar's table and five-token limit, the one-link card, and the compact three-way colour-scheme choice.
+
 **LineChart y-axis pins and thinning x labels, from strata-react** (branch `claude/project-thread-jaj9fq`). strata-react issue #23 asked for `yMax` (and maybe `yMin`) so a percentage chart does not autoscale a near-idle machine into a busy-looking one; the strata-react change also fixes the kiln chart's x labels overlapping at phone width.
 
 - `ui-library/components.md` §3.8: adds the y-axis rule (zero to a nice maximum by default, `yMin`/`yMax` for a range that is a fact of the subject, a pin never crops a reading) and the x labels thinning evenly when they would collide. The section did not say before where the y-axis starts.
