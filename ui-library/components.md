@@ -34,7 +34,9 @@ here and follow the same conventions.
    are").
 7. **Numbers go through `lib/format.ts`** (`Intl.NumberFormat`, `Intl.DateTimeFormat`,
    a non-breaking space before units). Quantities are right-aligned with
-   `tabular-nums`.
+   `tabular-nums`. Dates have named formatters for each use (`clock`, `day`, `shortDay`,
+   `date`, `dateTime`) in Intl's locale-ordered styles, callable with a Date or an ISO
+   string, so a screen never builds its own `Intl.DateTimeFormat` (strata-react issue #31).
 8. **Copy inside components is specific.** Default labels say what happens ("Try
    again", "Undo", "Withdraw"), use sentence case, and carry the same verb through
    ("Book firing", "Booking…", "Booked").
@@ -56,6 +58,7 @@ here and follow the same conventions.
 | Thumbnail, ThumbnailSkeleton | `<img>`, IntersectionObserver | strata-react | [§3.6](#36-dataview-emptystate-skeleton) |
 | DataTable, TableSkeleton | `<table>` | example | [§3.7](#37-datatable) |
 | RowAction, `useSelection`, BulkBar | Button, live region | strata-react | [§3.7](#37-datatable) |
+| SelectableGrid | native checkboxes in labels | strata-react | [§3.7](#37-datatable) |
 | LineChart | SVG | example | [§3.8](#38-linechart-and-barchart) |
 | BarChart | SVG | spec | [§3.8](#38-linechart-and-barchart) |
 | PageHeader | – | example | [§3.9](#39-pageheader) |
@@ -66,6 +69,7 @@ here and follow the same conventions.
 | Toast, Alert | live region | spec | [§3.13](#313-toast-and-alert) |
 | Prose, TableOfContents, Callout | – | spec | [§3.14](#314-read-surfaces) |
 | Done | – | example | [§3.15](#315-done) |
+| Meter, CompositionBar, LinkCard, compact ColorSchemeChoice | `role="meter"`, `<table>`, `<a>`, native radios | strata-react | [§3.17](#317-status-dashboards) |
 
 ## 3. Specs
 
@@ -218,6 +222,20 @@ here and follow the same conventions.
   `BulkBar` holds the count in a polite live region of its own, the actions (one filled,
   named with its count: "Withdraw 2") and Clear selection. A reversible bulk removal goes
   through `useUndoable`, as a single one does.
+- **Ranges and a starting selection** (strata-react issue #32). Shift-click, or
+  Shift+Space from the keyboard, sets every selectable row from the last one clicked to
+  this one to this row's new state, in the order shown (after sorting), as Gmail and the
+  macOS Finder do; a plain click moves the anchor. `useSelection`'s `initial` (keys, or
+  a test on the row) chooses a row the first time it appears, so rows pre-chosen from
+  the data (likely matches, flagged items) still start chosen when the data loads after
+  mount or a next page arrives, and a row the person cleared is not chosen again.
+- **SelectableGrid** (strata-react issue #32, from a review screen of face crops) is
+  the same selection drawn as a grid of pictures, for choosing by eye. Each tile is one
+  label (picture, box, one detail line), so a click anywhere on the picture toggles it,
+  as photo apps work; the box sits on a chip of the page ground so it shows on any
+  photo and is named from the row. Pictures sit in a fixed-aspect frame so nothing
+  shifts as they load. "Select all shown", ranges and virtualisation from 100 items
+  behave exactly as the table's, because both use one hook.
 - **Generated versions get wrong**: uppercase tracked headers; zebra rows; checkbox,
   avatar, chip and kebab on every row; left-aligned proportional numbers.
 
@@ -233,6 +251,14 @@ here and follow the same conventions.
   data. All readings are in a screen-reader table.
 - It draws in real pixels measured with `ResizeObserver`, so 12px labels stay 12px on
   a phone instead of shrinking with a scaled `viewBox`.
+- The y-axis runs from zero (lower only for a negative reading) to a nice maximum.
+  `yMin`/`yMax` (added 2026-11-07, strata-react issue #23) pin either end where the range
+  is a fact of the subject: a percentage is 0 to 100%, so a machine at 1% CPU sits on the
+  floor instead of filling an autoscaled 0 to 8% axis and looking busy. A pin widens to
+  show a reading past it; it never crops one.
+- Because labels keep their size, the x labels thin themselves (every second, third…
+  tick, so the spacing stays even) when they would collide, and the end labels stay
+  inside the plot. The kiln chart's day-and-time labels overlapped at 390px before this.
 - Colour: one hue, passed by the caller from the tokens (`--chart-1…5`, or a status
   ink when the series *is* a status).
 - `colourScale` (added 2026-11-07): colours the line by its own value, for subjects
@@ -362,3 +388,44 @@ one key and an instant change.
 - **Generated versions get wrong**: shortcuts that fire while typing in a search box;
   a legend kept by hand that drifts from the handler; focus dropped to `<body>` after
   an answer, so the next key does nothing; the active row shown by colour alone.
+
+### 3.17 Status dashboards
+
+Added 2026-11-07 from strata-react issue #25 (jburnhams/homepage hand-rolled all four):
+[`meter.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/components/meter.tsx),
+[`composition.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/components/composition.tsx),
+[`link-card.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/components/link-card.tsx),
+[`theme.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/components/theme.tsx).
+These apply rules already set out here (§3.4, §3.8, `patterns.md` §3 and §5) to new shapes,
+not new findings.
+
+- **Meter** (a level such as disk space): `role="meter"`, not `progressbar`, because
+  the level can go down as well as up. Its name is what is measured; its
+  `aria-valuetext` is the printed reading ("72% used"). The figure is always beside the
+  bar. Thresholds are what the reading is compared against (as `band` is on a chart),
+  drawn as notches. **Each threshold must name its state** ("Nearly full"); once it is
+  crossed the fill takes the status ink and the word is shown as a `Status` (§3.4), so
+  colour is never the only cue. Thresholds are shares of the maximum, so one set
+  covers disks of every size; `worseWhen="lower"` turns them round for a battery. Below
+  every threshold the fill is `--chart-1`, as on a LineChart: "fine" needs no colour.
+- **CompositionBar** (what a whole is made of): a stacked bar for proportion over a
+  table that names every part, its amount and its share, in the caller's order. The
+  bar is hidden from screen readers because the table holds it all. Parts take
+  `--chart-1…5` in order (the palette checked for colour-blind separation); a sixth
+  part has no token, which is the cue to make an "Other" part. A remainder that the
+  parts do not fill must be named ("Free").
+- **LinkCard** (a destination, such as an app on a homepage): a card is right because
+  each destination is a separate object (`patterns.md` §3). One link per card, on the
+  title, stretched over the card with `::after`, so the name is the title and the
+  description and status marks are the link's description; one tab stop; nothing else
+  on the card is interactive. Links that leave the app carry an arrow. No lift or
+  shadow on hover ([`character.md`](./character.md): a homepage card is pressed many
+  times a day).
+- **ColorSchemeChoice `compact`**: for an app with no settings page, the three choices
+  (system, light, dark) as icon segments named "Appearance", still native radios with
+  each choice's words as its name and tooltip. Never a two-way toggle, which loses
+  "match this device" the first time it is pressed.
+- **Generated versions get wrong**: a bare bar with the percentage only in a tooltip; a
+  bar that turns red with no word; a donut chart with a legend for memory; a card whose
+  whole text is the link's name, or a card with a button inside a link; a sun/moon
+  toggle with no system option.

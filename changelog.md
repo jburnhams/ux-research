@@ -11,8 +11,25 @@ git history on 2026-11-02 and kept up to date with every change since (see
 - `ui-library/components.md`: §3.6 gains Thumbnail and ThumbnailSkeleton (the four DataView states for one image, required `alt` and `missing`, loading on approach, no fade-in by the character-by-frequency rule); the inventory table lists them.
 - `ui-library/README.md`: the inventory's Data row includes Thumbnail.
 
+**Record strata-react's selectable image grid and range selection** (branch `claude/project-thread-hvbukq`; strata-react issue #32). strata-react issue #32, from the Bright Horizons port, asked for a grid of images to choose from with select all, Shift-click ranges and a starting selection that follows the data. strata-react built it as `SelectableGrid` over the same selection hook as `DataTable`, so the table gained ranges too. This records the design; it follows the existing §3.7 rules rather than changing them.
+
+- `ui-library/components.md`: an inventory row for `SelectableGrid`, and two §3.7 bullets: ranges (Shift-click and Shift+Space, in the order shown) with `initial` applying to rows when they first appear, and the grid (each tile one label, the box on a chip, fixed-aspect frames, the table's select-all and virtualisation).
+- `ui-library/README.md`: the inventory's Data row lists `SelectableGrid`.
+
+**Record the date and date-time formatters built in strata-react** (branch `claude/project-thread-2h7kpg`, PR #12; strata-react PR #36). strata-react issue #31, from porting the Bright Horizons review app, asked for a date-with-time formatter because the History screen had built its own `Intl.DateTimeFormat`; strata-react added `format.date` and `format.dateTime` and made every date formatter callable with a Date, ISO string or epoch milliseconds. This follows the rule here that numbers and dates go through `format`, and names the formatter so agents stop hand-building one.
+
+- `ui-library/components.md`: rule 7 names the date formatters and when each is used.
+- `ui-library/agents.md`: rule 7 says a history row is `format.dateTime(row.at)` and forbids an `Intl.DateTimeFormat` in a screen.
+
 ## 2026-11-07
 
+**Status dashboard components, from strata-react** (branch `claude/project-thread-4qi9pb`, PR #11). strata-react issue #25 asked for a usage bar with thresholds, a composition bar with a table, a destination card and a compact Appearance control, after jburnhams/homepage hand-rolled them; strata-react PR #29 builds them as `Meter`, `CompositionBar`, `LinkCard` and `ColorSchemeChoice compact`. They follow rules already set out here rather than adding new findings, so this records how they apply.
+
+- `ui-library/components.md`: **new** §3.17 "Status dashboards" (numbered 3.17 when merged, because §3.16 is Keyboard triage) and an inventory row. It covers the meter role and value text, named thresholds shown as status words, the composition bar's table and five-token limit, the one-link card, and the compact three-way colour-scheme choice.
+
+**LineChart y-axis pins and thinning x labels, from strata-react** (branch `claude/project-thread-jaj9fq`). strata-react issue #23 asked for `yMax` (and maybe `yMin`) so a percentage chart does not autoscale a near-idle machine into a busy-looking one; the strata-react change also fixes the kiln chart's x labels overlapping at phone width.
+
+- `ui-library/components.md` §3.8: adds the y-axis rule (zero to a nice maximum by default, `yMin`/`yMax` for a range that is a fact of the subject, a pin never crops a reading) and the x labels thinning evenly when they would collide. The section did not say before where the y-axis starts.
 **Record row selection, BulkBar, Checkbox and RowAction as built in strata-react** (branch `claude/project-thread-pkwejq`). strata-react issue #11 (raised from strata-listory) asked for row selection and named row actions on `DataTable`; they were built in strata-react PR #20, and this records where that follows and departs from the spec here.
 
 - `ui-library/components.md`: Checkbox is now built, as the native control rather than Radix as first specified (a departure, with the reason); Switch stays a spec. §3.7 gains `RowAction` (row actions named for their row, header hidden rather than empty) and opt-in selection (`selection`, `useSelection` pruning to rows that exist, `BulkBar` with the count in its own polite live region). The inventory table lists them.
