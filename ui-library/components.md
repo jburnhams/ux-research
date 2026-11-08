@@ -34,7 +34,9 @@ here and follow the same conventions.
    are").
 7. **Numbers go through `lib/format.ts`** (`Intl.NumberFormat`, `Intl.DateTimeFormat`,
    a non-breaking space before units). Quantities are right-aligned with
-   `tabular-nums`.
+   `tabular-nums`. Dates have named formatters for each use (`clock`, `day`, `shortDay`,
+   `date`, `dateTime`) in Intl's locale-ordered styles, callable with a Date or an ISO
+   string, so a screen never builds its own `Intl.DateTimeFormat` (strata-react issue #31).
 8. **Copy inside components is specific.** Default labels say what happens ("Try
    again", "Undo", "Withdraw"), use sentence case, and carry the same verb through
    ("Book firing", "Booking…", "Booked").

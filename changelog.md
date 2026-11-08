@@ -4,6 +4,13 @@ All notable changes to this repository, grouped by day, newest first. Backfilled
 git history on 2026-11-02 and kept up to date with every change since (see
 [`CLAUDE.md`](./CLAUDE.md)).
 
+## 2026-11-08
+
+**Record the date and date-time formatters built in strata-react** (branch `claude/project-thread-2h7kpg`). strata-react issue #31, from porting the Bright Horizons review app, asked for a date-with-time formatter because the History screen had built its own `Intl.DateTimeFormat`; strata-react added `format.date` and `format.dateTime` and made every date formatter callable with a Date, ISO string or epoch milliseconds. This follows the rule here that numbers and dates go through `format`, and names the formatter so agents stop hand-building one.
+
+- `ui-library/components.md`: rule 7 names the date formatters and when each is used.
+- `ui-library/agents.md`: rule 7 says a history row is `format.dateTime(row.at)` and forbids an `Intl.DateTimeFormat` in a screen.
+
 ## 2026-11-07
 
 **Record row selection, BulkBar, Checkbox and RowAction as built in strata-react** (branch `claude/project-thread-pkwejq`). strata-react issue #11 (raised from strata-listory) asked for row selection and named row actions on `DataTable`; they were built in strata-react PR #20, and this records where that follows and departs from the spec here.
