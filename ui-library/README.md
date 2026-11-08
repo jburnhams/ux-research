@@ -221,6 +221,7 @@ the chart (a `<table>` ignores `width: 1px`), which no source check would have f
 | §3 decision 2, the namespace reset | `strata.css`; an integration test compiles it in a throwaway app and checks `bg-indigo-500`, `text-sm`, `rounded-xl`, `shadow-lg` produce nothing | as designed, now tested |
 | §3 decision 3, distribution | an npm package, `strata-react` | revised: a package, not a copy-in registry (above) |
 | §3 decision 5, states | `useLoad` turns a TanStack query into `Load<T>`, so a remote read cannot reach the screen without passing `DataView` | extends the design: the design had `Load<T>`, not where it comes from |
+| [`components.md` §3.6](./components.md#36-dataview-emptystate-skeleton) error state | a refetch that fails after a good read stays `ready` with `stale` set, shown as a `StaleNotice` over the kept data (`toLoad`, `useInfiniteLoad`) | extends the design: it had one error state, which a failed poll turned into a blank dashboard |
 | [`patterns.md`](./patterns.md): anything a person links or reloads into is in the URL | `Tabs param=`, `DataTable sortParam=`, `AppShell` on React Router's `NavLink` | extends the design |
 | [`components.md`](./components.md) specs | one file per component, each opening with its reasons; a story for every state | fourteen of twenty-five built |
 | §6 enforcement | Storybook, unit tests with MSW, visual baselines in CI, TypeDoc API reference from TSDoc on every export | adds the visual and unit layers the design left to the example |
