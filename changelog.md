@@ -4,6 +4,13 @@ All notable changes to this repository, grouped by day, newest first. Backfilled
 git history on 2026-11-02 and kept up to date with every change since (see
 [`CLAUDE.md`](./CLAUDE.md)).
 
+## 2026-11-08
+
+**Record the date and date-time formatters built in strata-react** (branch `claude/project-thread-2h7kpg`, PR #12; strata-react PR #36). strata-react issue #31, from porting the Bright Horizons review app, asked for a date-with-time formatter because the History screen had built its own `Intl.DateTimeFormat`; strata-react added `format.date` and `format.dateTime` and made every date formatter callable with a Date, ISO string or epoch milliseconds. This follows the rule here that numbers and dates go through `format`, and names the formatter so agents stop hand-building one.
+
+- `ui-library/components.md`: rule 7 names the date formatters and when each is used.
+- `ui-library/agents.md`: rule 7 says a history row is `format.dateTime(row.at)` and forbids an `Intl.DateTimeFormat` in a screen.
+
 ## 2026-11-07
 
 **Status dashboard components, from strata-react** (branch `claude/project-thread-4qi9pb`, PR #11). strata-react issue #25 asked for a usage bar with thresholds, a composition bar with a table, a destination card and a compact Appearance control, after jburnhams/homepage hand-rolled them; strata-react PR #29 builds them as `Meter`, `CompositionBar`, `LinkCard` and `ColorSchemeChoice compact`. They follow rules already set out here rather than adding new findings, so this records how they apply.
