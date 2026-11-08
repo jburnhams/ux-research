@@ -224,6 +224,14 @@ here and follow the same conventions.
   data. All readings are in a screen-reader table.
 - It draws in real pixels measured with `ResizeObserver`, so 12px labels stay 12px on
   a phone instead of shrinking with a scaled `viewBox`.
+- The y-axis runs from zero (lower only for a negative reading) to a nice maximum.
+  `yMin`/`yMax` (added 2026-11-07, strata-react issue #23) pin either end where the range
+  is a fact of the subject: a percentage is 0 to 100%, so a machine at 1% CPU sits on the
+  floor instead of filling an autoscaled 0 to 8% axis and looking busy. A pin widens to
+  show a reading past it; it never crops one.
+- Because labels keep their size, the x labels thin themselves (every second, third…
+  tick, so the spacing stays even) when they would collide, and the end labels stay
+  inside the plot. The kiln chart's day-and-time labels overlapped at 390px before this.
 - Colour: one hue, passed by the caller from the tokens (`--chart-1…5`, or a status
   ink when the series *is* a status).
 - `colourScale` (added 2026-11-07): colours the line by its own value, for subjects
