@@ -4,6 +4,13 @@ All notable changes to this repository, grouped by day, newest first. Backfilled
 git history on 2026-11-02 and kept up to date with every change since (see
 [`CLAUDE.md`](./CLAUDE.md)).
 
+## 2026-11-08
+
+**Record strata-react's selectable image grid and range selection** (branch `claude/project-thread-hvbukq`; strata-react issue #32). strata-react issue #32, from the Bright Horizons port, asked for a grid of images to choose from with select all, Shift-click ranges and a starting selection that follows the data. strata-react built it as `SelectableGrid` over the same selection hook as `DataTable`, so the table gained ranges too. This records the design; it follows the existing §3.7 rules rather than changing them.
+
+- `ui-library/components.md`: an inventory row for `SelectableGrid`, and two §3.7 bullets: ranges (Shift-click and Shift+Space, in the order shown) with `initial` applying to rows when they first appear, and the grid (each tile one label, the box on a chip, fixed-aspect frames, the table's select-all and virtualisation).
+- `ui-library/README.md`: the inventory's Data row lists `SelectableGrid`.
+
 ## 2026-11-07
 
 **Record row selection, BulkBar, Checkbox and RowAction as built in strata-react** (branch `claude/project-thread-pkwejq`). strata-react issue #11 (raised from strata-listory) asked for row selection and named row actions on `DataTable`; they were built in strata-react PR #20, and this records where that follows and departs from the spec here.

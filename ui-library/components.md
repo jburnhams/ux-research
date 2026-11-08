@@ -55,6 +55,7 @@ here and follow the same conventions.
 | DataView, `Load<T>`, EmptyState, Skeleton | – | example | [§3.6](#36-dataview-emptystate-skeleton) |
 | DataTable, TableSkeleton | `<table>` | example | [§3.7](#37-datatable) |
 | RowAction, `useSelection`, BulkBar | Button, live region | strata-react | [§3.7](#37-datatable) |
+| SelectableGrid | native checkboxes in labels | strata-react | [§3.7](#37-datatable) |
 | LineChart | SVG | example | [§3.8](#38-linechart-and-barchart) |
 | BarChart | SVG | spec | [§3.8](#38-linechart-and-barchart) |
 | PageHeader | – | example | [§3.9](#39-pageheader) |
@@ -209,6 +210,20 @@ here and follow the same conventions.
   `BulkBar` holds the count in a polite live region of its own, the actions (one filled,
   named with its count: "Withdraw 2") and Clear selection. A reversible bulk removal goes
   through `useUndoable`, as a single one does.
+- **Ranges and a starting selection** (strata-react issue #32). Shift-click, or
+  Shift+Space from the keyboard, sets every selectable row from the last one clicked to
+  this one to this row's new state, in the order shown (after sorting), as Gmail and the
+  macOS Finder do; a plain click moves the anchor. `useSelection`'s `initial` (keys, or
+  a test on the row) chooses a row the first time it appears, so rows pre-chosen from
+  the data (likely matches, flagged items) still start chosen when the data loads after
+  mount or a next page arrives, and a row the person cleared is not chosen again.
+- **SelectableGrid** (strata-react issue #32, from a review screen of face crops) is
+  the same selection drawn as a grid of pictures, for choosing by eye. Each tile is one
+  label (picture, box, one detail line), so a click anywhere on the picture toggles it,
+  as photo apps work; the box sits on a chip of the page ground so it shows on any
+  photo and is named from the row. Pictures sit in a fixed-aspect frame so nothing
+  shifts as they load. "Select all shown", ranges and virtualisation from 100 items
+  behave exactly as the table's, because both use one hook.
 - **Generated versions get wrong**: uppercase tracked headers; zebra rows; checkbox,
   avatar, chip and kebab on every row; left-aligned proportional numbers.
 
