@@ -37,7 +37,9 @@ by `app/theme.generated.css` (generated), `app/globals.css` (tokens) and `DESIGN
    state. Every status is a `Status` with a word. Every icon-only button is an
    `IconButton` with a label. The type checker enforces these; do not cast around it.
 6. One filled (`variant="default"`) button per view.
-7. Numbers and dates go through strata-react's `format` (`createFormat(locale)`).
+7. Numbers and dates go through strata-react's `format` (`createFormat(locale)`): a log or
+   history row is `format.dateTime(row.at)`, a record's date `format.date(...)`, each taking the
+   API's ISO string as it is. Never build an `Intl.DateTimeFormat` in a screen.
 8. Sample data is labelled as sample, believable, and its totals add up. Missing facts
    are visible placeholders like `[PRICE]`, never invented.
 9. Character goes where DESIGN.md's Character section says, and nowhere else: subject
