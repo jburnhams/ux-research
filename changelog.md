@@ -4,6 +4,14 @@ All notable changes to this repository, grouped by day, newest first. Backfilled
 git history on 2026-11-02 and kept up to date with every change since (see
 [`CLAUDE.md`](./CLAUDE.md)).
 
+## 2026-11-09
+
+**Settle how a bulk bar's filled action sits with the screen's own primary** (branch `claude/project-thread-3yp85x`). Building python-app-template on strata-react put a filled "Remove 2" in the `BulkBar` and a filled "Send greeting" on the same screen, and a review flagged it as two filled buttons. The docs said both "one filled button per view" (`patterns.md` §2) and "BulkBar … one filled" (`components.md` §3.7) without saying which wins; Jonathan asked for a decision. The decision: one filled button per view *at a time*. While rows are chosen, the bulk action is the filled one and the screen's primary steps down to outline until the selection clears, because choosing rows is the person naming their next step and the bar exists only while they mean it. The taste-skill study already pointed this way ("one filled bulk action for the list", `taste-skill/references/app-screens.md`); the other reading, an outline bulk action whenever the screen has a primary, was not taken because it makes the action the person just asked for the weakest thing on screen.
+
+- `ui-library/patterns.md`: §2's rule now reads "per view at a time" and says the bulk action takes the filled slot while a selection exists. This is a clarification of the earlier rule, which was silent on selection.
+- `ui-library/components.md`: §3.7's `BulkBar` bullet says the screen's primary steps down to outline while the bar is up, with the one-line way to write it.
+- `ui-library/agents.md`, `ui-library/examples/AGENTS.md`: rule 6 carries the same sentence.
+
 ## 2026-11-08
 
 **Record Disclosure and expandable table rows as built in strata-react** (branch `claude/project-thread-d9xjs0`, PR #16). strata-react issue #34 (from the Bright Horizons port) asked for a disclosure with a summary slot and a lazily loaded body, in place of each app's own `<details>`; it is built in strata-react as `Disclosure`, `useExpanded` and `DataTable`'s `expansion`, and this records it as an extension of the design.
