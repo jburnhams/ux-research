@@ -232,7 +232,10 @@ here and follow the same conventions.
   `isSelectable` rules out. `useSelection` prunes the chosen keys to rows that exist, so
   a bulk action never reaches a row that a removal, refetch or filter took away.
   `BulkBar` holds the count in a polite live region of its own, the actions (one filled,
-  named with its count: "Withdraw 2") and Clear selection. A reversible bulk removal goes
+  named with its count: "Withdraw 2") and Clear selection. While the bar is up, its
+  action is the view's one filled button: the screen's own primary steps down to outline
+  until the selection is cleared (`variant={selection.count ? "outline" : "default"}`),
+  so the rule in `patterns.md` §2 holds in every state, not only the resting one. A reversible bulk removal goes
   through `useUndoable`, as a single one does.
 - **Ranges and a starting selection** (strata-react issue #32). Shift-click, or
   Shift+Space from the keyboard, sets every selectable row from the last one clicked to

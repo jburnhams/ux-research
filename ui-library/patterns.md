@@ -56,7 +56,12 @@ The kiln room's blocks, and the question each answers:
 
 - Everything the brief names is on the first screen at 1440×900. Long lists are capped
   at 4–6 rows with "View all" when they would push the rest below the fold.
-- One filled button per view. Every other action is outline, ghost or link.
+- One filled button per view at a time. Every other action is outline, ghost or link.
+  While rows are chosen, the bulk action in `BulkBar` is the filled one and the screen's
+  own primary (a header action, a form's submit) steps down to outline until the
+  selection is cleared. Choosing rows is the person saying what they will do next, and
+  the bar exists only while they mean it; two filled buttons would split the one place
+  the eye goes first.
 - Sections are separated by space and hairlines, not by putting each one in a card.
   A card is used when the thing *is* a separate object (a person, a file, a booking you
   can pick up and move), and cards are never nested.

@@ -36,7 +36,8 @@ by `app/theme.generated.css` (generated), `app/globals.css` (tokens) and `DESIGN
 5. Every view of remote data goes through `DataView` with a skeleton and an empty
    state. Every status is a `Status` with a word. Every icon-only button is an
    `IconButton` with a label. The type checker enforces these; do not cast around it.
-6. One filled (`variant="default"`) button per view.
+6. One filled (`variant="default"`) button per view at a time. While rows are chosen,
+   the `BulkBar` action is the filled one and the screen's own primary goes to `outline`.
 7. Numbers and dates go through strata-react's `format` (`createFormat(locale)`): a log or
    history row is `format.dateTime(row.at)`, a record's date `format.date(...)`, each taking the
    API's ISO string as it is. Never build an `Intl.DateTimeFormat` in a screen.

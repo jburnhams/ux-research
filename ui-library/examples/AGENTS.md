@@ -24,7 +24,8 @@ by `app/theme.generated.css` (generated), `app/globals.css` (tokens) and `DESIGN
 5. Every view of remote data goes through `DataView` with a skeleton and an empty
    state. Every status is a `Status` with a word. Every icon-only button is an
    `IconButton` with a label. The type checker enforces these; do not cast around it.
-6. One filled (`variant="default"`) button per view.
+6. One filled (`variant="default"`) button per view at a time. While rows are chosen,
+   the `BulkBar` action is the filled one and the screen's own primary goes to `outline`.
 7. Numbers and dates go through `lib/format.ts`.
 8. Sample data is labelled as sample, believable, and its totals add up. Missing facts
    are visible placeholders like `[PRICE]`, never invented.
