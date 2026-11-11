@@ -9,7 +9,6 @@
     "noUncheckedIndexedAccess": false,
     "noEmit": true,
     "skipLibCheck": true,
-    "baseUrl": ".",
     "paths": { "@/*": ["./*"] }
   },
   "include": ["app", "lib", "screens", "scripts"]
