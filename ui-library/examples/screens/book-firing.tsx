@@ -68,7 +68,7 @@ export function BookFiring({ initial, showErrors = false }: { initial?: Partial<
     setDirty(false);
     setBooked(v);
   }, []);
-  const [phase, run] = useAsyncAction(submit);
+  const { phase, run, error } = useAsyncAction(submit);
 
   React.useEffect(() => {
     if (!dirty) return;
@@ -172,7 +172,7 @@ export function BookFiring({ initial, showErrors = false }: { initial?: Partial<
         </Field>
 
         <div className="flex flex-wrap items-center gap-3 border-t border-border pt-6">
-          <AsyncButton type="submit" variant="default" phase={phase} labels={{ idle: "Book firing", pending: "Booking…", done: "Booked" }} />
+          <AsyncButton type="submit" variant="default" phase={phase} error={error} labels={{ idle: "Book firing", pending: "Booking…", done: "Booked", error: "Try again" }} />
           <Button variant="ghost" asChild>
             <a href="#kiln-room" onClick={confirmLeave}>
               Back to the kiln room

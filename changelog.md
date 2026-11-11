@@ -4,6 +4,14 @@ All notable changes to this repository, grouped by day, newest first. Backfilled
 git history on 2026-11-02 and kept up to date with every change since (see
 [`CLAUDE.md`](./CLAUDE.md)).
 
+## 2026-11-11
+
+**Move the book-firing example to strata-react 0.1.6's `useAsyncAction`** (branch `claude/project-thread-d1q9sc`). Dependabot PR #28 (esbuild 0.28.2 and strata-react 0.1.6) failed its typecheck because `useAsyncAction` now returns an object (`phase`, `run`, `error`) instead of a `[phase, run]` pair. This branch carries that update plus the fix, and supersedes #28.
+
+- `ui-library/examples/package.json`, `ui-library/examples/package-lock.json`: esbuild 0.28.2 and strata-react 0.1.6 (from Dependabot #28).
+- `ui-library/examples/screens/book-firing.tsx`: destructures the object form and passes `error` to `AsyncButton` with a "Try again" error label, so a failed booking is announced in words.
+- `ui-library/examples/renders/kiln-room-loading-light-1440.png`, `system-light-1280.png`: re-rendered against strata-react 0.1.6.
+
 ## 2026-11-09
 
 **Settle how a bulk bar's filled action sits with the screen's own primary** (branch `claude/project-thread-3yp85x`). Building python-app-template on strata-react put a filled "Remove 2" in the `BulkBar` and a filled "Send greeting" on the same screen, and a review flagged it as two filled buttons. The docs said both "one filled button per view" (`patterns.md` §2) and "BulkBar … one filled" (`components.md` §3.7) without saying which wins; Jonathan asked for a decision. The decision: one filled button per view *at a time*. While rows are chosen, the bulk action is the filled one and the screen's primary steps down to outline until the selection clears, because choosing rows is the person naming their next step and the bar exists only while they mean it. The taste-skill study already pointed this way ("one filled bulk action for the list", `taste-skill/references/app-screens.md`); the other reading, an outline bulk action whenever the screen has a primary, was not taken because it makes the action the person just asked for the weakest thing on screen.
