@@ -6,6 +6,13 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-11
 
+**Move the examples to TypeScript 7** (branch `claude/project-thread-d1q9sc`). Dependabot #20 (TypeScript 5.9 to 7.0) failed its typecheck, and Jonathan asked for the major bumps to be migrated. This branch replaces #20.
+
+- `ui-library/examples/package.json`, `package-lock.json`: TypeScript 7.0. The examples use only `tsc`, so unlike strata-react (strata-react PR #67) they need no TypeScript 6 API package.
+- `ui-library/examples/tsconfig.json`: dropped `baseUrl`, which TypeScript 7 removed. `paths` (`@/*`) already resolves from the tsconfig's own folder, and esbuild reads it the same way.
+- `ui-library/examples/lib/css.d.ts` (**new**): declares `*.css` modules. TypeScript 7 checks side-effect imports by default, and `scripts/entry.tsx` imports the font stylesheets that way.
+- `ui-library/examples/renders/`: re-rendered with `npm run render` (10 screenshots, no problems reported).
+
 **Move the book-firing example to strata-react 0.1.6's `useAsyncAction`** (branch `claude/project-thread-d1q9sc`). Dependabot PR #28 (esbuild 0.28.2 and strata-react 0.1.6) failed its typecheck because `useAsyncAction` now returns an object (`phase`, `run`, `error`) instead of a `[phase, run]` pair. This branch carries that update plus the fix, and supersedes #28.
 
 - `ui-library/examples/package.json`, `ui-library/examples/package-lock.json`: esbuild 0.28.2 and strata-react 0.1.6 (from Dependabot #28).
