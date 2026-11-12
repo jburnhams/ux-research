@@ -6,6 +6,12 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-12
 
+**React Aria replaces Radix in the component-library design; overlays built** (branch `claude/project-thread-3sxvh5`). Jonathan chose React Aria Components over Radix, Base UI and `cmdk` for strata-react (strata-react #83), and the first overlays were built on it (strata-react #85, issue #70). The design docs named Radix throughout, so this corrects them.
+
+- `ui-library/components.md`: **correction**: the inventory, §3.10, §3.11 and §3.12 now say React Aria (they said Radix, `cmdk` and `Slot`). Checkbox, ChoiceGroup, Tabs and SelectableGrid are marked as built on React Aria in strata-react. §3.11 records what the overlay work settled: a non-closable dialog while work runs, an alert dialog that stays open with the reason when its confirm fails, a required popover label, a tooltip on hover and focus that `IconButton` uses, three stacking layers, and that overlay screenshots must include portalled content.
+- `ui-library/README.md`: **correction**: the stack line, the custom-select note, the dependency list and the overlay row now say React Aria. The overlay row marks all but Menu as built.
+- Not yet written back: rules for the new ground (workspace layout, drag and drop, timeline, undo history). Those follow with their components, since each rule should come from what was built.
+
 **Dependencies need Jonathan's decision first** (branch `claude/project-thread-3sxvh5`). While planning the open strata-react issues, Jonathan asked that new dependencies be put to him before they are adopted, and that this be a firm rule.
 
 - `CLAUDE.md`: **new** section "Dependencies: consult Jonathan first", covering adding, replacing, removing and pinning majors, and saying to spike on a scratch branch and present options.
