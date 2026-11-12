@@ -24,6 +24,16 @@ the same commit or PR as the change**. Do not leave it for later.
 - Do not rewrite older entries except to fix a factual error; if a later change
   supersedes one, say so in the new entry.
 
+## Dependencies: consult Jonathan first
+
+**Adding, replacing or removing a dependency needs Jonathan's decision before it happens.** This
+is critically important, not a courtesy. Applies to `dependencies`, `peerDependencies` and
+`devDependencies` in strata-react, the examples, the template and any app built on them. Do not
+install one to try it and leave it in; spike it on a scratch branch, and put the options to him
+(what it replaces, what it costs in size and styling fit, what else could do the job) before
+adopting it. The same goes for pinning a major version. Where a rule here or in strata-react
+names a library (for example the primitives layer), that choice was his and is changed only by him.
+
 ## Other house rules
 
 - **Sources**: store primary sources by source in their own folder with a README

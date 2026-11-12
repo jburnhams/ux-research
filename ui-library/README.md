@@ -37,7 +37,7 @@ As given: use the research to design a React and Tailwind UX library, in the way
 `prompts` turned its research into a deliverable, and write it up complete with
 examples. Read with the rest of this repo, that means:
 
-- React 19, Tailwind v4, shadcn/ui conventions, Radix primitives underneath.
+- React 19, Tailwind v4, shadcn/ui conventions (names only), React Aria Components underneath (Jonathan's choice, 2026-11-12; Radix was first specified).
 - Mostly built and extended by coding agents, so the library has to be legible to
   them and hard for them to misuse.
 - Good UX first; specifically, products built on it should not read as AI-made, and
@@ -95,7 +95,7 @@ Not adopted, and why:
   menu.
 - **A custom select, combobox and date picker as the defaults.** Native controls are
   the default for short lists on touch screens (platform picker, typeahead, autofill
-  for free); Radix-based versions are added when a product needs search or rich
+  for free); React Aria's Select and ComboBox are added when a product needs search or rich
   options.
 - **Expressive (bouncy) motion tokens.** Material recommends them by default; this
   repo's resolution keeps Standard-like damping for Operate surfaces
@@ -143,7 +143,7 @@ and copies the agent rules block from [`agents.md`](./agents.md).
 **Dependencies.** React 19, Tailwind v4, React Router (navigation and URL state), TanStack
 Query (every remote read becomes a `Load<T>` for `DataView`), TanStack Table and Virtual
 (behind `DataTable` and `VirtualList`), `class-variance-authority`, `clsx`,
-`tailwind-merge`, Radix for overlays and composite widgets, and any icon component (Lucide
+`tailwind-merge`, React Aria Components for behaviour and accessibility (overlays, menus, controls), and any icon component (Lucide
 in the example). No animation library: CSS transitions cover state changes. The fixed
 stack and how each piece is used are in strata-react's
 [`CLAUDE.md`](https://github.com/jburnhams/strata-react/blob/main/CLAUDE.md).
@@ -159,14 +159,14 @@ Full specs in [`components.md`](./components.md).
 | Status and figures | Status, Metric, MetricStrip | all |
 | Data | DataView (+ `Load<T>`, `useLoad`), DataTable (+ row selection, `useSelection`, BulkBar; expandable rows), Disclosure (+ `useExpanded`), SelectableGrid, TableSkeleton, EmptyState, Skeleton, Thumbnail, VirtualList, LineChart, BarChart | all but BarChart |
 | Page | PageHeader, AppShell (side nav, breadcrumb), Tabs, CommandMenu | all but CommandMenu |
-| Overlays | Dialog, AlertDialog, Sheet, Popover, Menu, Tooltip (Radix, always titled) | none |
+| Overlays | Dialog, AlertDialog, Sheet, Popover, Menu, Tooltip (React Aria, always titled) | all but Menu (strata-react) |
 | Feedback | UndoBar + `useUndoable`, Toast (polite live region), Alert, Done | UndoBar, Done |
 | Read surfaces | Prose (measure, rhythm), TableOfContents, Callout | none |
 
 Twenty-five components are specified. strata-react builds the eleven the example started
 with, chosen because they are the ones generated UI gets most wrong, plus AppShell, Tabs
 and VirtualList. The rest (overlays, toasts, the command menu, read surfaces) are still
-specs; they are thin restyles of shadcn/Radix components and follow the same conventions.
+specs; they are thin restyles of React Aria components and follow the same conventions.
 
 ## 6. How it is enforced
 

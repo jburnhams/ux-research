@@ -45,27 +45,28 @@ here and follow the same conventions.
 
 | Component | Built on | Status | Spec |
 |---|---|---|---|
-| Button | `<button>`, Radix `Slot` | example | [§3.1](#31-button-and-iconbutton) |
+| Button | React Aria `Button` | example | [§3.1](#31-button-and-iconbutton) |
 | IconButton | Button | example | [§3.1](#31-button-and-iconbutton) |
 | AsyncButton, `useAsyncAction` | Button | example | [§3.2](#32-asyncbutton) |
 | Field, Input, Textarea, NativeSelect | native elements | example | [§3.3](#33-field-and-controls) |
-| ChoiceGroup | native radios in a fieldset | example | [§3.3](#33-field-and-controls) |
-| Checkbox | native checkbox | strata-react | [§3.3](#33-field-and-controls) |
-| Switch, ToggleGroup | Radix | spec | [§3.3](#33-field-and-controls) |
+| ChoiceGroup | React Aria `RadioGroup` | strata-react | [§3.3](#33-field-and-controls) |
+| Checkbox | React Aria `Checkbox` | strata-react | [§3.3](#33-field-and-controls) |
+| Switch, ToggleGroup | React Aria | spec | [§3.3](#33-field-and-controls) |
 | Status | `<span>` | example | [§3.4](#34-status) |
 | Metric, MetricStrip | `<dl>` | example | [§3.5](#35-metric-and-metricstrip) |
 | DataView, `Load<T>`, EmptyState, Skeleton | – | example | [§3.6](#36-dataview-emptystate-skeleton) |
 | Thumbnail, ThumbnailSkeleton | `<img>`, IntersectionObserver | strata-react | [§3.6](#36-dataview-emptystate-skeleton) |
 | DataTable, TableSkeleton | `<table>` | example | [§3.7](#37-datatable) |
 | RowAction, `useSelection`, BulkBar | Button, live region | strata-react | [§3.7](#37-datatable) |
-| SelectableGrid | native checkboxes in labels | strata-react | [§3.7](#37-datatable) |
+| SelectableGrid | React Aria `Checkbox` | strata-react | [§3.7](#37-datatable) |
 | Disclosure, `useExpanded`, DataTable `expansion` | `<button aria-expanded>` | strata-react | [§3.18](#318-disclosure-and-expandable-rows) |
 | LineChart | SVG | example | [§3.8](#38-linechart-and-barchart) |
 | BarChart | SVG | spec | [§3.8](#38-linechart-and-barchart) |
 | PageHeader | – | example | [§3.9](#39-pageheader) |
 | UndoBar, `useUndoable` | live region | example | [§3.10](#310-undobar-and-alertdialog) |
-| AlertDialog, Dialog, Sheet, Popover, Menu, Tooltip | Radix | spec | [§3.11](#311-overlays) |
-| AppShell, Tabs, CommandMenu, Breadcrumb | Radix, `cmdk` | spec | [§3.12](#312-navigation) |
+| Dialog, AlertDialog, Sheet (`placement="end"`), Popover, Tooltip | React Aria | strata-react |
+| Menu | React Aria | spec | [§3.11](#311-overlays) |
+| AppShell, Tabs, CommandMenu, Breadcrumb | React Router, React Aria (`Tabs`, and `Autocomplete` for the command menu) | AppShell and Tabs in strata-react | [§3.12](#312-navigation) |
 | `useHotkeys`, KeysLegend, `useActiveItem`, ActiveList | window `keydown`, `<dl>`, `<ul>` | strata-react | [§3.16](#316-keyboard-triage) |
 | Toast, Alert | live region | spec | [§3.13](#313-toast-and-alert) |
 | Prose, TableOfContents, Callout | – | spec | [§3.14](#314-read-surfaces) |
@@ -321,24 +322,34 @@ here and follow the same conventions.
   keeps bottom padding so it never covers the focused row. A failure stays until it is
   retried or dismissed: the screen said the removal was done, so a failure that times
   out unseen leaves the screen lying.
-- **AlertDialog** (spec, Radix) is for what cannot be undone. Its title names the
+- **AlertDialog** (strata-react, React Aria) is for what cannot be undone. Its title names the
   object and the consequence; the confirm button repeats the verb ("Delete 3
   firings"), not "OK".
 
 ### 3.11 Overlays
 
-Dialog, Sheet, Popover, Menu and Tooltip are Radix primitives restyled to
-`rounded-overlay`, `shadow-overlay` and `bg-popover`. Dialogs and sheets always have a
-title (visible or `sr-only`), trap and return focus, and set
+Dialog, Sheet, Popover, Menu and Tooltip are React Aria components restyled to
+`rounded-overlay`, `shadow-overlay` and `bg-popover` (one shared surface). Dialogs and
+sheets always have a title (visible or `sr-only`), trap and return focus, and set
 `overscroll-behavior: contain`. A modal is never the first idea for a form that fits
 on the page.
+
+Built in strata-react (2026-11-12, issue #70) with these settled points: `Dialog` can be
+made not closable while work cannot be interrupted (no close control, Escape or outside
+press), so an export does not lose its Close button halfway; `AlertDialog` ignores
+outside presses, focuses Cancel first, requires the confirm verb, and stays open with the
+server's reason when an async confirm fails; `Popover` requires a label; `Tooltip` opens
+on hover and on keyboard focus, holds words only, and is how `IconButton` shows its
+required label. Stacking is three named layers (bar, overlay, tip), so an app never writes
+a z-index. Overlays enter with the ordinary effects duration and close at once. A
+screenshot of an overlay must include what is portalled out of the story root.
 
 ### 3.12 Navigation
 
 **AppShell**: a side nav on the page ground (not a navy or tinted sidebar), the
 current item as a neutral pill (`bg-muted`, no left bar), and an optional top bar only
-when it holds something used on every screen. **Tabs**: Radix, state in the URL.
-**CommandMenu**: `cmdk` in a Dialog. **Breadcrumb**: plain links with a `/` separator
+when it holds something used on every screen. **Tabs**: React Aria, state in the URL.
+**CommandMenu**: a React Aria `Autocomplete` with a menu in a Dialog (decided 2026-11-12: `cmdk` is not used). **Breadcrumb**: plain links with a `/` separator
 in muted ink. Filters, tabs, pagination and open panels are reflected in the URL.
 
 ### 3.13 Toast and Alert
