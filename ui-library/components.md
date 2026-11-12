@@ -843,3 +843,19 @@ Findings from the third batch of strata-360's screens (strata-react issues #187 
   moves, so the engine's "live edge" default is wrong for it; the app's own start time wins when given,
   and each way a stream fails is worded by the product.
 
+### 3.27 Pictures from a third party, and a second look from roles
+
+- **A picture from a host the app does not control fails in ways only the app can read** (strata-react
+  #209): the first size does not exist for every item (a list of sources, tried in order), the host
+  answers a missing item with a 200 and a small grey placeholder (the app sees each loaded image and can
+  reject it, and the next source is tried as if it had failed), and a failed picture is a fact worth
+  recording (told once, never for a record that has no picture). A decorative avatar whose name sits
+  beside it has nothing to say when it is missing: it is presentation, not an image named "".
+- **A region can have a second look from roles alone** (#210). Colours, radii, fonts and heights already
+  were variables; the three fixed things that stopped more components being used that way become roles
+  with today's value as the default: each type step's size, leading and weight, a button's side padding
+  and icon size, and the next-page rows (the idle and loading rows drawn by the app, the hairline above
+  them optional). What an app cannot replace stays the component's: the sentinel, the live region, focus
+  moving to the first new item, and the failure row, so a second look cannot lose what makes a list of
+  pages work.
+

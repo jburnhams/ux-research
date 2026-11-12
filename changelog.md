@@ -6,6 +6,11 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-12
 
+**Pictures from a third party and a second look from roles: what was built (branch `claude/project-thread-5qo67g`, strata-react issues #209, #210)**. `Thumbnail` takes sources and a way to reject a loaded picture; type steps, button padding and icon size, and the next-page rows can be set per region.
+
+- `ui-library/components.md`: **new** §3.27 (a third party's failures and what the app can do about them; a second look from roles, and what stays the component's).
+- Looked for and not found: a React Aria part for either; an existing role in the research for type steps as variables (this adds it).
+
 **Marked stretches, the app's hold on a player, phone width and HLS start: what was built (branch `claude/project-thread-5qo67g`, strata-react issues #207, #208, #211, #213)**. strata-react's `MediaPlayer` now draws and acts on spans, hands out its state and an overlay box, shrinks its volume row, and starts a growing HLS source at its beginning.
 
 - `ui-library/components.md`: **new** §3.26 (the three behaviours of a marked stretch and acting once, status tones not categorical colours, an overlay's place and the state through a ref, a control row that shrinks, where a growing stream starts).
