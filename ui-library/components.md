@@ -816,3 +816,30 @@ Findings from the third batch of strata-360's screens (strata-react issues #187 
   the judge marks wins until cleared. Seeking and stepping still pause, and a pause stays a pause.
 - Looked for and not found: a React Aria part for a click-versus-pan gesture; the frame measures it from
   pointer events.
+
+### 3.26 Marked stretches in a player, the app's hold on it, and a player a phone wide
+
+- **A stretch the app knows about is drawn on the bar and acted on once** (strata-react #207). Each kind
+  has a behaviour: `auto` acts as playback reaches it (skip to its end, or mute it when the picture is
+  wanted but the sound is not) and says so with Undo for a few seconds ("Skipped intro"); `ask` puts one
+  button over the picture ("Skip intro ›", also on a key while it shows); `off` only draws it. Acting is
+  on playback entering the stretch while playing, never while paused, so scrubbing inside one is not
+  fought with. A stretch that was skipped, or let play after Undo, is not acted on again, a muted one
+  gives its sound back on leaving (unless the person already moved the volume), and a source still being
+  made waits until the end of a stretch exists before skipping into it. The memory is keyed by the spans'
+  content, because apps write the array inline.
+- **Colour is a status role per kind, never the only carrier**: the range is a named image with its times
+  ("Recap, 0:40 to 1:10"), a tooltip, and the button names the kind in words. The same five tones as a
+  chart's spans; a categorical palette is the product's to add.
+- **The app's own thing over a playing picture needs a place and the state.** A video keeps a box of its
+  own shape (the app's `aspect`, else its own, else 16:9 before the metadata loads) so nothing jumps and
+  an overlay has a stable box; the overlay covers the picture only, never the controls, and what is in
+  it is clickable and focusable. The player's state and requests are handed out through a ref (an object
+  ref holds the latest without rendering again), so a chapter list or a comment list can seek without
+  finding the element inside the player.
+- **A control row has to shrink before it overflows** (#213): in a row a phone wide the volume slider's
+  track gives way while the button and the readout keep their size; "100%" never runs past the edge.
+- **A stream that is still being made starts at its beginning** (#208): the start exists and the edge
+  moves, so the engine's "live edge" default is wrong for it; the app's own start time wins when given,
+  and each way a stream fails is worded by the product.
+

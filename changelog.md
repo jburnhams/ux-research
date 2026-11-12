@@ -6,6 +6,11 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-12
 
+**Marked stretches, the app's hold on a player, phone width and HLS start: what was built (branch `claude/project-thread-5qo67g`, strata-react issues #207, #208, #211, #213)**. strata-react's `MediaPlayer` now draws and acts on spans, hands out its state and an overlay box, shrinks its volume row, and starts a growing HLS source at its beginning.
+
+- `ui-library/components.md`: **new** §3.26 (the three behaviours of a marked stretch and acting once, status tones not categorical colours, an overlay's place and the state through a ref, a control row that shrinks, where a growing stream starts).
+- Looked for and not found: a React Aria part for any of this (a span policy is time logic over a `Button`); categorical colour roles in Strata (there are none, so the status tones are used).
+
 **Judging pairs: what was built (branch `claude/project-thread-5qo67g`, strata-react #201 and #203)**. strata-react made a click on a picture choose it in a pair judgment, and let a video pair start itself and loop the whole clip.
 
 - `ui-library/components.md`: **new** §3.25 (click to choose and how it is told from a pan and a double click, per view; autoplay muted with a paused fallback; looping the whole clip with a range winning).
