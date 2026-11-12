@@ -63,6 +63,7 @@ here and follow the same conventions.
 | `useHistory`, `useHistoryState`, `useAutoSave`, SaveStatus | window `keydown`, status text | strata-react | [§3.19](#319-document-history-and-save-state) |
 | Workspace, Split, Pane, `useWorkspaceState` | React Aria `useMove` | strata-react | [§3.20](#320-workspace-layout) |
 | Timeline, `useTimelineZoom`, `noOverlap` | React Aria slider hooks, `useDrop` | strata-react | [§3.21](#321-timeline) |
+| RouteMap, `geo` | Leaflet (optional peer, own entry) | strata-react | [§3.22](#322-maps-of-routes) |
 | LineChart | SVG | example | [§3.8](#38-linechart-and-barchart) |
 | BarChart | SVG | spec | [§3.8](#38-linechart-and-barchart) |
 | PageHeader | – | example | [§3.9](#39-pageheader) |
@@ -622,3 +623,54 @@ a length, a current-time rule, markers. These are the decisions that were not al
   "somewhere" without a time or a lane; an outside drop that ignores the lane's lock; lanes fixed
   at one height so a thumbnail strip is a sliver; kinds coloured by array order, so a colour
   changes when a track is added.
+
+### 3.22 Maps of routes
+
+[`route-map.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/map/route-map.tsx)
+
+Added in strata-react for apps that show where something went (activity and route apps, fleet and
+delivery views, field work, GPS playback), raised from strata-vid and jonathanburnhams.com
+(strata-react issue #80). Both had hand-rolled Leaflet maps with a route colour chosen by hand and
+no check that it could be seen on the chosen tiles. This is new ground; these are the decisions.
+
+- **A map is its own entry.** The library is heavy, so it sits behind `strata-react/map` with the map
+  library an optional peer; an app that draws no maps installs nothing. The map's own stylesheet is
+  put in the page by the component, so using a map is an import and not an import plus a CSS step.
+- **Leaflet, without a React binding.** A binding makes every layer an element, so a position that
+  moves sixty times a second re-renders the routes beside it. Make the map once, draw routes in one
+  effect that runs when the routes change, and move the position with one `setLatLng`. The rule that
+  follows: **a position update redraws nothing else**, and the app keeps its routes in a stable array.
+- **Tiles are the app's, with the attribution its provider requires, shown.** A light set and a dark
+  one follow the colour scheme. An app with no dark tiles gets the light ones under a filter, which
+  is a fallback: a dark product should supply dark tiles. Fixture tiles in tests and stories, never a
+  live provider (a screenshot must not depend on a tile server).
+- **Colour is a role, resolved when drawn.** SVG strokes written by a library take a real colour, so
+  a role (`var(--chart-2)`) is resolved against the map's element and redrawn when the scheme changes.
+  Routes default to the chart palette in order. Check that a route's colour has 3:1 against the tiles
+  it is drawn on (§3.8's rule for steps); that was the check the two apps lacked.
+- **Colour by value follows §3.8.** Use it only where the colour is a fact of the subject (speed,
+  gradient, heart-rate zone), in steps the app chose, with a key that names each step and where it
+  starts, so colour is never the only cue. A run of one step is one line, not a segment per point.
+- **One route is a picture with a direction.** Chevrons along it (evenly spaced by distance, the
+  bearing smoothed so GPS jitter does not turn one sideways) and a filled start and a ringed finish;
+  a loop is one mark. Shapes, not only colour, tell start from finish. With several routes these are
+  off, because chevrons on every line are noise.
+- **Fit to content on first show and when the set of routes changes**, not when a route's points are
+  replaced: a person who has zoomed in is not thrown back.
+- **Leave Leaflet's corners alone.** Zoom is top start and attribution is bottom end; an app's own
+  control or figure goes top end or bottom start, below the colour key, never over a required notice.
+- **Keyboard and screen readers.** Leaflet's container is a focus stop (arrows pan, + and − zoom),
+  named by a label and described by a text alternative generated from the data: each route, its
+  length, a loop or not, and how far along the position is. That position is not a live region and is
+  updated at most once a second; announcing sixty positions a second is worse than silence. Choosing
+  a route by pointer is `onSelect`; the keyboard path is the app's list of routes beside the map, since
+  a line inside Leaflet's SVG has no keyboard equivalent.
+- **No animation.** Zoom, fade and inertia are off: a map is panned constantly
+  ([`character.md`](./character.md) §3), and a tile that fades in makes a screenshot depend on timing.
+- **Distances through `format`** (`format.distance`, metric or imperial); route geometry (`geo`) lives
+  in the main entry so a text alternative or a profile needs no map library.
+- **Generated versions get wrong**: a route colour picked by hand and never checked against the tiles;
+  react-leaflet with the routes inside the component that holds the moving position, so every frame
+  redraws every route; a dark app with bright tiles; the provider's attribution hidden behind an
+  overlay; a map that cannot be panned from the keyboard and says nothing to a screen reader; colour by
+  value with no key; a zoom animation under a screenshot test.
