@@ -62,6 +62,7 @@ here and follow the same conventions.
 | Disclosure, `useExpanded`, DataTable `expansion` | `<button aria-expanded>` | strata-react | [§3.18](#318-disclosure-and-expandable-rows) |
 | `useHistory`, `useHistoryState`, `useAutoSave`, SaveStatus | window `keydown`, status text | strata-react | [§3.19](#319-document-history-and-save-state) |
 | Workspace, Split, Pane, `useWorkspaceState` | React Aria `useMove` | strata-react | [§3.20](#320-workspace-layout) |
+| Timeline, `useTimelineZoom`, `noOverlap` | React Aria slider hooks, `useDrop` | strata-react | [§3.21](#321-timeline) |
 | LineChart | SVG | example | [§3.8](#38-linechart-and-barchart) |
 | BarChart | SVG | spec | [§3.8](#38-linechart-and-barchart) |
 | PageHeader | – | example | [§3.9](#39-pageheader) |
@@ -586,3 +587,38 @@ tools, so these are the decisions.
   collapses to nothing; panels each with their own header style; sizes lost on reload; side panels
   that squeeze the stage to a sliver on a small window; a collapse animation on a control used
   fifty times a day.
+
+### 3.21 Timeline
+
+[`timeline.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/components/timeline.tsx)
+
+Added in strata-react for a time axis of lanes (a video edit, a kiln schedule, a rota), raised
+from strata-vid (issues #77 and #121). The picture is one: a ruler, lanes, items with a start and
+a length, a current-time rule, markers. These are the decisions that were not already in §3.8 or
+§3.20.
+
+- **The component draws, the app decides.** Every move, trim, lane change, selection and drop is
+  reported and applied by the app, so overlap rules, snapping to its grid and undo (§3.19) stay in
+  one place. A change the app refuses is shown while it is being made, with an icon and the reason
+  in words, and is not reported.
+- **Keyboard first.** One tab stop for the items with focus moving inside it; arrows move between
+  items and lanes; Ctrl+arrows nudge, Alt+arrows trim; the current time is a slider on the ruler.
+  Every change is announced in words ("run-02.mp4 moved to 0:14, Track 1").
+- **A drop from outside is a move that starts elsewhere.** Dragging a file from a library onto a
+  lane reports the lane and the time, snapped the same way as a move, and refuses with a reason
+  while the drag is still over the lane (the same `validate` voice). The preview is a dashed box of
+  a length the app gives, because a drag does not reveal its items until it lands. The keyboard
+  path is React Aria's: focus a source, Enter, Tab to a lane, Enter. It has no pointer position, so
+  it lands at the current time, and the lane says where and whether it may. A button that adds at
+  the current time is a fine extra, never the only way.
+- **A lane is as tall as what it shows.** One control height for a label, two or three for
+  thumbnails or a waveform, always a multiple of `--control-h` so density still applies.
+- **A kind's colour is the app's.** A kind named by an app (a GPX clip) keeps one colour whichever
+  other kinds are on the timeline; the order-of-appearance chart palette is only the fallback.
+  The stripe is never the only sign: the kind is also a word.
+- **The lane header sizes to its content, with a cap**, so three controls do not cost the name its
+  room; a name past the cap is truncated with its full text on hover.
+- **Generated versions get wrong**: items that can only be moved with a mouse; a drop that lands
+  "somewhere" without a time or a lane; an outside drop that ignores the lane's lock; lanes fixed
+  at one height so a thumbnail strip is a sliver; kinds coloured by array order, so a colour
+  changes when a track is added.
