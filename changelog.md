@@ -6,7 +6,7 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-12
 
-**Workspace layout (§3.20)** (branch `claude/workspace-rules`, on top of `claude/history-save-rules`). Jonathan asked for strata-react issue #68; the research said little about multi-pane tools, so the decisions are recorded here. New §3.20 in `components.md`: when a workspace is the right shape, one header on every pane, keyboard-resizable separators with limits, folding that leaves a way back, remembered sizes (in storage, not the URL), the narrow-width rule, no animation, and the React Aria check (no splitter part exists in 1.22).
+**Workspace layout (§3.20)** (branch `claude/workspace-rules`). Jonathan asked for strata-react issue #68; the research said little about multi-pane tools, so the decisions are recorded here. New §3.20 in `components.md`: when a workspace is the right shape, one header on every pane, keyboard-resizable separators with limits, folding that leaves a way back, remembered sizes (in storage, not the URL), the narrow-width rule, no animation, and the React Aria check (no splitter part exists in 1.22).
 
 - `ui-library/components.md`: new **§3.20 Workspace layout** and a table row.
 
