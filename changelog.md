@@ -6,6 +6,10 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-12
 
+**Video comparison: what was built (branch `claude/project-thread-reaene`, strata-react PR #171, issue #156)**. strata-react built `CompareVideo`; the design had only listed video among the kinds.
+
+- `ui-library/compare-and-decide.md`: "As built for video" note after the audio and text one: the one-clock rule (leader, 3% rate nudge, 0.3 s seek, both held while either waits), both videos playing in every view, one box for candidates of different sizes with nearest-neighbour past 1:1, one soundtrack. Records what was considered and not done (hiding a seek, `requestVideoFrameCallback`).
+
 **Audio and text comparison: what was built (`ui-library/compare-and-decide.md` §3.3)** (branch `claude/project-thread-reaene`). strata-react issue #146 asked for blind A/B listening with a shared playhead and a text comparison; building them corrected the §3.2 table.
 
 - `ui-library/compare-and-decide.md`: §3.3 gains an "As built for audio and text" note. **Corrections to §3.2:** audio and text are separate components (`CompareAudio`, `CompareText`), not modes of `Compare`; audio is one transport with a switch, not "two players"; the text diff is a switch (off by default), word level only (the character-level pass is not built); loudness matching is by RMS, not LUFS, and only turns the louder clip down.
