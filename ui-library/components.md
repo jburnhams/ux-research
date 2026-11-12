@@ -797,3 +797,22 @@ Findings from the third batch of strata-360's screens (strata-react issues #187 
   Shift extends, and the caret word and selection size are announced. Single-key chords never fire while
   typing and are disabled, with the reason, while nothing is selected. Undo is the app's history
   command, named for the step.
+
+### 3.25 Judging pairs: click to choose, autoplay and looping a clip
+
+- **A click on the picture you prefer is an answer** (strata-react #201), the same one as the key and the
+  button, so `pending` switches it off and a click during a save is dropped. The frame that already owns
+  pan, band and double click decides: press and release within 4 px and 500 ms is a pick; movement is a
+  pan; a double click zooms, so a pick waits 300 ms for a second click and is cancelled by one.
+  Where a click is ambiguous there is no pick and the words say so: fade and difference blend both
+  sides. Side by side picks the frame; swipe the side of the divider; blink the side showing. Hovering
+  shows a pointer cursor, an outline on the side and "Click to choose A", in labels only when blind. The
+  frame keeps its name and gets the choice as its accessible description. A screen where a click must
+  only pan turns it off (`pick={false}`).
+- **Judging a loop means it starts itself and repeats** (#203): autoplay begins when every video can play
+  in step, muted because browsers refuse autoplay with sound (unless the person already chose a level),
+  falls back to paused when refused, and starts again for each new pair from 0. Reduced motion keeps it
+  off unless the app says "always". Looping the whole clip applies only while no range is set; a range
+  the judge marks wins until cleared. Seeking and stepping still pause, and a pause stays a pause.
+- Looked for and not found: a React Aria part for a click-versus-pan gesture; the frame measures it from
+  pointer events.
