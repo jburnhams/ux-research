@@ -669,6 +669,17 @@ no check that it could be seen on the chosen tiles. This is new ground; these ar
   ([`character.md`](./character.md) §3), and a tile that fades in makes a screenshot depend on timing.
 - **Distances through `format`** (`format.distance`, metric or imperial); route geometry (`geo`) lives
   in the main entry so a text alternative or a profile needs no map library.
+- **A map can be picture content, not a page's map** (strata-react issue #161, from strata-vid, where a
+  route inset is composed over footage and must match an export drawn on a canvas). Set up once, it has
+  to look the same on every frame. Three rules: the **zoom is a number the app sets** (any value, so an
+  animation is a prop that changes every frame; unset, the map fits its routes as before); **centred
+  follow holds the view exactly on a position, with no animation**, using a reset and not a pan,
+  because a pan accumulates Leaflet's whole-pixel truncation and the final view then depends on the path
+  taken, while a reset depends only on position and zoom (frame N is the same however it was reached);
+  and **several positions are each one marker kept by id**, tied to a route, drawn in that route's
+  colour, named in the text alternative along its own route. The §3.22 rule still holds: no route is
+  redrawn for any of it. Dark tiles set equal to the light ones keep the picture the same in both
+  schemes. Route ends and arrows already turn off per route, so the picture needs nothing more.
 - **Generated versions get wrong**: a route colour picked by hand and never checked against the tiles;
   react-leaflet with the routes inside the component that holds the moving position, so every frame
   redraws every route; a dark app with bright tiles; the provider's attribution hidden behind an

@@ -6,6 +6,10 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-12
 
+**RouteMap as picture content: what was built (branch `claude/project-thread-5qo67g`, strata-react issue #161)**. strata-vid composes a route inset over footage and needs a set zoom that follows a position, several positions, and each in its route's colour. strata-react added them; the design had no notes for a map used as content.
+
+- `ui-library/components.md`: §3.22 gains a bullet: zoom is an app-set number, centred follow uses a reset rather than a pan so a frame does not depend on the path taken (a pan accumulates Leaflet's pixel truncation), several positions are markers kept by id in their route's colour, and equal light and dark tiles keep the picture constant.
+
 **Video stepping, regions and grid: what was built (branch `claude/project-thread-reaene`, strata-react issues #157, #158, #159)**. strata-react built frame stepping, loops and regions for `CompareVideo`, and `CompareVideoGrid`; the design had no notes for them.
 
 - `ui-library/compare-and-decide.md`: two "As built" notes after the video one: stepping, loop, slow motion, moments and regions (a region is a viewport; keys skip `t`), and the grid (one clock, "Catching up", metadata-only and out-of-sight cells paused, sound off unless named, a reference cell). Records what is not done: opening on a region, touch pinch, a play-one-at-a-time fallback.
