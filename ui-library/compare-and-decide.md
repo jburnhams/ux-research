@@ -126,8 +126,8 @@ Jonathan's decisions (2026-11-12):
 
 Order, each change with stories for every state, MSW-backed unit tests and visual baselines:
 
-1. Built: `Compare` for pictures (side, swipe, fade, blink), shared zoom and pan, full screen (`ViewportFrame`, `FullscreenFrame`).
-2. Image difference (blend and pixelmatch heatmap) and `CompareGrid`.
+1. Built (strata-react #100): `Compare` for pictures (side, swipe, fade, blink), shared zoom and pan, full screen (`ViewportFrame`, `FullscreenFrame`).
+2. Built: image difference (a live difference blend, and pixelmatch's changed pixels with a tolerance and the share that differ) and `CompareGrid`.
 3. `PairVote`, `VoteBar`, blind and reveal, preloading, `RatingTable`.
 4. Text and data diff, then audio and video (after strata-react #78 lands).
 5. `MatchQueue`, `MatchCard`, `EvidenceList`.

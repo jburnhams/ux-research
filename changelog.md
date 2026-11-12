@@ -10,6 +10,7 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 - `ui-library/compare-and-decide.md` (**new**): what the four apps do, what is reused from strata-react, the media-adapter and view design, the two interaction shapes (preference between two, verdict on a proposal), how each app would adopt it, and the agreed decisions and build order: `pixelmatch` (already a strata-react runtime dependency) for image difference, our own simple text diff for now.
 - `sources.md`: the four app repos and the files read, at the commits read.
+- `ui-library/compare-and-decide.md` build order updated after strata-react #100 (Compare) and #106 (difference view, CompareGrid).
 - Not yet written back into `patterns.md` and `components.md`: the rules (blind by default, exposure and loudness matching, no filled button while either side can win, evidence in words), which follow with each part as it is built.
 
 **React Aria first: the rule for choosing a primitive** (branch `claude/aria-first-rule`). Jonathan asked for the rules to say: use a React Aria component, extend it if needed, make our own only if strictly needed. It follows from strata-react #73, whose first number field and slider were native on an unchecked belief that React Aria's number field clamps typed values (it has `commitBehavior="validate"`), and which was rebuilt on React Aria.
