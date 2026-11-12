@@ -143,7 +143,7 @@ and copies the agent rules block from [`agents.md`](./agents.md).
 **Dependencies.** React 19, Tailwind v4, React Router (navigation and URL state), TanStack
 Query (every remote read becomes a `Load<T>` for `DataView`), TanStack Table and Virtual
 (behind `DataTable` and `VirtualList`), `class-variance-authority`, `clsx`,
-`tailwind-merge`, React Aria Components for behaviour and accessibility (overlays, menus, controls), and any icon component (Lucide
+`tailwind-merge`, React Aria Components for behaviour and accessibility (overlays, menus, controls; **React Aria first**: use its part, extend it if needed, build our own only when strictly needed and the gap has been checked, see strata-react's `CLAUDE.md`), and any icon component (Lucide
 in the example). No animation library: CSS transitions cover state changes. The fixed
 stack and how each piece is used are in strata-react's
 [`CLAUDE.md`](https://github.com/jburnhams/strata-react/blob/main/CLAUDE.md).

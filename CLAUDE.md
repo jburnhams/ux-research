@@ -34,6 +34,16 @@ install one to try it and leave it in; spike it on a scratch branch, and put the
 adopting it. The same goes for pinning a major version. Where a rule here or in strata-react
 names a library (for example the primitives layer), that choice was his and is changed only by him.
 
+## Primitives: React Aria first
+
+When designing or reviewing an interactive control for the component library, the order is
+Jonathan's (2026-11-12): **use a React Aria Components part; extend it if needed; make our own
+only if strictly needed.** Extending means wrapping it, composing parts, controlling its state,
+or using its hooks (`react-aria`, `react-stately`); building our own needs a behaviour the part
+and its hooks cannot give, **checked** in their props and source and written down in the
+component's opening comment. Do not state a limit of React Aria without checking it: the number
+field's first design here assumed it clamps a typed value, and it has `commitBehavior="validate"`.
+
 ## Other house rules
 
 - **Sources**: store primary sources by source in their own folder with a README

@@ -6,6 +6,11 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-12
 
+**React Aria first: the rule for choosing a primitive** (branch `claude/aria-first-rule`). Jonathan asked for the rules to say: use a React Aria component, extend it if needed, make our own only if strictly needed. It follows from strata-react #73, whose first number field and slider were native on an unchecked belief that React Aria's number field clamps typed values (it has `commitBehavior="validate"`), and which was rebuilt on React Aria.
+
+- `CLAUDE.md`: new section "Primitives: React Aria first".
+- `ui-library/README.md`: the dependency paragraph states the rule and points to strata-react's `CLAUDE.md`, where the full wording is.
+
 **React Aria replaces Radix in the component-library design; overlays built** (branch `claude/project-thread-3sxvh5`). Jonathan chose React Aria Components over Radix, Base UI and `cmdk` for strata-react (strata-react #83), and the first overlays were built on it (strata-react #85, issue #70). The design docs named Radix throughout, so this corrects them.
 
 - `ui-library/components.md`: **correction**: the inventory, §3.10, §3.11 and §3.12 now say React Aria (they said Radix, `cmdk` and `Slot`). Checkbox, ChoiceGroup, Tabs and SelectableGrid are marked as built on React Aria in strata-react. §3.11 records what the overlay work settled: a non-closable dialog while work runs, an alert dialog that stays open with the reason when its confirm fails, a required popover label, a tooltip on hover and focus that `IconButton` uses, three stacking layers, and that overlay screenshots must include portalled content.
