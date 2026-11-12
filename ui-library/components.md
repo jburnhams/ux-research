@@ -61,6 +61,7 @@ here and follow the same conventions.
 | SelectableGrid | React Aria `Checkbox` | strata-react | [§3.7](#37-datatable) |
 | Disclosure, `useExpanded`, DataTable `expansion` | `<button aria-expanded>` | strata-react | [§3.18](#318-disclosure-and-expandable-rows) |
 | `useHistory`, `useHistoryState`, `useAutoSave`, SaveStatus | window `keydown`, status text | strata-react | [§3.19](#319-document-history-and-save-state) |
+| Workspace, Split, Pane, `useWorkspaceState` | React Aria `useMove` | strata-react | [§3.20](#320-workspace-layout) |
 | LineChart | SVG | example | [§3.8](#38-linechart-and-barchart) |
 | BarChart | SVG | spec | [§3.8](#38-linechart-and-barchart) |
 | PageHeader | – | example | [§3.9](#39-pageheader) |
@@ -537,3 +538,51 @@ undo had no step names and whose autosave said nothing on screen, even when it f
   handled on the window so it also fires inside a text field; an autosave with no sign on screen;
   "Saved!" with a toast and a tick animation on every save; a failure that only logs to the console;
   a `confirm` on leaving a document that saves itself.
+
+### 3.20 Workspace layout
+
+[`workspace.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/components/workspace.tsx)
+
+Added in strata-react for a screen that is a workspace of panes (a video editor, an IDE-style
+tool, mail with a reading pane), raised from strata-vid (strata-react issue #68), which had a
+fixed CSS grid (`300px 1fr 300px`, `50px 1fr 200px`) where nothing could be resized or hidden.
+This is new ground: [`patterns.md`](./patterns.md) covers Operate screens and says little about
+tools, so these are the decisions.
+
+- **When.** `AppShell` is for moving between screens. A workspace is one screen whose regions
+  stay on view together and that the person sizes to the job. Everything the brief names is on
+  the first screen (patterns.md §2); the panes are regions separated by hairlines, never cards.
+- **Shape.** Splits (row or column) hold panes and other splits; one pane per split grows to take
+  what is left (the stage), the rest have sizes the person sets. A bar across the top is just an
+  element above the split. A row of three over a full-width bottom pane is a column split holding
+  a row split and a pane.
+- **One header on every pane**: its name, the few actions it owns, and a collapse button. An app
+  where every panel draws its own bar in its own style (strata-vid's `Library`, `Clip Properties`,
+  `TIMELINE`) reads as several apps. A pane is a landmark (a `section` named by its header).
+- **Resizing is a separator the keyboard can use.** `role="separator"` with `aria-valuenow`,
+  `-min` and `-max`, in the tab order: arrows move it (10px, Shift 50px), Home and End go to the
+  limits, Enter or a double-click restores the default size. A pane has a minimum and a maximum;
+  the stage keeps its own minimum and a drag stops where it would be crossed; shrinking the
+  window takes from the panes only down to their minimums.
+- **Folding leaves a way back.** A collapsible pane folds to a rail one control wide (beside the
+  stage) or to its header bar (above or below it), with a visible "Show Library" button, never to
+  nothing. A menu item or shortcut can do the same from outside. A folded pane stays mounted so
+  a timeline keeps its scroll.
+- **Remembered without app code.** Sizes and folded panes are per-person preferences, kept under a
+  name in local storage inside try/catch (storage throws in private windows and with blocked site
+  data) and falling back to the defaults. They are not in the URL: a link should not carry one
+  person's layout. This refines the URL rule in §3.12, which is for what a person would link to.
+- **Narrow widths are the component's rule.** Below 720px of the workspace's own width,
+  side-by-side splits stack, and their collapsible panes start folded to header bars, one tap to
+  open. That is not remembered, since it is the width and not a choice.
+- **No animation.** Resizing and folding happen many times a session
+  ([`character.md`](./character.md) §3): they change at once. Header and rail sizes come from
+  `--control-h`, so density follows the tokens ([`tokens.md`](./tokens.md) §10).
+- **React Aria first.** React Aria Components 1.22 has no splitter or panel part (its `Separator`
+  is a static rule, `useSeparator` is for a non-focusable one, and the table's column resizing is
+  its own), so the layout is ours on `useMove`, which gives pointer, touch and arrow-key movement.
+- **Generated versions get wrong**: a fixed `grid-template-columns` with no way to resize; a drag
+  handle that is a `div` with only a mouse handler (no keyboard, no role, no value); a pane that
+  collapses to nothing; panels each with their own header style; sizes lost on reload; side panels
+  that squeeze the stage to a sliver on a small window; a collapse animation on a control used
+  fifty times a day.

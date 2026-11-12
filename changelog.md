@@ -6,6 +6,10 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-12
 
+**Workspace layout (§3.20)** (branch `claude/workspace-rules`). Jonathan asked for strata-react issue #68; the research said little about multi-pane tools, so the decisions are recorded here. New §3.20 in `components.md`: when a workspace is the right shape, one header on every pane, keyboard-resizable separators with limits, folding that leaves a way back, remembered sizes (in storage, not the URL), the narrow-width rule, no animation, and the React Aria check (no splitter part exists in 1.22).
+
+- `ui-library/components.md`: new **§3.20 Workspace layout** and a table row.
+
 **Document history and save state (§3.19)** (branch `claude/history-save-rules`). Jonathan asked for strata-react issue #81, and the rules for what it decided belong in the research. New section in `components.md` for undo and redo across a long editing session and for the "Saved" sign of a document that saves itself.
 
 - `ui-library/components.md`: new **§3.19 Document history and save state** (when to use a history and when `useUndoable`; a step is a name and two functions; steps named in the command ("Undo move clip"); a drag is one step; four save words at a fixed width; routine save quiet, failed save announced once with its reason; the leave guard only while something is unsaved), plus a row in the component table.
