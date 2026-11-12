@@ -123,6 +123,17 @@ const q = useMatchQueue({ load: useInfiniteLoad(...), decide, filters });
 - **Different pixel sizes are drawn in one box**, shaped by the first candidate's size, so neither looks bigger; past 1:1 the picture is drawn nearest-neighbour by default, because a judge looking at upscaler edges must see the pixels, not a browser's smoothing.
 - **One soundtrack, the app's choice**, the other muted; the outputs normally share it, and two soundtracks must never play at once.
 
+**As built for stepping, loops and regions (strata-react `CompareVideo`, issues #157 and #158).** Judging an upscaler is looking at a few frames, so the video view works at that grain:
+
+- **Frame by frame** (`,` `.`): a step goes to the centre of the next or previous frame at the first video's `fps` and pauses; stepping from the element's own time, not a held guess, keeps it from drifting. A **loop range** (`i` `o` `c`) the app can hold across pairs, and **speeds down to 0.1×**, because a flicker that lasts three frames cannot be seen at 1×. **Moments** the app names are marks on the seek bar; pressing one goes there and pauses.
+- **A region is a viewport**: a named box (in the source's pixels, or as shares) that fills the frame, applied to every candidate at once so the same face or the same handwriting is read in each. Chips under the toolbar and keys `q` `w` `e` `r` `y` `u` (`t` is the pair vote's tie); nearest-neighbour while one is shown; the box is outlined on the whole picture while its chip is pointed at; Shift-drag draws one by hand ("Region 3"), kept until the pair changes. Not done: opening on a given region, and touch pinch.
+
+**As built for the video grid (strata-react `CompareVideoGrid`, issue #159).** Several candidates' videos at once are the same clock with a cost problem, so:
+
+- **One clock for all cells**, with the same transport, stepping, loop, speeds, zoom and regions. A cell more than two frames off is marked **"Catching up"** instead of drifting silently; every cell is held while any waits for data.
+- **Spend as little as a grid can**: cells load metadata only until the first play; a cell scrolled out of sight is paused, left out of the sync and brought back to the clock when it returns; **sound is off unless the screen names one cell** (eight soundtracks are noise).
+- **A reference** (the source clip) comes first, is never blind, and is drawn nearest-neighbour so its own pixels are the yardstick. Not done: a "play one at a time" fallback that steps through the cells on a paused frame when decoding cannot keep up.
+
 ### 3.4 States in the types
 
 `PairVote` and `MatchQueue` cannot be written without `skeleton`, `empty` (what teaches the next action: "make more versions with build_arena.py"), a `failure` sentence for a vote that did not save, and a `blind` flag that is explicit (`blind: true | false`, no default), since showing names to a judge is a validity bug, not a style choice.
