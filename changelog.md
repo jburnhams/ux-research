@@ -6,7 +6,7 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-12
 
-**Comparing and deciding: survey of four apps and the component design** (branch `claude/project-thread-reaene`). Jonathan asked for shared comparison and voting components for the stills arena, the models judge, the listory match queue and Bright Horizons' review. The survey and the design were written first and agreed; the first component (`Compare`, pictures) is built in strata-react on the same branch name.
+**Comparing and deciding: survey of four apps and the component design** (branch `claude/project-thread-reaene`, PR #34). Jonathan asked for shared comparison and voting components for the stills arena, the models judge, the listory match queue and Bright Horizons' review. The survey and the design were written first and agreed; the first component (`Compare`, pictures) is built in strata-react on the same branch name.
 
 - `ui-library/compare-and-decide.md` (**new**): what the four apps do, what is reused from strata-react, the media-adapter and view design, the two interaction shapes (preference between two, verdict on a proposal), how each app would adopt it, and the agreed decisions and build order: `pixelmatch` (already a strata-react runtime dependency) for image difference, our own simple text diff for now.
 - `sources.md`: the four app repos and the files read, at the commits read.
