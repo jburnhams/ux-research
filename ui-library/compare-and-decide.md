@@ -116,6 +116,13 @@ const q = useMatchQueue({ load: useInfiniteLoad(...), decide, filters });
 - **Text is two panes scrolled together, with the word diff behind a switch, off by default**: a diff is an answer, and a judge reading for quality should read first. Changed words are marked with a background and an underline (not colour alone). The diff is word level only; the character-level pass inside a changed word that §3.2 mentions is not built. A ground-truth `reference` is shown above both and the diff starts against it ("which is closer to what was said").
 - **Answering is separate from drawing** (`PairJudge`): the same keys, bar, pending, flag, progress, preload and Undo around any view. The answer keys `a` `b` `t` `s` stay clear of the audio keys (`1` `2` `x`, Space, `j` `l`, `i` `o` `c`).
 
+**As built for video (strata-react `CompareVideo`, issue #156).** Two videos are judged on one clock, or the views mean nothing:
+
+- **One clock, the first video leads.** Play, pause, seek and rate go to both. While playing, the follower is kept within a frame: a rate nudge of 3% when it is a frame or more off, a seek when it is 0.3 s off, and **both are paused while either has not got its next frames**, so a stall on one side is never read as the other being ahead. Not done: hiding the frame while a seek settles (an element cannot hold its old frame), and `requestVideoFrameCallback` for the loop (it fires only when the leader presents a frame, which is when a stall cannot be seen).
+- **Every view keeps both videos playing**: side by side, swipe, fade and blink are one frame (or two) over the same two elements; a view change makes new elements, so the clock restores the time and whether it was playing.
+- **Different pixel sizes are drawn in one box**, shaped by the first candidate's size, so neither looks bigger; past 1:1 the picture is drawn nearest-neighbour by default, because a judge looking at upscaler edges must see the pixels, not a browser's smoothing.
+- **One soundtrack, the app's choice**, the other muted; the outputs normally share it, and two soundtracks must never play at once.
+
 ### 3.4 States in the types
 
 `PairVote` and `MatchQueue` cannot be written without `skeleton`, `empty` (what teaches the next action: "make more versions with build_arena.py"), a `failure` sentence for a vote that did not save, and a `blind` flag that is explicit (`blind: true | false`, no default), since showing names to a judge is a validity bug, not a style choice.
