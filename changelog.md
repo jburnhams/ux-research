@@ -6,6 +6,10 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-12
 
+**Map rules (§3.22)** (branch `claude/map-rules`). Jonathan asked for strata-react issue #80 (a themed map of routes). The research had no map section, so the decisions are recorded here.
+
+- `ui-library/components.md`: new **§3.22 Maps of routes** and a table row.
+
 **Timeline rules (§3.21)** (branch `claude/timeline-rules`). Jonathan asked for strata-react issue #121 (drops from outside, lane height, kind colours, header width). The research had no section for the timeline, so the decisions are recorded here.
 
 - `ui-library/components.md`: new **§3.21 Timeline** and a table row.
