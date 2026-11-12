@@ -63,6 +63,10 @@ line ranges, from `leaked/lovable/`, `leaked/v0/`, `leaked/same-dev/`,
 ([`claude-design-skills/`](./claude-design-skills)). Prior analysis reused:
 `prompts/agent-generative-output.md` §9–§11.
 
+## From the owner's apps (read 2026-11-12, for the comparison and voting design)
+
+Read for [`ui-library/compare-and-decide.md`](./ui-library/compare-and-decide.md); nothing stored, the repos are the owner's and are linked from there. `jburnhams/strata-stills` @ `f35410e` (`src/stratastills/arena.py`, `server/arena.html`, `web/src/components/Loupe.tsx`), `jburnhams/strata-models` @ `6f4489b` (`web/src/components/EvalPage.tsx`, `PhrasePlayer.tsx`), `jburnhams/strata-listory` @ `65c2170` (`web/src/components/MatchQueuePage.tsx`, `useMatchReviewQueue.ts`, `src/app/linkage/queue.py`, `compare.py`), `jburnhams/bright-horizons` @ `a385191` (`web/src/screens/Review.tsx`, `Links.tsx`, `Face.tsx`).
+
 ## Web pages read
 
 | Page | Via |
