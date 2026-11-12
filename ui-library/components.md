@@ -758,3 +758,42 @@ the transport parts of the player.
   over it with a projection helper, so they are text and take focus. Without WebGL2 the flat picture
   is shown with the same controls and a line saying so, and the helper follows the flat drawing.
   Cost: one texture upload per drawn video frame, none for a still, and no drawing while off screen.
+
+### 3.24 Conversation, pictures from a set, windows on a picture, sequences, trees and marking text
+
+Findings from the third batch of strata-360's screens (strata-react issues #187 to #192).
+
+- **A thread announces an ending, not a stream.** An answer that grows token by token is not a live
+  region; one polite sentence says when it finished or failed. The log follows growth only while the
+  person is at the bottom, and a Jump to latest returns them. A failed answer says what happened in the
+  product's words with Try again on that turn, so a retry never adds a turn. The box sends on Enter,
+  keeps Shift+Enter as a new line, ignores Enter during IME composition, and while an answer is on its
+  way is disabled with the reason written under it, send becoming Stop.
+- **Rich text from a model is a tree, never markup.** Bold, code, lists and http(s) or mailto links
+  only; anything else is text. Known ids become buttons, longest first and never inside a longer word
+  (`f-0412-b` before `f-0412`, no match in `f-04123`).
+- **A viewer between a grid and a picture is a dialog with a set.** Arrow keys, Home and End step the
+  set and say "3 of 40"; they stand aside when the zoomed picture pans with them, or a toolbar or field
+  has them. Neighbours are fetched ahead, a failed picture says so in words, and focus returns to the
+  tile that opened it. Details sit beside the picture from 720px and fold under it below that.
+- **Editing a rectangle is a draft until kept.** A drag or key changes a draft shown at once; letting
+  go, Enter or leaving keeps it, Escape throws it away, each keyboard change said in words with
+  position and size. Aspect and bounds hold through pointer, keys and typed numbers alike. A from/to
+  pair draws a line between the centres and a Watch that supplies the eased rectangle at `t`; with
+  reduced motion it jumps to the end.
+- **A gapless sequence changes two windows at once, so the cut is the control.** Each cut is a slider
+  with its own room, supplied by the app, which knows the media behind each side; a drag stopped by the
+  room says why in words and is kept once on release, and arrows step along the beat grid (Shift a
+  second). A step that cannot move says why too. Both windows' new lengths are announced.
+- **A tree that loads as it opens has four states per node**: loading, failed with Try again, empty
+  with words, and loaded. The open set can live in the URL. A folder chooser is a tree, a path that is
+  also editable text, Up, recents and a New folder field that shows the server's refusal under it.
+  React Aria 1.22's `Tree` does not pass `hasChildItems` to its row hook, so a closed lazy branch needs
+  a hidden placeholder child to be expandable by keyboard.
+- **Marking text is selecting ids, not DOM.** A selection is a run of ids in the app's order, so a drag
+  or Shift+click across rows a virtual list has unmounted still selects every word between. A mark has
+  a role colour, an underline pattern, an icon in the toolbar and its meaning in text for a screen
+  reader, never colour alone. The words are not tab stops; one region has a caret moved with arrows,
+  Shift extends, and the caret word and selection size are announced. Single-key chords never fire while
+  typing and are disabled, with the reason, while nothing is selected. Undo is the app's history
+  command, named for the step.

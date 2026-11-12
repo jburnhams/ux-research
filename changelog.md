@@ -6,6 +6,12 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-12
 
+**Conversation, pictures from a set, windows on a picture, sequences, trees and marking text: what was built (branch `claude/project-thread-5qo67g`, strata-react issues #187 to #192)**. strata-react built a thread with a composer and safe rich text, a lightbox, a rectangle editor, a gapless sequence strip, a lazy tree with a folder chooser, and word marking. The decisions are written back as a new section.
+
+- `ui-library/components.md`: **new** §3.24 (announce the ending of a streamed answer, rich text as a tree with whole-word ids, a lightbox's key and focus rules, a rectangle edit as a draft, the cut as the control of a gapless sequence, the four states of a lazy tree node, marking as selecting ids with marks that never rely on colour).
+- Corrections and findings: React Aria 1.22's `Tree` does not forward `hasChildItems` to its row hook, so lazy branches are not keyboard-expandable without a placeholder child; `Timeline`'s one-item change report cannot express a shared boundary, so a sequence is its own component.
+- Looked for and not found: a React Aria part for a rectangle editor, a gapless sequence or word-range selection.
+
 **Timed media: what was built (branch `claude/project-thread-5qo67g`, strata-react issues #178 to #180, #185, #186)**. strata-react built windows and groups for playback, a waveform, a transcript view, an HLS entry with growing streams and a 360 viewer; the decisions are written back.
 
 - `ui-library/components.md`: **new** §3.23 (windows checked every frame and announced, `PlayWindowButton` as a pressed toggle, groups; waveform as one slider with line-style marks, named spans, zoom and a keyboard-made range; transcript order, follow rules that count only the person's scrolls and the virtualiser's limit; the attach interface for streams and why the engine is preferred, retry and Try again; a source still being made as a state; the 360 window's controls, words, overlay and fallback).
