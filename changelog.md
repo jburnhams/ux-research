@@ -6,6 +6,10 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-12
 
+**Video stepping, regions and grid: what was built (branch `claude/project-thread-reaene`, strata-react issues #157, #158, #159)**. strata-react built frame stepping, loops and regions for `CompareVideo`, and `CompareVideoGrid`; the design had no notes for them.
+
+- `ui-library/compare-and-decide.md`: two "As built" notes after the video one: stepping, loop, slow motion, moments and regions (a region is a viewport; keys skip `t`), and the grid (one clock, "Catching up", metadata-only and out-of-sight cells paused, sound off unless named, a reference cell). Records what is not done: opening on a region, touch pinch, a play-one-at-a-time fallback.
+
 **Video comparison: what was built (branch `claude/project-thread-reaene`, strata-react PR #171, issue #156)**. strata-react built `CompareVideo`; the design had only listed video among the kinds.
 
 - `ui-library/compare-and-decide.md`: "As built for video" note after the audio and text one: the one-clock rule (leader, 3% rate nudge, 0.3 s seek, both held while either waits), both videos playing in every view, one box for candidates of different sizes with nearest-neighbour past 1:1, one soundtrack. Records what was considered and not done (hiding a seek, `requestVideoFrameCallback`).
