@@ -4,6 +4,12 @@ All notable changes to this repository, grouped by day, newest first. Backfilled
 git history on 2026-11-02 and kept up to date with every change since (see
 [`CLAUDE.md`](./CLAUDE.md)).
 
+## 2026-11-12
+
+**Dependencies need Jonathan's decision first** (branch `claude/project-thread-3sxvh5`). While planning the open strata-react issues, Jonathan asked that new dependencies be put to him before they are adopted, and that this be a firm rule.
+
+- `CLAUDE.md`: **new** section "Dependencies: consult Jonathan first", covering adding, replacing, removing and pinning majors, and saying to spike on a scratch branch and present options.
+
 ## 2026-11-11
 
 **Move the examples to TypeScript 7** (branch `claude/project-thread-d1q9sc`). Dependabot #20 (TypeScript 5.9 to 7.0) failed its typecheck, and Jonathan asked for the major bumps to be migrated. This branch replaces #20.
