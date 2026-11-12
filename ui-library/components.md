@@ -669,8 +669,131 @@ no check that it could be seen on the chosen tiles. This is new ground; these ar
   ([`character.md`](./character.md) §3), and a tile that fades in makes a screenshot depend on timing.
 - **Distances through `format`** (`format.distance`, metric or imperial); route geometry (`geo`) lives
   in the main entry so a text alternative or a profile needs no map library.
+- **A map can be picture content, not a page's map** (strata-react issue #161, from strata-vid, where a
+  route inset is composed over footage and must match an export drawn on a canvas). Set up once, it has
+  to look the same on every frame. Three rules: the **zoom is a number the app sets** (any value, so an
+  animation is a prop that changes every frame; unset, the map fits its routes as before); **centred
+  follow holds the view exactly on a position, with no animation**, by panning to a whole-pixel view
+  worked out from position and zoom alone, because Leaflet's own centred pan truncates each step and the
+  final view then depends on the path taken (frame N is the same however it was reached); a reset gives
+  the same view but empties the tile layer on every call, which flickers at one update per frame;
+  and **several positions are each one marker kept by id**, tied to a route, drawn in that route's
+  colour, named in the text alternative along its own route. The §3.22 rule still holds: no route is
+  redrawn for any of it. Dark tiles set equal to the light ones keep the picture the same in both
+  schemes. Route ends and arrows already turn off per route, so the picture needs nothing more.
 - **Generated versions get wrong**: a route colour picked by hand and never checked against the tiles;
   react-leaflet with the routes inside the component that holds the moving position, so every frame
   redraws every route; a dark app with bright tiles; the provider's attribution hidden behind an
   overlay; a map that cannot be panned from the keyboard and says nothing to a screen reader; colour by
   value with no key; a zoom animation under a screenshot test.
+- **Items on the map (strata-react issues #181 to #184).** A set of items is `markers`, drawn only
+  near the view so 500 cost what the visible ones cost. State is a **shape as well as colour** (circle,
+  ringed larger circle for selected, diamond for flagged) and the key names the states on the map. A
+  close group is **fanned out deterministically in world pixels** (a pure function of the zoom, so
+  panning never moves it and zooming in settles it) with leader lines to the true places; never
+  clustering that hides the items. A marker is a button inside one group, so the keyboard path is the
+  app's list beside the map and the map adds no tab stops. A stretch of a route is drawn heavier with
+  its marker at the middle. **Choosing a place** is `picking`: a click, or arrows moving a crosshair
+  (Shift for big steps, Enter, Escape), and the answer says which route is nearest and how far off, so
+  the app can refuse a place that is nowhere near. Route lines stop taking clicks while picking. The
+  view is reported once when it settles and restored from a saved one; a "Reset view" control returns
+  to the fit.
+- **One cursor across views of the same run.** Chart, map and seek bar each show where the person is
+  pointing or where playback is. They share one canonical unit and each member maps to and from it, a
+  member never reacts to its own writes, and the pointer wins over playback and hands back to it. One
+  polite live region speaks the reading, throttled, never one per member.
+
+### 3.23 Timed media: windows, waveforms, transcripts, streams and 360 pictures
+
+[`media-player.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/components/media-player.tsx),
+[`waveform.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/components/waveform.tsx),
+[`transcript-view.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/components/transcript-view.tsx),
+[`src/hls/`](https://github.com/jburnhams/strata-react/blob/main/src/hls/index.ts),
+[`src/panorama/`](https://github.com/jburnhams/strata-react/blob/main/src/panorama/panorama-viewer.tsx)
+
+Added in strata-react for strata-360, which reviews speech, music and 360 footage in small pieces
+(strata-react issues #178 to #180, #185, #186). These are the decisions; they extend §3.16 (keys) and
+the transport parts of the player.
+
+- **Play a window of a file, one player at a time.** A window (`start`, `end` seconds) bounds playback:
+  it starts at `start`, stops or loops at `end`, and a play from outside it begins at `start`. The bar
+  and time show the window unless the whole file is wanted with the window marked. The end is checked
+  every animation frame, not on `timeupdate` (about four a second), or a phrase runs on a quarter of a
+  second into the next word. Say it ("Playing 0:12 to 0:15", polite). Rows that play a piece share one
+  element and are `PlayWindowButton`s: named for what they play ("Play phrase 12"), a pressed toggle so
+  the name does not change while a screen reader is moving down fifty of them. Starting one player
+  pauses the others in its group; a group is a name or a region, and a player that unmounts leaves it.
+  Speech is played with the pitch kept at every rate.
+- **A waveform is for putting the playhead on something.** Peaks in (any length, resampled to the
+  width) or a file decoded in the browser with progress and Cancel, never a frozen page. It is one
+  slider, as the seek bar is, with the time as its value; zoom with `+` `-` `0` and Ctrl and the wheel,
+  and the slider's range is the visible part so a click lands where it is drawn. Marks differ by line
+  (thin, medium, heavy, dashed), never only by colour; beats are drawn but not listed for screen
+  readers (400 is not a list) and are left out when they would crowd. Spans are tinted bands with a
+  bar along the top and are named in a list. A selected range is Shift and drag, or `[` and `]` at the
+  playhead, so it can be made from the keyboard.
+- **A transcript is read in DOM order and followed by sight, not by announcement.** The heard phrase has
+  a bar and `aria-current`, the heard word is underlined, not only tinted; the word is not announced
+  as it changes (a polite sentence per phrase is an opt-in). Words are buttons that seek. Follow scrolls
+  the heard phrase into view until the person scrolls away, and only a scroll that follows something
+  they did counts (wheel, touch, a key, a scrollbar press), or a layout shift would turn it off for
+  nobody. "Jump to now" names the phrase it goes to. Long transcripts are virtualised, which cannot keep
+  an off-screen row mounted (React Aria's Virtualizer persists only the focused and dragged rows), so
+  the button carries the heard phrase's text.
+- **A stream the element cannot play is attached, not special-cased.** An engine takes the element over
+  behind one small interface (attach, detach, reload), so the player, the compare grid and a 360 view
+  all use streams the same way. Quietly retry what the engine can recover (a dropped connection, a
+  decoder hiccup: three times, reset when a segment loads); after that the player's own load error
+  appears in words, and Try again restarts at the time playback had reached. Chromium's native HLS
+  failed on a growing playlist that hls.js plays, so the engine is preferred wherever it can run.
+- **A source still being made is a state, not an ending.** Say "Still being made" with the app's own
+  progress; the seek bar spans the whole length if it is known and draws the part that exists as ready;
+  playing into the end of what exists waits (and says so, politely) and carries on when more arrives,
+  and never calls the source ended.
+- **A 360 view is a window, a canvas and a set of ways in.** Yaw, pitch and field of view in degrees
+  are a controlled value; setting it from outside never animates (the app's aim modes are its own
+  functions of time). Drag pans with the picture following the pointer, wheel and pinch zoom, arrows
+  pan and `+` `-` `0` zoom and reset, and the direction is said in words ("Looking 40° right, 5° up")
+  on the picture always and as a polite status only once the view has been still. Markers are DOM laid
+  over it with a projection helper, so they are text and take focus. Without WebGL2 the flat picture
+  is shown with the same controls and a line saying so, and the helper follows the flat drawing.
+  Cost: one texture upload per drawn video frame, none for a still, and no drawing while off screen.
+
+### 3.24 Conversation, pictures from a set, windows on a picture, sequences, trees and marking text
+
+Findings from the third batch of strata-360's screens (strata-react issues #187 to #192).
+
+- **A thread announces an ending, not a stream.** An answer that grows token by token is not a live
+  region; one polite sentence says when it finished or failed. The log follows growth only while the
+  person is at the bottom, and a Jump to latest returns them. A failed answer says what happened in the
+  product's words with Try again on that turn, so a retry never adds a turn. The box sends on Enter,
+  keeps Shift+Enter as a new line, ignores Enter during IME composition, and while an answer is on its
+  way is disabled with the reason written under it, send becoming Stop.
+- **Rich text from a model is a tree, never markup.** Bold, code, lists and http(s) or mailto links
+  only; anything else is text. Known ids become buttons, longest first and never inside a longer word
+  (`f-0412-b` before `f-0412`, no match in `f-04123`).
+- **A viewer between a grid and a picture is a dialog with a set.** Arrow keys, Home and End step the
+  set and say "3 of 40"; they stand aside when the zoomed picture pans with them, or a toolbar or field
+  has them. Neighbours are fetched ahead, a failed picture says so in words, and focus returns to the
+  tile that opened it. Details sit beside the picture from 720px and fold under it below that.
+- **Editing a rectangle is a draft until kept.** A drag or key changes a draft shown at once; letting
+  go, Enter or leaving keeps it, Escape throws it away, each keyboard change said in words with
+  position and size. Aspect and bounds hold through pointer, keys and typed numbers alike. A from/to
+  pair draws a line between the centres and a Watch that supplies the eased rectangle at `t`; with
+  reduced motion it jumps to the end.
+- **A gapless sequence changes two windows at once, so the cut is the control.** Each cut is a slider
+  with its own room, supplied by the app, which knows the media behind each side; a drag stopped by the
+  room says why in words and is kept once on release, and arrows step along the beat grid (Shift a
+  second). A step that cannot move says why too. Both windows' new lengths are announced.
+- **A tree that loads as it opens has four states per node**: loading, failed with Try again, empty
+  with words, and loaded. The open set can live in the URL. A folder chooser is a tree, a path that is
+  also editable text, Up, recents and a New folder field that shows the server's refusal under it.
+  React Aria 1.22's `Tree` does not pass `hasChildItems` to its row hook, so a closed lazy branch needs
+  a hidden placeholder child to be expandable by keyboard.
+- **Marking text is selecting ids, not DOM.** A selection is a run of ids in the app's order, so a drag
+  or Shift+click across rows a virtual list has unmounted still selects every word between. A mark has
+  a role colour, an underline pattern, an icon in the toolbar and its meaning in text for a screen
+  reader, never colour alone. The words are not tab stops; one region has a caret moved with arrows,
+  Shift extends, and the caret word and selection size are announced. Single-key chords never fire while
+  typing and are disabled, with the reason, while nothing is selected. Undo is the app's history
+  command, named for the step.

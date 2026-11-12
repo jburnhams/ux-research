@@ -6,6 +6,25 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-12
 
+**Conversation, pictures from a set, windows on a picture, sequences, trees and marking text: what was built (branch `claude/project-thread-5qo67g`, strata-react issues #187 to #192)**. strata-react built a thread with a composer and safe rich text, a lightbox, a rectangle editor, a gapless sequence strip, a lazy tree with a folder chooser, and word marking. The decisions are written back as a new section.
+
+- `ui-library/components.md`: **new** §3.24 (announce the ending of a streamed answer, rich text as a tree with whole-word ids, a lightbox's key and focus rules, a rectangle edit as a draft, the cut as the control of a gapless sequence, the four states of a lazy tree node, marking as selecting ids with marks that never rely on colour).
+- Corrections and findings: React Aria 1.22's `Tree` does not forward `hasChildItems` to its row hook, so lazy branches are not keyboard-expandable without a placeholder child; `Timeline`'s one-item change report cannot express a shared boundary, so a sequence is its own component.
+- Looked for and not found: a React Aria part for a rectangle editor, a gapless sequence or word-range selection.
+
+**Timed media: what was built (branch `claude/project-thread-5qo67g`, strata-react issues #178 to #180, #185, #186)**. strata-react built windows and groups for playback, a waveform, a transcript view, an HLS entry with growing streams and a 360 viewer; the decisions are written back.
+
+- `ui-library/components.md`: **new** §3.23 (windows checked every frame and announced, `PlayWindowButton` as a pressed toggle, groups; waveform as one slider with line-style marks, named spans, zoom and a keyboard-made range; transcript order, follow rules that count only the person's scrolls and the virtualiser's limit; the attach interface for streams and why the engine is preferred, retry and Try again; a source still being made as a state; the 360 window's controls, words, overlay and fallback).
+- Looked for and not found: a React Aria part for any of these (no waveform, timed text, media engine or 360 view); the file comments in strata-react say where each was checked.
+
+**Maps and charts for a media review screen: what was built (branch `claude/project-thread-5qo67g`, strata-react issues #181 to #184)**. strata-react built map markers with deterministic fanning, a shared cursor across chart, map and seek bar, chart spans, marks, a log axis and stacked charts, and a place picker; the decisions are written back.
+
+- `ui-library/components.md`: §3.22 gains two bullets, items on the map (shape plus colour states, fan in world pixels, one keyboard path, picking with the nearest route and its distance, view reporting and reset) and one cursor across views (one canonical unit, source ids, pointer over playback, one throttled live region).
+
+**RouteMap as picture content: what was built (branch `claude/project-thread-5qo67g`, strata-react issue #161)**. strata-vid composes a route inset over footage and needs a set zoom that follows a position, several positions, and each in its route's colour. strata-react added them; the design had no notes for a map used as content.
+
+- `ui-library/components.md`: §3.22 gains a bullet: zoom is an app-set number, centred follow pans to a view computed from position and zoom so a frame does not depend on the path taken (Leaflet's own centred pan truncates each step; a reset would flicker the tiles), several positions are markers kept by id in their route's colour, and equal light and dark tiles keep the picture constant.
+
 **Video stepping, regions and grid: what was built (branch `claude/project-thread-reaene`, strata-react issues #157, #158, #159)**. strata-react built frame stepping, loops and regions for `CompareVideo`, and `CompareVideoGrid`; the design had no notes for them.
 
 - `ui-library/compare-and-decide.md`: two "As built" notes after the video one: stepping, loop, slow motion, moments and regions (a region is a viewport; keys skip `t`), and the grid (one clock, "Catching up", metadata-only and out-of-sight cells paused, sound off unless named, a reference cell). Records what is not done: opening on a region, touch pinch, a play-one-at-a-time fallback.
