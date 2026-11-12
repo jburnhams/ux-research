@@ -6,6 +6,10 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-12
 
+**Maps and charts for a media review screen: what was built (branch `claude/project-thread-5qo67g`, strata-react issues #181 to #184)**. strata-react built map markers with deterministic fanning, a shared cursor across chart, map and seek bar, chart spans, marks, a log axis and stacked charts, and a place picker; the decisions are written back.
+
+- `ui-library/components.md`: §3.22 gains two bullets, items on the map (shape plus colour states, fan in world pixels, one keyboard path, picking with the nearest route and its distance, view reporting and reset) and one cursor across views (one canonical unit, source ids, pointer over playback, one throttled live region).
+
 **RouteMap as picture content: what was built (branch `claude/project-thread-5qo67g`, strata-react issue #161)**. strata-vid composes a route inset over footage and needs a set zoom that follows a position, several positions, and each in its route's colour. strata-react added them; the design had no notes for a map used as content.
 
 - `ui-library/components.md`: §3.22 gains a bullet: zoom is an app-set number, centred follow pans to a view computed from position and zoom so a frame does not depend on the path taken (Leaflet's own centred pan truncates each step; a reset would flicker the tiles), several positions are markers kept by id in their route's colour, and equal light and dark tiles keep the picture constant.

@@ -686,3 +686,20 @@ no check that it could be seen on the chosen tiles. This is new ground; these ar
   redraws every route; a dark app with bright tiles; the provider's attribution hidden behind an
   overlay; a map that cannot be panned from the keyboard and says nothing to a screen reader; colour by
   value with no key; a zoom animation under a screenshot test.
+- **Items on the map (strata-react issues #181 to #184).** A set of items is `markers`, drawn only
+  near the view so 500 cost what the visible ones cost. State is a **shape as well as colour** (circle,
+  ringed larger circle for selected, diamond for flagged) and the key names the states on the map. A
+  close group is **fanned out deterministically in world pixels** (a pure function of the zoom, so
+  panning never moves it and zooming in settles it) with leader lines to the true places; never
+  clustering that hides the items. A marker is a button inside one group, so the keyboard path is the
+  app's list beside the map and the map adds no tab stops. A stretch of a route is drawn heavier with
+  its marker at the middle. **Choosing a place** is `picking`: a click, or arrows moving a crosshair
+  (Shift for big steps, Enter, Escape), and the answer says which route is nearest and how far off, so
+  the app can refuse a place that is nowhere near. Route lines stop taking clicks while picking. The
+  view is reported once when it settles and restored from a saved one; a "Reset view" control returns
+  to the fit.
+- **One cursor across views of the same run.** Chart, map and seek bar each show where the person is
+  pointing or where playback is. They share one canonical unit and each member maps to and from it, a
+  member never reacts to its own writes, and the pointer wins over playback and hands back to it. One
+  polite live region speaks the reading, throttled, never one per member.
+
