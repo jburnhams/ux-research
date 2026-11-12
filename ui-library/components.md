@@ -60,6 +60,7 @@ here and follow the same conventions.
 | RowAction, `useSelection`, BulkBar | Button, live region | strata-react | [§3.7](#37-datatable) |
 | SelectableGrid | React Aria `Checkbox` | strata-react | [§3.7](#37-datatable) |
 | Disclosure, `useExpanded`, DataTable `expansion` | `<button aria-expanded>` | strata-react | [§3.18](#318-disclosure-and-expandable-rows) |
+| `useHistory`, `useHistoryState`, `useAutoSave`, SaveStatus | window `keydown`, status text | strata-react | [§3.19](#319-document-history-and-save-state) |
 | LineChart | SVG | example | [§3.8](#38-linechart-and-barchart) |
 | BarChart | SVG | spec | [§3.8](#38-linechart-and-barchart) |
 | PageHeader | – | example | [§3.9](#39-pageheader) |
@@ -494,3 +495,45 @@ Horizons review app, which had written its own `<details>` (strata-react issue #
   and fires every request on load; a chevron `div` with a click handler and no button;
   toggles all called "Expand"; buttons nested inside the summary; open state lost on
   reload.
+
+### 3.19 Document history and save state
+
+[`history.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/components/history.tsx),
+[`save.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/components/save.tsx)
+
+Added in strata-react for an app where a person edits one document over a long session (a
+video project, a drawing, a form builder), raised from strata-vid (strata-react issue #81), whose
+undo had no step names and whose autosave said nothing on screen, even when it failed.
+
+- **Which undo.** §3.10 (`useUndoable`) is for one item leaving a list: it acts at once, commits to
+  the server after a few seconds, and one removal is pending at a time. A history is for a
+  document the person keeps editing, where every change can be walked back for the whole session.
+  A removal inside a document is a history step, not an `UndoBar` message.
+- **A step is a name and two functions** (`undo`, `redo`), so the history does not care whether the
+  app's store keeps patches, snapshots or commands. `useHistoryState` is the snapshot case for plain
+  React state. The history never holds the document.
+- **Steps are named, and the name is in the control.** "Undo move clip", not "Undo": the person
+  can tell what the key will do before pressing it. The label is the phrase after the verb. Undo and
+  Redo are `Command`s (§3.16 commands), so the menu item, the toolbar button and the shortcut read
+  one object: label, enabled state, reason when disabled ("Nothing to undo"), chord (Mod+Z, and
+  Mod+Shift+Z or Mod+Y for Redo). They do not fire in a text field, which keeps its own undo.
+- **A drag is one step.** `begin(label)` returns `end`, and every step pushed between becomes one,
+  so a drag or a gesture undoes in one press. A control that fires many events (a slider) pushes
+  with one `key` and consecutive pushes merge. A new step after an undo drops what could have been
+  redone. A `limit` (default 100) drops the oldest, and `atLimit` lets the screen say so.
+- **Save state has four words**: "Saved 10:42", "Saving…", "Unsaved changes", "Not saved" with the
+  reason and "Try again". The same verb through every state, labels stacked in one grid cell at a
+  fixed width so nothing beside the sign moves ([`character.md`](./character.md) §3). The time is
+  a clock time, not "2 minutes ago", because nothing on screen ticks.
+- **A routine save is quiet** (no toast, no tick), as `character.md` §5 asks. A failed save is the
+  bad-day case: it is announced politely once with its reason and what is still safe ("Your changes
+  are still here"), and the recovery is announced too. Saves are debounced, never overlap, and an
+  edit made during a save is saved after it. A document with an explicit Save command sets no delay
+  and stays "Unsaved changes" until it is saved.
+- **Leaving.** A document that saves itself needs no `beforeunload` prompt except while a save is
+  pending or failed; `useLeaveGuard(active)` is on only then ([`patterns.md`](./patterns.md) §6).
+  This replaces `window.confirm("Unsaved changes will be lost")` in a project that autosaves.
+- **Generated versions get wrong**: a bare "Undo" with no name; every slider tick a step; Ctrl+Z
+  handled on the window so it also fires inside a text field; an autosave with no sign on screen;
+  "Saved!" with a toast and a tick animation on every save; a failure that only logs to the console;
+  a `confirm` on leaving a document that saves itself.
