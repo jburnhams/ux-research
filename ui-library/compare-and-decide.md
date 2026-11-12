@@ -104,6 +104,11 @@ const q = useMatchQueue({ load: useInfiniteLoad(...), decide, filters });
 - Sort and filters live in the URL and each option shows how many items it would leave (listory already does this).
 - Pick-one among N (bright-horizons Links "which to keep") is `ChoiceGroup` over `CompareGrid`.
 
+**As built for the pair vote (strata-react `PairVote`, issue #144).** Two things in the sketch above changed when it met the keyboard of `Compare`:
+
+- **The answer keys are letters, not arrows.** `a` and `b` choose a side, `t` is about the same, `s` is can't tell. `←` `→` `↓` were dropped because a judge who has zoomed in presses an arrow to pan, and an arrow that casts a vote is a wrong answer recorded without a decision. Letters also do not clash with `Compare`'s `1`–`5`, `x`, `+` `-` `0` and `f`, and they go into `Compare`'s one legend (`extraShortcuts`), so there is one list and a clash is visible.
+- **Choosing is a button under the pictures, never a click on them**, since a click or drag on a picture pans. The bar is `Compare`'s `footer`, so it stays on screen in full screen. No button is filled while either side can win.
+
 ### 3.4 States in the types
 
 `PairVote` and `MatchQueue` cannot be written without `skeleton`, `empty` (what teaches the next action: "make more versions with build_arena.py"), a `failure` sentence for a vote that did not save, and a `blind` flag that is explicit (`blind: true | false`, no default), since showing names to a judge is a validity bug, not a style choice.

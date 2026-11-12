@@ -6,6 +6,10 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-12
 
+**Pair vote: answer keys and where the bar sits (`ui-library/compare-and-decide.md` §3.3)** (branch `claude/project-thread-reaene`). strata-react issue #144 asked how a blind pairwise judgment is answered beside `Compare`; building it changed two lines of the sketch.
+
+- `ui-library/compare-and-decide.md`: §3.3 gains an "As built" note. **Correction to the sketch above it:** the answer keys are `a` `b` `t` `s`, not `←` `→` `↓`, because arrows pan a zoomed picture and must not cast a vote; choosing is a button under the pictures, not a click on them, and the bar is part of `Compare`'s footer.
+
 **Map rules (§3.22)** (branch `claude/map-rules`). Jonathan asked for strata-react issue #80 (a themed map of routes). The research had no map section, so the decisions are recorded here.
 
 - `ui-library/components.md`: new **§3.22 Maps of routes** and a table row.
