@@ -703,3 +703,58 @@ no check that it could be seen on the chosen tiles. This is new ground; these ar
   member never reacts to its own writes, and the pointer wins over playback and hands back to it. One
   polite live region speaks the reading, throttled, never one per member.
 
+### 3.23 Timed media: windows, waveforms, transcripts, streams and 360 pictures
+
+[`media-player.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/components/media-player.tsx),
+[`waveform.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/components/waveform.tsx),
+[`transcript-view.tsx`](https://github.com/jburnhams/strata-react/blob/main/src/components/transcript-view.tsx),
+[`src/hls/`](https://github.com/jburnhams/strata-react/blob/main/src/hls/index.ts),
+[`src/panorama/`](https://github.com/jburnhams/strata-react/blob/main/src/panorama/panorama-viewer.tsx)
+
+Added in strata-react for strata-360, which reviews speech, music and 360 footage in small pieces
+(strata-react issues #178 to #180, #185, #186). These are the decisions; they extend §3.16 (keys) and
+the transport parts of the player.
+
+- **Play a window of a file, one player at a time.** A window (`start`, `end` seconds) bounds playback:
+  it starts at `start`, stops or loops at `end`, and a play from outside it begins at `start`. The bar
+  and time show the window unless the whole file is wanted with the window marked. The end is checked
+  every animation frame, not on `timeupdate` (about four a second), or a phrase runs on a quarter of a
+  second into the next word. Say it ("Playing 0:12 to 0:15", polite). Rows that play a piece share one
+  element and are `PlayWindowButton`s: named for what they play ("Play phrase 12"), a pressed toggle so
+  the name does not change while a screen reader is moving down fifty of them. Starting one player
+  pauses the others in its group; a group is a name or a region, and a player that unmounts leaves it.
+  Speech is played with the pitch kept at every rate.
+- **A waveform is for putting the playhead on something.** Peaks in (any length, resampled to the
+  width) or a file decoded in the browser with progress and Cancel, never a frozen page. It is one
+  slider, as the seek bar is, with the time as its value; zoom with `+` `-` `0` and Ctrl and the wheel,
+  and the slider's range is the visible part so a click lands where it is drawn. Marks differ by line
+  (thin, medium, heavy, dashed), never only by colour; beats are drawn but not listed for screen
+  readers (400 is not a list) and are left out when they would crowd. Spans are tinted bands with a
+  bar along the top and are named in a list. A selected range is Shift and drag, or `[` and `]` at the
+  playhead, so it can be made from the keyboard.
+- **A transcript is read in DOM order and followed by sight, not by announcement.** The heard phrase has
+  a bar and `aria-current`, the heard word is underlined, not only tinted; the word is not announced
+  as it changes (a polite sentence per phrase is an opt-in). Words are buttons that seek. Follow scrolls
+  the heard phrase into view until the person scrolls away, and only a scroll that follows something
+  they did counts (wheel, touch, a key, a scrollbar press), or a layout shift would turn it off for
+  nobody. "Jump to now" names the phrase it goes to. Long transcripts are virtualised, which cannot keep
+  an off-screen row mounted (React Aria's Virtualizer persists only the focused and dragged rows), so
+  the button carries the heard phrase's text.
+- **A stream the element cannot play is attached, not special-cased.** An engine takes the element over
+  behind one small interface (attach, detach, reload), so the player, the compare grid and a 360 view
+  all use streams the same way. Quietly retry what the engine can recover (a dropped connection, a
+  decoder hiccup: three times, reset when a segment loads); after that the player's own load error
+  appears in words, and Try again restarts at the time playback had reached. Chromium's native HLS
+  failed on a growing playlist that hls.js plays, so the engine is preferred wherever it can run.
+- **A source still being made is a state, not an ending.** Say "Still being made" with the app's own
+  progress; the seek bar spans the whole length if it is known and draws the part that exists as ready;
+  playing into the end of what exists waits (and says so, politely) and carries on when more arrives,
+  and never calls the source ended.
+- **A 360 view is a window, a canvas and a set of ways in.** Yaw, pitch and field of view in degrees
+  are a controlled value; setting it from outside never animates (the app's aim modes are its own
+  functions of time). Drag pans with the picture following the pointer, wheel and pinch zoom, arrows
+  pan and `+` `-` `0` zoom and reset, and the direction is said in words ("Looking 40° right, 5° up")
+  on the picture always and as a polite status only once the view has been still. Markers are DOM laid
+  over it with a projection helper, so they are text and take focus. Without WebGL2 the flat picture
+  is shown with the same controls and a line saying so, and the helper follows the flat drawing.
+  Cost: one texture upload per drawn video frame, none for a still, and no drawing while off screen.

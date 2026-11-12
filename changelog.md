@@ -6,6 +6,11 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-12
 
+**Timed media: what was built (branch `claude/project-thread-5qo67g`, strata-react issues #178 to #180, #185, #186)**. strata-react built windows and groups for playback, a waveform, a transcript view, an HLS entry with growing streams and a 360 viewer; the decisions are written back.
+
+- `ui-library/components.md`: **new** §3.23 (windows checked every frame and announced, `PlayWindowButton` as a pressed toggle, groups; waveform as one slider with line-style marks, named spans, zoom and a keyboard-made range; transcript order, follow rules that count only the person's scrolls and the virtualiser's limit; the attach interface for streams and why the engine is preferred, retry and Try again; a source still being made as a state; the 360 window's controls, words, overlay and fallback).
+- Looked for and not found: a React Aria part for any of these (no waveform, timed text, media engine or 360 view); the file comments in strata-react say where each was checked.
+
 **Maps and charts for a media review screen: what was built (branch `claude/project-thread-5qo67g`, strata-react issues #181 to #184)**. strata-react built map markers with deterministic fanning, a shared cursor across chart, map and seek bar, chart spans, marks, a log axis and stacked charts, and a place picker; the decisions are written back.
 
 - `ui-library/components.md`: §3.22 gains two bullets, items on the map (shape plus colour states, fan in world pixels, one keyboard path, picking with the nearest route and its distance, view reporting and reset) and one cursor across views (one canonical unit, source ids, pointer over playback, one throttled live region).
