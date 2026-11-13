@@ -82,6 +82,7 @@ docs and the live example as a site.
 | [`design-slop-cop/`](./design-slop-cop) | Krebs's Show HN study and detector: 14 computed-style patterns, prevalence over 1,390 sites, 190 human labels | MIT |
 | [`pixelslop/`](./pixelslop) | A render-first anti-slop skill: 26 visual patterns, five-pillar rubric, personas | Apache-2.0 |
 | [`boardui/`](./boardui) | A React + Tailwind design system's rules for coding agents | MIT (free tier) |
+| [`ui-sdk/`](./ui-sdk) | Vercel Labs' UI SDK (beta): headless behaviours plus a bridge for agents to operate interfaces (analysis only; feeds `ui-library/agents.md` §4) | Apache-2.0 |
 | [`emil-kowalski-skills/`](./emil-kowalski-skills) | Emil Kowalski's motion skills: the frequency gate, named purposes, exact curves and durations | MIT |
 | [`notboring/`](./notboring) | Components sold as prompts; "build every state" (analysis only) | proprietary |
 | [`web-articles/`](./web-articles) | Articles on AI purple, design-system drift and tell lists, graded (notes only) | — |

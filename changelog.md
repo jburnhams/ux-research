@@ -4,6 +4,16 @@ All notable changes to this repository, grouped by day, newest first. Backfilled
 git history on 2026-11-02 and kept up to date with every change since (see
 [`CLAUDE.md`](./CLAUDE.md)).
 
+## 2026-11-13
+
+**Evaluation of vercel-labs/ui for the research and for strata-react (branch `claude/project-thread-f617pc`)**. Jonathan asked whether the repository adds anything to ux-research and then to strata-react. It is a headless behaviours library that competes with React Aria Components, so nothing changes in strata-react; one idea (interfaces an agent operates) was new to the research and is written up.
+
+- `ui-sdk/README.md`: **new**. Source note (type, Apache-2.0, `main` @ `8ff6bcf`, retrieved 2026-11-13, files read and not read, what is distinctive). Analysis only, no text stored.
+- `ui-library/agents.md`: **new** §4, "Interfaces an agent can operate": unique accessible names, three marks for risky controls, state through callbacks, popup content from app state, no hand-rolled `role=`; checks worth borrowing for tests (server render, right to left, press every control); screen-reader facts from the SDK's `pitfalls.md`, marked as its claims and not reproduced here; what was not built and why.
+- `sources.md`: new "Read on 2026-11-13" table with the repository.
+- `README.md`: `ui-sdk/` added to the primary sources table.
+- Looked for and not found: any visual, colour, type or content guidance in the repository; a data-attribute variant plugin, table, virtualiser or colour-field part equivalent to what strata-react uses. The WebMCP status was not checked. Proposed, not built: a "unique name within a row" helper in strata-react's `renderWithStrata` (no dependency).
+
 ## 2026-11-12
 
 **Pictures from a third party and a second look from roles: what was built (branch `claude/project-thread-5qo67g`, strata-react issues #209, #210)**. `Thumbnail` takes sources and a way to reject a loaded picture; type steps, button padding and icon size, and the next-page rows can be set per region.
