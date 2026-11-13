@@ -887,8 +887,10 @@ From strata-react #221 to #224 (strata-360's settings, clock, redo dialog and tr
   chosen row it is included because of (an icon is not a reason), a refused clear is announced, and a
   summary line counts both ("12 results will be forgotten: 8 chosen, 4 that depend on them"), which is
   also the destructive confirm's description and the source of its count. In a lazy tree a parent is
-  drawn from what has loaded under it (checked, mixed, empty); a branch never opened has nothing under
-  it to tick, so the parent's own key is what a tick chooses.
+  drawn from what has loaded under it (checked, mixed, empty), and ticking a branch never opened reads
+  it, opens it and chooses everything under it, as if it had been expanded and then ticked (Jonathan,
+  2026-11-13): a tick that chose only the parent's own key would leave rows the person cannot see
+  unchosen while the box says they are in.
 - **Doubt is shown by more than colour and can be worked through.** A doubtful word is dotted-underlined
   and named for a screen reader, its phrase says "Doubtful", the controls count the phrases and filter to
   them. A phrase's own mark ("Not sung") is a word on the row, set from a menu that offers the other
