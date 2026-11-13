@@ -103,3 +103,96 @@ sentences, seeds), then `palette.mjs` with the seeds, the four CSS imports from
   direction procedure, for the reason in [`README.md`](./README.md) §3.
 - **Evaluate before growing.** New components are added when a product needs them and
   the generated version gets them wrong, not to complete a catalogue.
+
+## 4. Interfaces an agent can operate
+
+Sections 1 to 3 are about agents that *build* with Strata. This one is about agents (and
+tests) that *operate* the finished screen: a person's assistant filling a form, a browser
+agent clearing a queue, a Playwright test. Vercel Labs' UI SDK (beta, read 2026-11-13,
+[`../ui-sdk/`](../ui-sdk)) is the one source here that treats this as a design problem. It
+does it with a bridge (`createAgent`: `snapshot()` lists named controls with their state
+and actions, `act()` runs steps, WebMCP exposes them as tools). Strata adopts none of that
+machinery, and React Aria stays the primitives layer; what transfers is a short list of
+rules that make a screen operable by anything that reads names and roles.
+
+1. **A control's accessible name is how it is found, so it must be unique where it sits.**
+   The SDK matches a label against every label that holds its words, so "Tip" collides
+   with "Custom tip", and a "Water the plants" button collides with a "Done today: Water
+   the plants" checkbox. This is the reason behind §1's `RowAction` rule: name each
+   control in a row with a verb and the row's subject ("Open Water the plants",
+   "Withdraw Tom Ellery"), never the bare title. A control that belongs to another (a
+   password's Show toggle, a number field's step buttons) needs a name only within its
+   component. The visible text and the accessible name should agree, because both people
+   and agents search by what they can read.
+2. **Mark what needs a person, at the element that does the harm.** The SDK has exactly
+   three marks: *confirm* (a sentence saying what happens, "Deletes the project and all
+   its data"), *secret* (a field an agent may fill and never read) and *hidden* (a region
+   an agent never sees, such as recovery codes). The confirm goes on the button that
+   confirms, not the trigger (opening a dialog is harmless) and not the dialog (that
+   would gate Cancel). Give the confirming button text that is not part of the
+   trigger's ("Delete forever" for a "Delete project" trigger), or a search by text finds
+   the trigger. This agrees with the rule that only irreversible removals get a confirm
+   dialog (strata-react `CLAUDE.md`, "Building an app on Strata" §4); a reversible one
+   needs no mark because `UndoBar` is the safety. Strata has no such marks today; see
+   "Not built" below.
+3. **State changes go through the component's change callback, not through click or key
+   handlers.** A check written in `onClick` or `onKeyDown` never sees a change made
+   programmatically. The SDK reports `details.source` (`"keyboard"`, `"mouse"`,
+   `"agent"`) and lets the callback refuse. Related: native constraints such as
+   `minLength` only run while a person types, so a value set from code skips them;
+   validate in the app (Strata's `useAsyncAction` `validate` and the server's 422 already
+   are that place).
+4. **What a popup shows comes from app state, not from the trigger's click.** An agent
+   can open a popup without clicking its trigger. A popup with several triggers is told
+   apart by its trigger's text ("Edit Beta"), so each trigger carries its row.
+5. **Hand-rolled `role=` next to a shipped component is a bug.** The SDK's skill says a
+   `div` with `role="listbox"`, `"menu"`, `"dialog"`, `"tablist"`, `"switch"`, `"slider"`
+   or `"tree"` beside an installed package is almost always one. It is the same
+   reasoning as "React Aria first".
+
+### Checks worth borrowing for tests
+
+The SDK ships `checkPattern` (roles, names, states, id references and the keyboard model of
+a WAI-ARIA pattern in one error listing every problem), `checkServer` (output before
+hydration) and `checkDirection` (right to left). Two of those have no counterpart in
+Strata's tests: **render the screen on the server and check the markup**, and **run the
+keyboard model in a right-to-left page**. Its `AGENTS.md` also says "tests that pass on a
+broken page don't count": press Space on *every* switch placed, press Cancel as well as
+the confirming button, submit each required field empty, assert each button's name in the
+page's own markup, and assert that state attributes you did not set (`aria-disabled`) are
+absent. That is a checklist for a screen's integration test, and nothing in it needs a
+library.
+
+### Assistive-technology facts from its `pitfalls.md`
+
+Read from the SDK's own list of things that cost debugging time; each is a claim by one
+maintainer team, not something we reproduced. Worth knowing before building a custom
+combobox or list, and the first is the reason a React Aria part beats a hand-built one:
+
+- iOS VoiceOver ignores `aria-activedescendant`, so a list moves real focus there.
+- NVDA stops echoing typed characters once `aria-activedescendant` is set on a text field,
+  so set it only after an arrow key.
+- Safari does not focus a button on click and skips buttons on Tab by default, so "return
+  focus to the trigger" must also handle focus left on the body.
+- Anything platform-specific in output (shortcut glyphs, `aria-keyshortcuts`) must start
+  neutral and update after hydration, or a Mac gets a hydration mismatch. Not
+  checked in strata-react: `src/components/key-glyphs.tsx` is where to look.
+- A wrapper element between menu items needs `role="none"` and `display: contents`, or
+  position-in-set is wrong for screen readers.
+- Opening a modal before the page hydrates makes not-yet-hydrated markup inert.
+
+### Not built, and what was looked for
+
+- **A bridge like `createAgent`** is not proposed. It duplicates what the accessibility
+  tree and Playwright's role queries already give an agent, adds a runtime API to every
+  component, and needs its own primitives layer. Revisit if a product wants WebMCP tools
+  (a proposed web API for a page to offer tools to an agent; the SDK implements it, we did not check its status): the first step would be
+  an app-level `Shortcut[]`-style list of named actions, not a new component layer.
+- **Confirm, secret and hidden marks** would be attributes (`data-agent-confirm` and so
+  on) read by whatever drives the page. Nothing in Strata reads them. If one is added it
+  is a decision for strata-react, not this document.
+- **A "unique name within a row" test helper** for `renderWithStrata` is the one cheap
+  addition: it needs no dependency, reads the accessibility tree, and catches rule 1.
+  Proposed in the strata-react entry of the changelog, not built.
+- Not found in the SDK: any visual, colour, typography or content guidance. It leaves the
+  look entirely to the app, as Strata does, so it gives nothing to the slop research.

@@ -101,3 +101,9 @@ were read with WebFetch. Abstracts came from the Europe PMC REST API.
 | https://rauno.me/craft/interaction-design (Freiberg, July 2023) | WebFetch | [`ux-character.md`](./ux-character.md) §3 |
 | https://styleguide.mailchimp.com/voice-and-tone/ (CC BY-NC 4.0) | WebFetch | [`ux-character.md`](./ux-character.md) §3, §5.1 |
 | Search results: Corporate Memphis criticism (Wikipedia mirrors, AIGA Eye on Design, Protocol via Slashdot); aesthetic-usability (Kurosu and Kashimura 1995, Tractinsky 1997, Tractinsky et al. 2000); humour in error messages (Science Says summary of a 2025 study) | WebSearch (snippets and summaries; cited as such) | [`ux-character.md`](./ux-character.md) §2, §4 |
+
+### Read on 2026-11-13 (agent-operable interfaces)
+
+| Page | Via | Used in |
+|---|---|---|
+| https://github.com/vercel-labs/ui (`main` @ `8ff6bcf`, 2026-11-13): README, AGENTS.md, contributing/README.md and pitfalls.md, the `ui-sdk` skill and its references, the agents docs | shallow `git clone` | [`ui-sdk/`](./ui-sdk), [`ui-library/agents.md`](./ui-library/agents.md) §4 |
