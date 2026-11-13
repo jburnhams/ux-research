@@ -6,6 +6,11 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-13
 
+**Rules from strata-react's batch on fitting, toast regions and migration (issues #225, #229, #230; branch `claude/project-thread-5qo67g`, strata-react PR #232)**. Jonathan asked for the newest strata-react issues to be done as one batch; the decisions the issues set are written back here.
+
+- `ui-library/components.md`: **new** §3.29: a frame's height limit measured from the page (what the component draws besides its frames, what follows it, rows of frames, a floor, full screen fills what the controls leave); a region that owns a queue lets the first draw and warns on a second; and a stylesheet without the reset, a list of stock classes left and a flag to hold the line, for a product that adopts a system a screen at a time.
+- Looked for and not found: any earlier rule for fitting a pair to a window (the 14rem guess is in strata-react only), or for adopting a system gradually, in `ui-library/patterns.md` or `tokens.md`; they are in §3.29 for now.
+
 **Rules from strata-react's fourth batch of components (issues #221 to #224; branch `claude/project-thread-7y4dy2`, strata-react PR #226)**. Jonathan asked for the newest strata-react issues to be done; the decisions that were new to the research are written back.
 
 - `ui-library/components.md`: **new** §3.28 on a secret the server keeps (no input while set, no length shown, masked entry with a named Show toggle, a form never re-sends an empty value, Remove names what stops working), nudge buttons, suggestions that never apply themselves and a preview behind Apply for a change that costs work, choices that imply others (explicit kept apart from implied, reason in words, a summary that is the confirm's count, parents drawn from what has loaded in a lazy tree, and a tick on an unread branch reading, opening and choosing everything under it), and doubt, a phrase's mark, in-place correction and a hover card on a transcript.
