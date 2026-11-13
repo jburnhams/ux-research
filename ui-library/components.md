@@ -859,3 +859,42 @@ Findings from the third batch of strata-360's screens (strata-react issues #187 
   moving to the first new item, and the failure row, so a second look cannot lose what makes a list of
   pages work.
 
+### 3.28 A key the server keeps, a number nudged, choices that imply others, and a transcript with doubt
+
+From strata-react #221 to #224 (strata-360's settings, clock, redo dialog and transcript screens).
+
+- **A secret the server keeps is a state, not an input.** Not set, set, editing, saving, refused. While set
+  and untouched there is no input in the page: a field showing dots shows the key's length, and an input
+  that is merely hidden is still one a browser, an extension or a test can read. The field says "Set"
+  and when, if the app knows, and offers Replace, Remove and Test. Editing is masked, with a Show toggle
+  named for what it reveals ("Show API key"), `autocomplete="new-password"` so a password manager does
+  not fill an unrelated login, and the value held in state only: never the URL, storage or a log. A field
+  set and untouched reports nothing to its form, so submitting never overwrites the stored key with an
+  empty one. Remove is irreversible and breaks whatever uses the key, so it is a confirm that names what
+  stops working. A refused key puts the server's reason on the field and keeps the entry. The result of
+  a Test is text with an icon beside the field, not a toast and not colour.
+- **A value set a little at a time wants nudge buttons, and one that costs work wants a preview.**
+  Step buttons ("−10 −1 −0.1 +0.1 +1 +10", each named "Subtract 1 s") repeat while held, after a
+  delay, and stop at the limits. An app's suggestion is a row saying what and why in words with "Use
+  this value"; it never changes the field itself, because the suggestion is a claim the person has not
+  checked. When a change re-does work (re-timing every clip), changes are held: the preview says what
+  would change, Apply (the view's one filled button, named for what it does, "Re-time clips") commits
+  once, and Revert puts the saved value back. A per-keystroke commit would run the expensive thing for
+  every digit typed.
+- **A choice can imply others, and the person must see why.** Keep what they chose apart from what that
+  brings in, and derive the second every time, so clearing the cause releases the effect. A key that
+  something chosen implies is ticked and cannot be cleared on its own; the row says, in words, which
+  chosen row it is included because of (an icon is not a reason), a refused clear is announced, and a
+  summary line counts both ("12 results will be forgotten: 8 chosen, 4 that depend on them"), which is
+  also the destructive confirm's description and the source of its count. In a lazy tree a parent is
+  drawn from what has loaded under it (checked, mixed, empty), and ticking a branch never opened reads
+  it, opens it and chooses everything under it, as if it had been expanded and then ticked (Jonathan,
+  2026-11-13): a tick that chose only the parent's own key would leave rows the person cannot see
+  unchosen while the box says they are in.
+- **Doubt is shown by more than colour and can be worked through.** A doubtful word is dotted-underlined
+  and named for a screen reader, its phrase says "Doubtful", the controls count the phrases and filter to
+  them. A phrase's own mark ("Not sung") is a word on the row, set from a menu that offers the other
+  marks and Clear. Correcting text is in place, from the keyboard (Enter on the row, F2 anywhere in it);
+  the box keeps its own keys, Ctrl or Cmd+Enter saves, Escape cancels, focus returns to the row, and each
+  outcome is announced. A hover card opens after a rest, on focus as well as hover, closes on Escape, is
+  built only for the phrase it is open on, and is never the only way to what it shows.
