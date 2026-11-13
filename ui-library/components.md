@@ -797,3 +797,65 @@ Findings from the third batch of strata-360's screens (strata-react issues #187 
   Shift extends, and the caret word and selection size are announced. Single-key chords never fire while
   typing and are disabled, with the reason, while nothing is selected. Undo is the app's history
   command, named for the step.
+
+### 3.25 Judging pairs: click to choose, autoplay and looping a clip
+
+- **A click on the picture you prefer is an answer** (strata-react #201), the same one as the key and the
+  button, so `pending` switches it off and a click during a save is dropped. The frame that already owns
+  pan, band and double click decides: press and release within 4 px and 500 ms is a pick; movement is a
+  pan; a double click zooms, so a pick waits 300 ms for a second click and is cancelled by one.
+  Where a click is ambiguous there is no pick and the words say so: fade and difference blend both
+  sides. Side by side picks the frame; swipe the side of the divider; blink the side showing. Hovering
+  shows a pointer cursor, an outline on the side and "Click to choose A", in labels only when blind. The
+  frame keeps its name and gets the choice as its accessible description. A screen where a click must
+  only pan turns it off (`pick={false}`).
+- **Judging a loop means it starts itself and repeats** (#203): autoplay begins when every video can play
+  in step, muted because browsers refuse autoplay with sound (unless the person already chose a level),
+  falls back to paused when refused, and starts again for each new pair from 0. Reduced motion keeps it
+  off unless the app says "always". Looping the whole clip applies only while no range is set; a range
+  the judge marks wins until cleared. Seeking and stepping still pause, and a pause stays a pause.
+- Looked for and not found: a React Aria part for a click-versus-pan gesture; the frame measures it from
+  pointer events.
+
+### 3.26 Marked stretches in a player, the app's hold on it, and a player a phone wide
+
+- **A stretch the app knows about is drawn on the bar and acted on once** (strata-react #207). Each kind
+  has a behaviour: `auto` acts as playback reaches it (skip to its end, or mute it when the picture is
+  wanted but the sound is not) and says so with Undo for a few seconds ("Skipped intro"); `ask` puts one
+  button over the picture ("Skip intro ›", also on a key while it shows); `off` only draws it. Acting is
+  on playback entering the stretch while playing, never while paused, so scrubbing inside one is not
+  fought with. A stretch that was skipped, or let play after Undo, is not acted on again, a muted one
+  gives its sound back on leaving (unless the person already moved the volume), and a source still being
+  made waits until the end of a stretch exists before skipping into it. The memory is keyed by the spans'
+  content, because apps write the array inline.
+- **Colour is a status role per kind, never the only carrier**: the range is a named image with its times
+  ("Recap, 0:40 to 1:10"), a tooltip, and the button names the kind in words. The same five tones as a
+  chart's spans; a categorical palette is the product's to add.
+- **The app's own thing over a playing picture needs a place and the state.** A video keeps a box of its
+  own shape (the app's `aspect`, else its own, else 16:9 before the metadata loads) so nothing jumps and
+  an overlay has a stable box; the overlay covers the picture only, never the controls, and what is in
+  it is clickable and focusable. The player's state and requests are handed out through a ref (an object
+  ref holds the latest without rendering again), so a chapter list or a comment list can seek without
+  finding the element inside the player.
+- **A control row has to shrink before it overflows** (#213): in a row a phone wide the volume slider's
+  track gives way while the button and the readout keep their size; "100%" never runs past the edge.
+- **A stream that is still being made starts at its beginning** (#208): the start exists and the edge
+  moves, so the engine's "live edge" default is wrong for it; the app's own start time wins when given,
+  and each way a stream fails is worded by the product.
+
+### 3.27 Pictures from a third party, and a second look from roles
+
+- **A picture from a host the app does not control fails in ways only the app can read** (strata-react
+  #209): the first size does not exist for every item (a list of sources, tried in order), the host
+  answers a missing item with a 200 and a small grey placeholder (the app sees each loaded image and can
+  reject it, and the next source is tried as if it had failed), and a failed picture is a fact worth
+  recording (told once, never for a record that has no picture). A decorative avatar whose name sits
+  beside it has nothing to say when it is missing: it is presentation, not an image named "".
+- **A region can have a second look from roles alone** (#210). Colours, radii, fonts and heights already
+  were variables; the three fixed things that stopped more components being used that way become roles
+  with today's value as the default: each type step's size, leading and weight, a button's side padding
+  and icon size, and the next-page rows (the idle and loading rows drawn by the app, the hairline above
+  them optional). What an app cannot replace stays the component's: the sentinel, the live region, focus
+  moving to the first new item, and the failure row, so a second look cannot lose what makes a list of
+  pages work.
+

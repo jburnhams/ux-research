@@ -6,6 +6,22 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-12
 
+**Pictures from a third party and a second look from roles: what was built (branch `claude/project-thread-5qo67g`, strata-react issues #209, #210)**. `Thumbnail` takes sources and a way to reject a loaded picture; type steps, button padding and icon size, and the next-page rows can be set per region.
+
+- `ui-library/components.md`: **new** §3.27 (a third party's failures and what the app can do about them; a second look from roles, and what stays the component's).
+- Looked for and not found: a React Aria part for either; an existing role in the research for type steps as variables (this adds it).
+
+**Marked stretches, the app's hold on a player, phone width and HLS start: what was built (branch `claude/project-thread-5qo67g`, strata-react issues #207, #208, #211, #213)**. strata-react's `MediaPlayer` now draws and acts on spans, hands out its state and an overlay box, shrinks its volume row, and starts a growing HLS source at its beginning.
+
+- `ui-library/components.md`: **new** §3.26 (the three behaviours of a marked stretch and acting once, status tones not categorical colours, an overlay's place and the state through a ref, a control row that shrinks, where a growing stream starts).
+- Looked for and not found: a React Aria part for any of this (a span policy is time logic over a `Button`); categorical colour roles in Strata (there are none, so the status tones are used).
+
+**Judging pairs: what was built (branch `claude/project-thread-5qo67g`, strata-react #201 and #203)**. strata-react made a click on a picture choose it in a pair judgment, and let a video pair start itself and loop the whole clip.
+
+- `ui-library/components.md`: **new** §3.25 (click to choose and how it is told from a pan and a double click, per view; autoplay muted with a paused fallback; looping the whole clip with a range winning).
+- `ui-library/compare-and-decide.md`: correction. §3.3 said choosing is never a click on the pictures; that held while a click panned, and is wrong now. The line says what changed and why.
+- Looked for and not found: a React Aria part that separates a click from a pan.
+
 **Conversation, pictures from a set, windows on a picture, sequences, trees and marking text: what was built (branch `claude/project-thread-5qo67g`, strata-react issues #187 to #192)**. strata-react built a thread with a composer and safe rich text, a lightbox, a rectangle editor, a gapless sequence strip, a lazy tree with a folder chooser, and word marking. The decisions are written back as a new section.
 
 - `ui-library/components.md`: **new** §3.24 (announce the ending of a streamed answer, rich text as a tree with whole-word ids, a lightbox's key and focus rules, a rectangle edit as a draft, the cut as the control of a gapless sequence, the four states of a lazy tree node, marking as selecting ids with marks that never rely on colour).
