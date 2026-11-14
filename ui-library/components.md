@@ -924,3 +924,19 @@ From strata-react #221 to #224 (strata-360's settings, clock, redo dialog and tr
   CI), and say which import is for a new app and which for an existing one. The roles the components use must still
   be supplied, and the stock variables still exist in that mode, so an app can point its roles at the colours it has
   and keep today's look while it moves over. The list is a text scan, so it is a list to work from, not a proof.
+
+### 3.30 A native tip on a button, and a chooser that knows what a folder is
+
+- **A button refuses `title`; a tip is a tooltip** (strata-react #231). A native `title` has no keyboard focus, no
+  touch, a long unstyled delay, and the primitives layer's button does not forward it, so a tip carried over from a
+  plain button vanishes with nothing said. Passing it through would give the poor version; refusing it in the type (and
+  warning once in development for an untyped caller) sends the author to the tooltip, which opens on focus as well as
+  hover. A button whose only content is one symbol (`✕`) has no name from its text and warns the same way. A tooltip
+  names or explains a control; it is never the only place the information lives.
+- **A chooser says what a folder is, and why it cannot be chosen** (#233). What the server knows about a folder
+  (already a project, holds camera files) is a word beside the name on a tint, never colour alone, and part of the
+  row's name for a screen reader. The filled button is disabled for a folder that cannot be chosen and the reason is
+  beside it in words, tied to it with a description, because a disabled button that does not say why is a dead end;
+  its label names the action ("Create project here"). A folder that already is the thing wanted is chosen when it is
+  opened instead of entered (its subfolders are not offered), decided by the app; and a listing may carry a sentence
+  about the folder itself ("3 camera files here") shown under the tree, so the person sees what the rule saw.

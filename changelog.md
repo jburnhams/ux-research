@@ -4,6 +4,13 @@ All notable changes to this repository, grouped by day, newest first. Backfilled
 git history on 2026-11-02 and kept up to date with every change since (see
 [`CLAUDE.md`](./CLAUDE.md)).
 
+## 2026-11-14
+
+**Rules from strata-react's batch on Button `title` and the folder chooser (issues #231, #233; branch `claude/project-thread-5qo67g`, strata-react PR #234)**. Jonathan asked for the newest strata-react issues to be done; the two decisions that were new to the research are written back.
+
+- `ui-library/components.md`: **new** §3.30: a button refuses a native `title` (the tip is a tooltip that opens on focus; a lone-symbol button warns for want of a name); a chooser shows what a folder is as a word on a tint in the row's name, disables the filled button with the reason beside it and a named action, takes a folder that already is the thing wanted as chosen when opened, and may show a sentence about the folder under the tree.
+- Looked for and not found: an earlier rule for `title` on controls or for a chooser's disabled reason in `ui-library/patterns.md`; they are in §3.30 for now.
+
 ## 2026-11-13
 
 **Rules from strata-react's batch on fitting, toast regions and migration (issues #225, #229, #230; branch `claude/project-thread-5qo67g`, strata-react PR #232)**. Jonathan asked for the newest strata-react issues to be done as one batch; the decisions the issues set are written back here.
