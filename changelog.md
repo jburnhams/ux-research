@@ -5,6 +5,19 @@ git history on 2026-11-02 and kept up to date with every change since (see
 [`CLAUDE.md`](./CLAUDE.md)).
 
 ## 2026-11-14
+**API types from the server's OpenAPI schema, from strata-react #263** (branch `claude/project-thread-nnem56`, with PR #50). A rule for how an app gets its TypeScript types, after Jonathan chose openapi-typescript behind its own entry.
+
+- `ui-library/components.md` §3.32: **new** rule that the server's schema is the one source, the generated file is committed and checked in CI, and the client stays `fetchJson` and TanStack Query.
+
+**Photo grid rest and pictures in answers, from strata-react #246 and #257** (branch `claude/project-thread-nnem56`, with PR #50). The four parts of the photo grid that were left open, and a rule from strata-360's Ask page.
+
+- `ui-library/components.md` §3.32: replaced "not decided yet" with the decisions (justified rows sized from the records' shapes, marquee from the gaps, two-finger pinch, the heading pushed up by the next) (the marquee auto-scrolls and keeps tiles seen earlier; zoom holds the tile under the pointer), added the rule that a transcript is not always played (marking, corrected words, strata-react #260), and added the rule that a picture that is the answer is drawn under it, not inside "what it looked up".
+
+
+**Rules from strata-react's batch of six issues from strata-stills and strata-scan (issues #245 to #250; branch `claude/project-thread-nnem56`, strata-react PR #253)**. Jonathan asked for the decisions to be written back with the library change: a view toolbar, a photo grid that zooms and groups, a tree with a current row beside ticked ones, and a button that starts a job.
+
+- `ui-library/components.md`: **new** §3.32 with the rules above. It also records what is not decided (a justified layout, marquee, touch pinch, the next heading pushing the stuck one up). Groups as rows of one virtualised grid were added after strata-react PR #253 (follow-up PR for #246), which answered Jonathan's question whether a grouped grid was hard to virtualise.
+- Looked for and not found: an earlier rule for a view toolbar, a current row in a tree or a job's start button in `ui-library/patterns.md` or `components.md`.
 
 **Rules from strata-react's batch of eight issues from strata-scan and strata-360 (issues #237 to #244; branch `claude/project-thread-nnem56`, strata-react PR #251, this PR #49)**. Jonathan asked for the newest strata-react issues to be done as one batch; the decisions are the ones a screen of scanned books and a gallery needed.
 
