@@ -898,3 +898,45 @@ From strata-react #221 to #224 (strata-360's settings, clock, redo dialog and tr
   the box keeps its own keys, Ctrl or Cmd+Enter saves, Escape cancels, focus returns to the row, and each
   outcome is announced. A hover card opens after a rest, on focus as well as hover, closes on Escape, is
   built only for the phrase it is open on, and is never the only way to what it shows.
+
+### 3.29 Fitting a pair to the window, one toast region, and adopting a system a screen at a time
+
+- **A frame's height limit is measured, not guessed** (strata-react #229). A fixed allowance for "the rest of the
+  page" ("the window less 14rem") is wrong both ways as soon as a page has a header, a bar or a legend of its own: pictures
+  of another shape make it scroll, and extra controls make it scroll more. Measure instead: the window from the top of
+  the pair, less what the component draws besides its frames (taken from the bottom of its last child, not its height,
+  which a stretched full-screen box would inflate), less what follows it in the page, shared between the rows of frames
+  (side by side is one row, stacked is two), never under a floor a pair can still be told apart at (120 px). Re-measure
+  when the page, the window or full screen changes, and stop when the number stops changing. The caller names only what
+  cannot be measured (padding and gaps around it). In full screen the frame fills what the component's own controls
+  leave, whatever the caller passed: a pixel value computed for the page is wrong there. The fixed guess stays for a
+  caller that wants no measuring. Found while testing it: a picture that loads with no size (an SVG without one)
+  must not set the aspect to NaN; keep the default shape.
+- **Two of a one-per-app thing is caught, not doubled** (#230). A region that owns a queue (toasts) lets the first
+  mounted draw and a second draw nothing, and says so in development, naming the fix. The usual cause is the same in an
+  app and in a test: a layout draws the region and a helper (or a page) draws another. Making the test helper stop
+  drawing one fixes only the test; the guard also catches the same mistake in the app.
+- **A system whose reset breaks the app's own classes needs a way in that does not** (#225). A design system that clears
+  the stock colour, size, radius, shadow and font names is right for a new product and an all-at-once cliff for a
+  product with thousands of lines of the stock ones (even `@apply bg-stone-100` fails to build). Ship the same
+  stylesheet without the reset, made from the same source so the two cannot drift, a list of what stock classes are
+  left by file and line with the role that replaces each (and a flag that fails while any remain, to hold the line in
+  CI), and say which import is for a new app and which for an existing one. The roles the components use must still
+  be supplied, and the stock variables still exist in that mode, so an app can point its roles at the colours it has
+  and keep today's look while it moves over. The list is a text scan, so it is a list to work from, not a proof.
+
+### 3.30 A native tip on a button, and a chooser that knows what a folder is
+
+- **A button refuses `title`; a tip is a tooltip** (strata-react #231). A native `title` has no keyboard focus, no
+  touch, a long unstyled delay, and the primitives layer's button does not forward it, so a tip carried over from a
+  plain button vanishes with nothing said. Passing it through would give the poor version; refusing it in the type (and
+  warning once in development for an untyped caller) sends the author to the tooltip, which opens on focus as well as
+  hover. A button whose only content is one symbol (`✕`) has no name from its text and warns the same way. A tooltip
+  names or explains a control; it is never the only place the information lives.
+- **A chooser says what a folder is, and why it cannot be chosen** (#233). What the server knows about a folder
+  (already a project, holds camera files) is a word beside the name on a tint, never colour alone, and part of the
+  row's name for a screen reader. The filled button is disabled for a folder that cannot be chosen and the reason is
+  beside it in words, tied to it with a description, because a disabled button that does not say why is a dead end;
+  its label names the action ("Create project here"). A folder that already is the thing wanted is chosen when it is
+  opened instead of entered (its subfolders are not offered), decided by the app; and a listing may carry a sentence
+  about the folder itself ("3 camera files here") shown under the tree, so the person sees what the rule saw.
