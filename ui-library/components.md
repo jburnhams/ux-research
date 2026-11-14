@@ -989,3 +989,43 @@ Findings from strata-scan (scanned books) and strata-360 (strata-react issues #2
   its own server; a file server that does not makes `/books/1` ask for `/books/assets/...` and paint an empty page.
   The runner adds the tag, and fails a shot whose script or stylesheet did not arrive, so an empty page can never be a
   baseline.
+
+### 3.32 A view toolbar, a photo grid, a tree with a current row, and a job that starts from a button
+
+Findings from strata-stills (a photo browser, a job queue) and strata-scan (strata-react issues #245 to #250).
+
+- **How a set is looked at is one toolbar, and it is remembered.** Sort, group, tile size, picture shape, grid or
+  list and a text filter are the same six controls on every browsing screen, so they are one component over one
+  hook. It is a toolbar (one tab stop, arrows between the controls); on a phone everything but the filter folds into
+  a "View" popover. Short lists of words are native selects. The direction button is named from the sort key's own
+  words ("Newest first", "Oldest first"), because "Ascending" says nothing about dates. The filter shows its count
+  ("82 of 140") in a polite region. State is kept where the person left it (local storage, inside try/catch) and,
+  when the screen is linked to, in the address (`?sort=taken-desc&group=hour&size=180`), which wins over storage.
+  The filter text is never stored: a filter that is still on tomorrow reads as a list that lost rows.
+- **Sorting is natural, with nulls last both ways, and stable.** "IMG_2" comes before "IMG_10"; a picture with no date
+  goes to the end whichever way the dates run; ties keep the order they came in.
+- **A slider in a toolbar keeps its own Home and End.** The toolbar's Home and End go to the first and last control,
+  which took them from a size slider; a range input is treated as a typing target is.
+- **A photo grid zooms by pixels, keeps the place, and chooses like the file manager.** Tile size is a continuous
+  width, changed from the toolbar slider, `+` and `-` and Ctrl/Cmd+wheel (also a trackpad pinch), and the scroll
+  position is held as a share of the content so the picture in view stays in view. A click toggles in a bulk-action
+  screen; where the work is looking, a click chooses one, Ctrl/Cmd adds, Shift extends, Ctrl/Cmd+A chooses all,
+  Escape clears and a double click or Enter opens. Groups have sticky headings, a box that is mixed when part of the
+  group is chosen, and a fold. A choice the filter hides stays chosen and is counted in words, with a way to clear
+  just those. A tile that cannot be chosen says why on the tile.
+- **Not decided yet:** a justified layout for pictures of their own shapes, a marquee, touch pinch, and
+  virtualising across groups (React Aria's grid layout takes one flat collection, so a section needs a layout of our
+  own). A grouped grid is not virtualised for now; folding keeps it short.
+- **A tree has a current row beside the ticked ones.** "The folder I am looking at" and "the folders I have ticked"
+  are different things on one screen: a press on a name moves the current row (highlighted, `aria-current`), the box
+  ticks. Counts sit right-aligned in the row, a badge is a word on a tint, both are part of the row's name; children
+  are sorted once for the tree, not in every read; a deep link opens the ancestors and scrolls to the row. Ticking
+  a branch that has not been read does not open it when the app can say what is under it: the live region says "2019
+  and its 91 folders" and the keys are chosen, so a year is never read just to be ticked.
+- **A button that starts a job is busy until the server answers, then the job is somewhere else.** The button is
+  disabled and busy (and says so to a screen reader) for the request only; the answer is a toast that says it is
+  queued, with a link to the jobs page, and a second when it finishes. A failed start stays on the button as "Try
+  again", with no toast. A progress line reads "12 of 40 done, 28 remaining · the item it is on", one shape for
+  every job. A row's action is the same button, ghost and small.
+- **A toast with nowhere to appear is a development error.** Calling the toast with no region mounted warns once,
+  naming the fix; mounting a region for the app would double the toasts of apps that already have one.
