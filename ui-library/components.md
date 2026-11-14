@@ -1052,3 +1052,9 @@ Findings from strata-stills (a photo browser, a job queue) and strata-scan (stra
   keyboard marking is its own tab stop and acts only while it has focus, so the list keeps its arrows. A word a person
   corrected is dotted-underlined in the primary colour, says "corrected, was …" in text, shows the original on hover,
   and a click opens the correction (strata-react issue #260). Not decided: marking in a translation.
+- **An app's API types come from its server, not from a second hand-written copy.** The server's OpenAPI schema
+  (`/api/openapi.json`) is the one source; the generated file is committed and CI regenerates it with `--check`, so a
+  change on the Python side that the TypeScript did not follow fails the build instead of a screen. The output is
+  deterministic (no URL or date in it). Types only: the client stays `fetchJson` and TanStack Query, so nothing is
+  added to the app's bundle, and the shared shapes (a page with a cursor, a task, an error body with its payload)
+  reach the hooks as one contract (strata-react issue #263).

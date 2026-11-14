@@ -5,6 +5,10 @@ git history on 2026-11-02 and kept up to date with every change since (see
 [`CLAUDE.md`](./CLAUDE.md)).
 
 ## 2026-11-14
+**API types from the server's OpenAPI schema, from strata-react #263** (branch `claude/project-thread-nnem56`, with PR #50). A rule for how an app gets its TypeScript types, after Jonathan chose openapi-typescript behind its own entry.
+
+- `ui-library/components.md` §3.32: **new** rule that the server's schema is the one source, the generated file is committed and checked in CI, and the client stays `fetchJson` and TanStack Query.
+
 **Photo grid rest and pictures in answers, from strata-react #246 and #257** (branch `claude/project-thread-nnem56`, with PR #50). The four parts of the photo grid that were left open, and a rule from strata-360's Ask page.
 
 - `ui-library/components.md` §3.32: replaced "not decided yet" with the decisions (justified rows sized from the records' shapes, marquee from the gaps, two-finger pinch, the heading pushed up by the next) (the marquee auto-scrolls and keeps tiles seen earlier; zoom holds the tile under the pointer), added the rule that a transcript is not always played (marking, corrected words, strata-react #260), and added the rule that a picture that is the answer is drawn under it, not inside "what it looked up".
