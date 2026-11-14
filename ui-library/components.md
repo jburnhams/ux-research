@@ -1016,8 +1016,21 @@ Findings from strata-stills (a photo browser, a job queue) and strata-scan (stra
 - **Groups are rows of one virtualised grid.** A group's heading is a full-width row in the same list as the tiles
   (a layout that lets the grid work out its columns, then starts each group on a new row), so a grouped grid is
   virtualised like any other and arrow keys cross headings. The heading at the top stays there while its tiles
-  scroll; Enter on it folds the group and Space chooses it. Not decided yet: a justified layout for pictures of
-  their own shapes, a marquee, touch pinch, and the next heading pushing the stuck one up as it arrives.
+  scroll and is pushed up by the next one as it arrives; Enter on it folds the group and Space chooses it.
+- **Pictures of their own shapes sit in rows of equal height, sized before they load.** A justified layout (Google
+  Photos, Lightroom) fills a row with pictures at the target height, then scales the row to the width; the last row
+  keeps the target height instead of stretching. The shapes come from the records (pixel size), never from the loaded
+  image, so nothing moves as pictures arrive. Tile size then means the row height to aim for. React Aria's layouts
+  (`GridLayout`: fixed columns; `WaterfallLayout`: columns of unequal height) do not do this, so it is ours, inside
+  its virtualizer.
+- **A marquee starts between tiles, and two fingers zoom.** A drag that starts on a tile is a press and keeps its
+  focus; a drag from the gap draws a rectangle that chooses what it touches, and Ctrl/Cmd or Shift adds. It reaches
+  the tiles that are drawn (a virtualised grid draws what is in view) and does not auto-scroll. A pinch scales the
+  tile size, and the browser's own page zoom is refused for that gesture only.
+- **A picture that is the answer is not folded into "what it looked up".** In a conversation, a frame the assistant
+  fetched ("show me the longest clip") is drawn under the answer text, always visible, labelled and lazy, with a link
+  to the full size; the collapsed disclosure is for what it consulted, not for what it is showing (strata-react issue
+  #257).
 - **A tree has a current row beside the ticked ones.** "The folder I am looking at" and "the folders I have ticked"
   are different things on one screen: a press on a name moves the current row (highlighted, `aria-current`), the box
   ticks. Counts sit right-aligned in the row, a badge is a word on a tint, both are part of the row's name; children
