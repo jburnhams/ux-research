@@ -6,6 +6,11 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-14
 
+**Rules from strata-react's batch of eight issues from strata-scan and strata-360 (issues #237 to #244; branch `claude/project-thread-nnem56`, strata-react PR pending)**. Jonathan asked for the newest strata-react issues to be done as one batch; the decisions are the ones a screen of scanned books and a gallery needed.
+
+- `ui-library/components.md`: **new** §3.31: tiles that open and tiles that choose share a layout; read-only boxes on a picture as one SVG layer linked to a list; a book read in spreads with two names per page; the open item in the URL; turning a scan (the canvas convention a server must match) and a spread's gutter; a downsampled line keeps its extremes; a disabled box says why; a visual test serves the build as production does.
+- Looked for and not found: an earlier rule for a book or spread viewer, for a rotation convention, or for a grid of links in `ui-library/patterns.md` or `components.md`; they are in §3.31 for now. Not checked: strata-scan's own `turnedSize`, so the rotation convention is the browser's and a server's `rotate(expand=True)`, not a copy of theirs.
+
 **Rules from strata-react's batch on Button `title` and the folder chooser (issues #231, #233; branch `claude/project-thread-5qo67g`, strata-react PR #234)**. Jonathan asked for the newest strata-react issues to be done; the two decisions that were new to the research are written back.
 
 - `ui-library/components.md`: **new** §3.30: a button refuses a native `title` (the tip is a tooltip that opens on focus; a lone-symbol button warns for want of a name); a chooser shows what a folder is as a word on a tint in the row's name, disables the filled button with the reason beside it and a named action, takes a folder that already is the thing wanted as chosen when opened, and may show a sentence about the folder under the tree.
