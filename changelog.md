@@ -8,7 +8,7 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 **Rules from strata-react's batch of six issues from strata-stills and strata-scan (issues #245 to #250; branch `claude/project-thread-nnem56`, strata-react PR #253)**. Jonathan asked for the decisions to be written back with the library change: a view toolbar, a photo grid that zooms and groups, a tree with a current row beside ticked ones, and a button that starts a job.
 
-- `ui-library/components.md`: **new** §3.32 with the rules above. It also records what is not decided (a justified layout, marquee, touch pinch, virtualising across groups) because strata-react's PR delivers #246 in part.
+- `ui-library/components.md`: **new** §3.32 with the rules above. It also records what is not decided (a justified layout, marquee, touch pinch, the next heading pushing the stuck one up). Groups as rows of one virtualised grid were added after strata-react PR #253 (follow-up PR for #246), which answered Jonathan's question whether a grouped grid was hard to virtualise.
 - Looked for and not found: an earlier rule for a view toolbar, a current row in a tree or a job's start button in `ui-library/patterns.md` or `components.md`.
 
 **Rules from strata-react's batch of eight issues from strata-scan and strata-360 (issues #237 to #244; branch `claude/project-thread-nnem56`, strata-react PR #251, this PR #49)**. Jonathan asked for the newest strata-react issues to be done as one batch; the decisions are the ones a screen of scanned books and a gallery needed.

@@ -1013,9 +1013,11 @@ Findings from strata-stills (a photo browser, a job queue) and strata-scan (stra
   Escape clears and a double click or Enter opens. Groups have sticky headings, a box that is mixed when part of the
   group is chosen, and a fold. A choice the filter hides stays chosen and is counted in words, with a way to clear
   just those. A tile that cannot be chosen says why on the tile.
-- **Not decided yet:** a justified layout for pictures of their own shapes, a marquee, touch pinch, and
-  virtualising across groups (React Aria's grid layout takes one flat collection, so a section needs a layout of our
-  own). A grouped grid is not virtualised for now; folding keeps it short.
+- **Groups are rows of one virtualised grid.** A group's heading is a full-width row in the same list as the tiles
+  (a layout that lets the grid work out its columns, then starts each group on a new row), so a grouped grid is
+  virtualised like any other and arrow keys cross headings. The heading at the top stays there while its tiles
+  scroll; Enter on it folds the group and Space chooses it. Not decided yet: a justified layout for pictures of
+  their own shapes, a marquee, touch pinch, and the next heading pushing the stuck one up as it arrives.
 - **A tree has a current row beside the ticked ones.** "The folder I am looking at" and "the folders I have ticked"
   are different things on one screen: a press on a name moves the current row (highlighted, `aria-current`), the box
   ticks. Counts sit right-aligned in the row, a badge is a word on a tint, both are part of the row's name; children
