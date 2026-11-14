@@ -940,3 +940,52 @@ From strata-react #221 to #224 (strata-360's settings, clock, redo dialog and tr
   its label names the action ("Create project here"). A folder that already is the thing wanted is chosen when it is
   opened instead of entered (its subfolders are not offered), decided by the app; and a listing may carry a sentence
   about the folder itself ("3 camera files here") shown under the tree, so the person sees what the rule saw.
+
+### 3.31 A book read as a book, tiles that open, boxes on a picture, turning a scan, and a range behind a line
+
+Findings from strata-scan (scanned books) and strata-360 (strata-react issues #237 to #244).
+
+- **Tiles that open and tiles that choose are two components with one layout.** A press on a chosen-from grid
+  toggles, and its box and name assume a bulk action; a press on a grid of pages goes to the page. Each tile is a link
+  (a route in the app, with the router's basename, or a URL) or an action, never neither, so one that does nothing
+  cannot be written. A tile is named by one sentence ("Page 14, 4, 368 words, needs a look"), not by whatever its
+  pieces read; a status that matters sits on the picture's corner as a word on a tint; arrows move in two
+  dimensions; the loading shape is the same grid of picture boxes. Both grids draw from 100 tiles virtualised.
+- **Read-only boxes on a picture are one layer in the picture's pixels, linked to a list.** Hundreds of OCR lines or
+  detected faces are one SVG drawn in the picture's units and fitted the way `object-fit: contain` fits the picture,
+  so a box lands on its pixels in a frame of any shape and zooms with it; outlines keep their width at any zoom, and
+  are outline only so the type stays readable. Tone is a status role (unsure lines in the warning role), never the
+  only cue: each box is named by its words and confidence. The picture and its transcript are one object: pointing
+  at or choosing a line lights its box, choosing a box scrolls the list to its line and focuses it. The keyboard goes
+  through boxes in reading order (rows top to bottom, left to right), not the order the data came in.
+- **A book is read in spreads, and a page has two names.** A viewer for scanned pages is not a photo set: its unit is a
+  spread, the first page stands alone on the right as a printed book opens, and below a width it is one page. The
+  scan's position ("22") and the printed label ("12", "iv") both name a page, the position reads "Page 22 (12) of
+  44", and go-to takes either, trying the printed label first because that is what is in front of the reader. Paging
+  is arrows, Page Up and Down, Home and End and a click on a page's outer half (the zone outlined and named under the
+  pointer); a zoomed page keeps the arrows for panning. The position is in the URL and said in a polite region, a
+  thumbnail strip carries a badge on the pages that need a look, and a text pane sits beside the pages. No page-curl:
+  turning a page is done hundreds of times a session (`../ux-character.md`).
+- **An open item is in the URL, and the history is not a flip book.** Opening a picture pushes an entry so Back closes
+  it; stepping through the set replaces the entry so Back leaves the viewer instead of walking back through forty
+  pictures. A link opens on that item and an id the set does not have is closed.
+- **Turning a scan is done in the browser, in the turned canvas's units.** A small skew (0.2° to 2°) is the common
+  correction and is fiddly with a number alone, so the control is a slider in tenths of a degree with a typed value,
+  two quarter turns and Level, and level lines to line text up against. The picture is drawn turned (a CSS rotation,
+  no round trip per degree) on a canvas that holds it, and every window is in that canvas's units, so the editor, the
+  server and the app agree. The convention to match on the server: degrees, clockwise, about the centre, canvas grown
+  to the turned bounding box. Windows turn with the picture, centre rotated and size kept, held inside the canvas.
+- **A spread of two windows has a gutter between them.** Moving the gutter resizes both; Split into two and Make one
+  are actions on the editor (cut down the middle, join to the union), and the gutter is a separator with arrows.
+- **A downsampled line keeps its extremes.** A series reduced to a point per stretch loses the highest and lowest
+  reading, which is what an elevation or speed track is for, so each point may carry them as a flat pale area behind
+  the line in the series colour. The axis widens to hold them, and they are said wherever the reading is: the
+  readout ("2 km: 340 m (310 m to 372 m)"), a column of the table and a key entry. The threshold band keeps its own
+  name; this is the range.
+- **A box that is not ready says why, in the product's words.** A composer disabled because the footage is still
+  being indexed shows the reason under the box and ties it with a description; the reason is the prop, so a bare
+  `disabled` cannot be written.
+- **A visual test serves the build as production does.** An app built with relative asset paths gets a base tag from
+  its own server; a file server that does not makes `/books/1` ask for `/books/assets/...` and paint an empty page.
+  The runner adds the tag, and fails a shot whose script or stylesheet did not arrive, so an empty page can never be a
+  baseline.
