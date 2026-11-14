@@ -1045,3 +1045,10 @@ Findings from strata-stills (a photo browser, a job queue) and strata-scan (stra
   every job. A row's action is the same button, ghost and small.
 - **A toast with nowhere to appear is a development error.** Calling the toast with no region mounted warns once,
   naming the fix; mounting a region for the app would double the toasts of apps that already have one.
+- **A transcript is not always played.** A review transcript has no clock: nothing is heard, followed or sought, and its
+  words, phrase times and translation are text. Marking words ("must use", "never use") is a selection over word ids
+  in the order shown, held as ids and not as a browser range, so a drag or Shift+click across rows that are not drawn
+  still takes every word between. While marking, a press on a word selects it and a phrase is played from its time;
+  keyboard marking is its own tab stop and acts only while it has focus, so the list keeps its arrows. A word a person
+  corrected is dotted-underlined in the primary colour, says "corrected, was …" in text, shows the original on hover,
+  and a click opens the correction (strata-react issue #260). Not decided: marking in a translation.
