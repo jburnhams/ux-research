@@ -7,7 +7,7 @@ git history on 2026-11-02 and kept up to date with every change since (see
 ## 2026-11-14
 **Photo grid rest and pictures in answers, from strata-react #246 and #257** (branch `claude/project-thread-nnem56`, with PR #50). The four parts of the photo grid that were left open, and a rule from strata-360's Ask page.
 
-- `ui-library/components.md` §3.32: replaced "not decided yet" with the decisions (justified rows sized from the records' shapes, marquee from the gaps, two-finger pinch, the heading pushed up by the next) and added the rule that a picture that is the answer is drawn under it, not inside "what it looked up".
+- `ui-library/components.md` §3.32: replaced "not decided yet" with the decisions (justified rows sized from the records' shapes, marquee from the gaps, two-finger pinch, the heading pushed up by the next) (the marquee auto-scrolls and keeps tiles seen earlier; zoom holds the tile under the pointer), and added the rule that a picture that is the answer is drawn under it, not inside "what it looked up".
 
 
 **Rules from strata-react's batch of six issues from strata-stills and strata-scan (issues #245 to #250; branch `claude/project-thread-nnem56`, strata-react PR #253)**. Jonathan asked for the decisions to be written back with the library change: a view toolbar, a photo grid that zooms and groups, a tree with a current row beside ticked ones, and a button that starts a job.

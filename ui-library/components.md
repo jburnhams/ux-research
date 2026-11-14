@@ -1024,9 +1024,10 @@ Findings from strata-stills (a photo browser, a job queue) and strata-scan (stra
   (`GridLayout`: fixed columns; `WaterfallLayout`: columns of unequal height) do not do this, so it is ours, inside
   its virtualizer.
 - **A marquee starts between tiles, and two fingers zoom.** A drag that starts on a tile is a press and keeps its
-  focus; a drag from the gap draws a rectangle that chooses what it touches, and Ctrl/Cmd or Shift adds. It reaches
-  the tiles that are drawn (a virtualised grid draws what is in view) and does not auto-scroll. A pinch scales the
-  tile size, and the browser's own page zoom is refused for that gesture only.
+  focus; a drag from the gap draws a rectangle that chooses what it touches, and Ctrl/Cmd or Shift adds. It works
+  in the scroll box's own coordinates, so it keeps tiles seen earlier in the drag and scrolls the box when the
+  pointer nears its top or bottom edge, which reaches tiles a virtualised grid had not drawn at the start. A pinch scales the
+  tile size, and zoom of any kind holds the tile under the pointer (or the focused one) where it was, and the browser's own page zoom is refused for that gesture only.
 - **A picture that is the answer is not folded into "what it looked up".** In a conversation, a frame the assistant
   fetched ("show me the longest clip") is drawn under the answer text, always visible, labelled and lazy, with a link
   to the full size; the collapsed disclosure is for what it consulted, not for what it is showing (strata-react issue
