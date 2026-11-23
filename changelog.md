@@ -6,6 +6,11 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-23
 
+**Rules from strata-react's issues #293 to #299 (branch `claude/project-thread-ybj4q4`, strata-react PR #300)**. Jonathan asked for the open strata-react issues, found building Flashtap, to be worked through; the rules they set are written back here.
+
+- `ui-library/components.md` §3.33: **new**. The URL-held choice rules (default not written, invalid reads as default, replace history), a link drawn as a button counting as the one filled button, speech as a button named by what it says, the base path behind a reverse proxy with typed JSON writes, the in-memory test storage for Node 25+, and the TypeScript 7 generator note.
+- Not decided: whether a table's page number and a map's position should take the same URL rule; marking speech by sentence as it is said.
+
 **Rules from strata-react's issues #270 to #273 (branch `claude/project-thread-h21m1s`)**. Jonathan asked for the four open strata-react issues, all found moving Tubes onto 1.1.2, to be done as one batch.
 
 - `ui-library/components.md` §3.26: three new bullets: a kind's colour from the product's theme and a strip of spans under the browser's own controls (#270), "Picked up at" with Start over (#271), and progress as seconds played through, each once, with when it is reported (#272). #273 (a whole-page visual shot scrolls through the page so lazy pictures are drawn) is a tooling change and is in strata-react's changelog only.
