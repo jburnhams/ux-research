@@ -1072,3 +1072,36 @@ Findings from strata-stills (a photo browser, a job queue) and strata-scan (stra
   deterministic (no URL or date in it). Types only: the client stays `fetchJson` and TanStack Query, so nothing is
   added to the app's bundle, and the shared shapes (a page with a cursor, a task, an error body with its payload)
   reach the hooks as one contract (strata-react issue #263).
+
+### 3.33 A choice held in the URL, a link drawn as a button, speech, and the base path
+
+- **A filter or choice a person would link to is held in the URL by one rule, not by each screen.** The value is read and
+  checked; one that is not an allowed value reads as the default (a stale or hand-edited link must not break the screen);
+  the default is never written, so the plain URL stays plain; other parameters are kept; and a filter replaces the
+  history entry (Back leaves the screen instead of walking through every filter change), while a choice worth a Back step
+  asks for it. `Tabs`, the table's sort and open rows already did this; a select, a radio group and a segmented control
+  now take the same `param`, with the first option the default (strata-react issue #297).
+- **An action that navigates is a link, and it may be the one filled button.** A link drawn as a button has the button's
+  variants, heights and press, and counts for the one-filled-button rule, so the check sees it without anyone copying
+  a variant name by hand. An in-app link inside a sentence, a table cell or an empty state's next step is one house style
+  (accent ink, underlined), not a button's layout and not restyled on each screen. A download or another site is a plain
+  link; a route navigates in the app and honours the base path (strata-react issue #294).
+- **Speech is a button named by what it says.** For people who cannot read yet or read the language less well, a prompt
+  is said aloud with the browser's voice, picked by language once the voices have loaded (some browsers load them late);
+  the next prompt cancels the one still being said, the default rate is a little slow, and muting stops what is being
+  said. Where the browser has no speech, or the person has turned it off, the button is not drawn: a dead control is
+  worse than none. The button's name is the sentence ("Say: Which one is the cat?"), so the name, the tip and the sound
+  cannot drift. Muting is the app's setting, like reduced motion (strata-react issue #299).
+- **Behind a reverse proxy the app reads where it is from the page, once.** The server gives every page a relative base
+  URL; the app is built with relative asset paths, reads its mount path from that base element (empty where there is none,
+  never guessed from the current route) and puts it in front of every root-relative `fetch`, picture and download link.
+  The router's basename is the same value. JSON writes send the value as the body with the content type set, never a
+  hand-built request, and the client can be typed by the server's schema (path, parameters, body and answer checked)
+  without adding a client library (strata-react issues #295 and #296).
+- **A test environment gives the app the storage it expects.** Node 25 and later hide jsdom's `localStorage`, so the
+  testing helpers install an in-memory one where the runtime's is unusable and empty it after each test, rather than
+  every app carrying the same shim (strata-react issue #298).
+- **A TypeScript 7 app cannot feed its own TypeScript to the type generator.** TypeScript 7 ships no JavaScript API,
+  which the generator uses, so an app keeps the TypeScript 6 package under the name `typescript` and runs TypeScript 7's
+  `tsc` under another name. When the generator cannot load, it says that, not "install it" (strata-react issue #293).
+  Evidence: the failure and the workaround were seen in the first app built on Strata (flashtap), not measured elsewhere.
