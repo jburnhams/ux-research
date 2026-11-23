@@ -4,6 +4,13 @@ All notable changes to this repository, grouped by day, newest first. Backfilled
 git history on 2026-11-02 and kept up to date with every change since (see
 [`CLAUDE.md`](./CLAUDE.md)).
 
+## 2026-11-23
+
+**Rules from strata-react's issues #270 to #273 (branch `claude/project-thread-h21m1s`)**. Jonathan asked for the four open strata-react issues, all found moving Tubes onto 1.1.2, to be done as one batch.
+
+- `ui-library/components.md` §3.26: three new bullets: a kind's colour from the product's theme and a strip of spans under the browser's own controls (#270), "Picked up at" with Start over (#271), and progress as seconds played through, each once, with when it is reported (#272). #273 (a whole-page visual shot scrolls through the page so lazy pictures are drawn) is a tooling change and is in strata-react's changelog only.
+- Not checked: whether Tubes' own rule for "seen" (a skipped span counts) matches other products'; it is the app's rule here, written down because the library now implements it.
+
 ## 2026-11-14
 
 **Rules from strata-react's batch of eight issues from strata-scan and strata-360 (issues #237 to #244; branch `claude/project-thread-nnem56`, strata-react PR #251, this PR #49)**. Jonathan asked for the newest strata-react issues to be done as one batch; the decisions are the ones a screen of scanned books and a gallery needed.
