@@ -842,6 +842,20 @@ Findings from the third batch of strata-360's screens (strata-react issues #187 
 - **A stream that is still being made starts at its beginning** (#208): the start exists and the edge
   moves, so the engine's "live edge" default is wrong for it; the app's own start time wins when given,
   and each way a stream fails is worded by the product.
+- **Kinds with colours people already know get them from the product's theme, and the browser's own controls still show the stretches** (strata-react #270). Five tones are too few for a community
+  database's nine categories, so a kind may name a custom property of the theme (`--seg-sponsor`) and each
+  range carries its kind as an attribute; the library never picks a colour and the name and times remain
+  the carrier. Where the browser's bar is used (a touch device) it cannot draw ranges, so a thin strip under
+  the picture does, named as the bar's ranges are.
+- **A video that is continued says where it picked up, and can be started over** (#271): "Picked up at 2:05"
+  with Start over, in the same place and style as "Skipped intro, Undo", staying until it is answered or a
+  few seconds into playing. The player begins a first load at the time (a stream engine's start, or a seek
+  once the metadata is in); a reload keeps the time reached.
+- **Progress is seconds played through, each counted once, plus the position** (#272): a second counts when the
+  playhead passes it by playing; a seek or skip counts nothing for what it jumps over, going back over a part
+  adds nothing, and a stretch skipped on purpose counts as seen. Reported at a set interval of playing and on
+  pause, end, page hidden or left and unmount, and not again while nothing has changed, because "leaving the
+  page" is the one report that must not be lost and the rest must not flood a server.
 
 ### 3.27 Pictures from a third party, and a second look from roles
 
