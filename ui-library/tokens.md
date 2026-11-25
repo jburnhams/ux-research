@@ -223,3 +223,47 @@ tokens ([`character.md`](./character.md)). Three kinds of token carry the rest:
   spring with overshoot for a product whose subject bounces, a sound for a physical
   product's feedback) is a product token with its reason, and a `slop-lint`
   allowance with the same reason.
+
+## 14. A default look for a framework (2026-11-25)
+
+A framework that ships no look makes every app choose one, and an agent asked to "make it look
+good" reaches for the stock one. strata-react now ships a finished look **as the default**
+(`strata-react/strata.css` = contract + look); an app with its own theme imports
+`strata-react/strata.bare.css`, which is the old contract unchanged, and an app that keeps the
+default overrides any value in a later block. Rules for such a default, with the reason for each:
+
+- **The look is a layer on a contract that stays whole.** Never restyle by changing a value in the
+  contract file: an app built on the old value moves silently. The bare contract is kept as its own
+  entry, so opting out is one import and nothing else moves.
+- **Generated ramps plus a hand layer with a reason per value.** Seeds petrol `#00798f` and marigold
+  `#f2a900`, `palette.mjs --contrast 0.5 --ground tinted` (42 checks pass); status roles solved to
+  6:1 (a check found the first light warning ink at 5.99 and it was darkened).
+- **Off the slop list on purpose** (`ux-slop-taxonomy.md` §3a): not indigo or violet, not cream plus
+  terracotta, not near-black plus one acid accent. The ground is tinted toward the primary so the page
+  reads as one colour family.
+- **One warm accent, placed by meaning.** Marigold marks where attention already is (selection, the
+  active item of a keyboard-worked list), never status, never a gradient or glow. Hover and "chosen"
+  stay on the neutral ramp, so the warm wash means "this one, now".
+- **Three radii that differ** (6, 10, 14 px) and one shadow, tinted with the primary's ink, for what
+  floats only (taxonomy §3d).
+- **One family used twice, not two families.** Instrument Sans at normal width for text; at 85% width
+  and weight 700 for titles and big figures (condensed, so "212 °C" stays compact beside its label).
+  Chosen by Jonathan from 12 text faces rendered on the kiln screen. Inter is neutral enough, and the
+  taxonomy's tell is a single face with nothing second, not Inter itself; Geist is as neutral and sits
+  in the overused cluster (§3b, P1). Onest and Schibsted Grotesk space figures and colons loosely, which
+  hurts a data app. JetBrains Mono for code and keys.
+- **No serif on Operate titles.** A serif page title on a dashboard reads as an editorial costume
+  (§3b). A reading serif is opt-in for Read surfaces: Source Serif 4 (sturdy, large x-height, clear
+  numerals and units), chosen over Newsreader, Literata, Lora, Crimson Pro and Bitter.
+- **Palettes are themes beside the colour scheme, chosen independently** (Jonathan, 2026-11-25). Four
+  more ship with the default (pine and coral, cobalt and tangerine, steel and mint, clay and teal), each
+  a light and a dark block keyed on `data-palette` on the element that carries `.dark`; the default is
+  the plain root, so "no attribute" and "petrol" are the same. Rules that came from building it:
+  status colours (success, warning, danger, info) are **shared by every palette**, so a status never
+  changes meaning with the brand; a swatch is drawn by scoping the palette on the swatch itself, so the
+  dark form must also match `.dark [data-palette]`, and any role declared once at the root as a
+  reference (`--accent: var(--secondary-3)`) is redeclared per palette, because it is computed at the
+  root; the picker names every palette in words (a swatch is never the only name); steel's first seed
+  put the dark primary at 2.99:1 on the ground (under 3:1) and was moved. Cautions kept from the
+  specimen: coral's pale wash on an active row can read as error beside a danger chip, and clay and teal
+  sits near cream-and-terracotta, so neither suits a default (the default stays petrol and marigold).

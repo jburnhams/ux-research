@@ -4,6 +4,14 @@ All notable changes to this repository, grouped by day, newest first. Backfilled
 git history on 2026-11-02 and kept up to date with every change since (see
 [`CLAUDE.md`](./CLAUDE.md)).
 
+## 2026-11-25
+
+**Default look for strata-react: the decisions written back** (branch `claude/project-thread-qb50hp`, PR #57). Jonathan asked strata-react for an opinionated default look so every app gets the same finished UI while staying customisable (strata-react PR #346), then chose the faces and said the theme must be the default with apps opting out. The research already said what to avoid; this records what was chosen and why.
+
+- `ui-library/tokens.md`: **new** §14, "A default look for a framework": the look as a layer on a contract that stays whole (`strata.css` is the look, `strata.bare.css` the opt-out), seeds and the 6:1 check that caught the first warning ink, off the slop list on purpose, one warm accent placed by meaning, three radii and one tinted shadow, one family used twice (Instrument Sans, condensed for titles and figures) with JetBrains Mono, no serif on Operate titles and Source Serif 4 as the opt-in reading serif, and the four palettes generated but not shipped with the reason for each.
+- `ui-library/tokens.md` §14 also records palettes as themes beside the colour scheme (shared status colours, the descendant-scoping detail, the per-palette `--accent`, the steel correction), added after Jonathan asked for palettes as selectable themes with a toggle (strata-react `PaletteChoice`).
+- Correction to an earlier claim: `tokens.md` §1 says the library "ships no look"; that is still true of the contract file and of Plinth's copy-in registry, but strata-react now ships a look by default (and an earlier line in this PR called it opt-in; it is not). The kiln-room example's own fonts (Public Sans, Archivo) are the product's, unchanged.
+
 ## 2026-11-23
 
 **Rules from strata-react's issues #293 to #299 (branch `claude/project-thread-ybj4q4`, strata-react PR #300)**. Jonathan asked for the open strata-react issues, found building Flashtap, to be worked through; the rules they set are written back here.
