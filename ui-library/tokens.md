@@ -223,3 +223,30 @@ tokens ([`character.md`](./character.md)). Three kinds of token carry the rest:
   spring with overshoot for a product whose subject bounces, a sound for a physical
   product's feedback) is a product token with its reason, and a `slop-lint`
   allowance with the same reason.
+
+## 14. A default look for a framework (2026-11-25)
+
+A framework that ships no look makes every app choose one, and an agent asked to "make it look
+good" reaches for the stock one. strata-react now ships a finished look as an **opt-in file**
+(`strata-react/theme.css`) beside the unchanged contract (`strata.css`), so an app with its own
+theme does not move. Rules for such a default, with the reason for each:
+
+- **Opt-in, separate from the contract.** Never restyle by changing a value in the contract file: an
+  app built on the old value moves silently. The default lives in its own file and is overridden by
+  any later `:root` or `@theme` block.
+- **Generated ramps plus a hand layer with a reason per value.** Seeds petrol `#00798f` and marigold
+  `#f2a900`, `palette.mjs --contrast 0.5 --ground tinted` (42 checks pass); status roles solved to
+  6:1 (a check found the first light warning ink at 5.99 and it was darkened).
+- **Off the slop list on purpose** (`ux-slop-taxonomy.md` §3a): not indigo or violet, not cream plus
+  terracotta, not near-black plus one acid accent. The ground is tinted toward the primary so the page
+  reads as one colour family.
+- **One warm accent, placed by meaning.** Marigold marks where attention already is (selection, the
+  active item of a keyboard-worked list), never status, never a gradient or glow. Hover and "chosen"
+  stay on the neutral ramp, so the warm wash means "this one, now".
+- **Three radii that differ** (6, 10, 14 px) and one shadow, tinted with the primary's ink, for what
+  floats only (taxonomy §3d).
+- **Open point.** Geist is the face (Jonathan's 2026-11-25 choice, for deterministic rendering) and sits
+  in the taxonomy's "tasteful free font" cluster (§3b, P1). A display face for titles (Archivo, expanded
+  and heavy, as in the kiln room) was spiked and changed little; the character of the default is in
+  colour and shape, not the face.
+

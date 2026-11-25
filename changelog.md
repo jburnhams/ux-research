@@ -4,6 +4,13 @@ All notable changes to this repository, grouped by day, newest first. Backfilled
 git history on 2026-11-02 and kept up to date with every change since (see
 [`CLAUDE.md`](./CLAUDE.md)).
 
+## 2026-11-25
+
+**Default look for strata-react: the decisions written back** (branch `claude/project-thread-qb50hp`). Jonathan asked strata-react for an opinionated default look so every app gets the same finished UI while staying customisable (strata-react `claude/project-thread-qb50hp`, `strata-react/theme.css`). The research already said what to avoid; this records what was chosen and why.
+
+- `ui-library/tokens.md`: **new** §14, "A default look for a framework": opt-in beside an unchanged contract, generated ramps plus a hand layer, the palette seeds and the 6:1 check that caught the first warning ink, off the slop list on purpose, one warm accent placed by meaning, three radii and one tinted shadow, and the open point that Geist is on the taxonomy's overused-font list.
+- Correction to an earlier claim: `tokens.md` §1 says the library "ships no look"; that is still true of the contract file and of Plinth's copy-in registry, but strata-react now also ships an optional one.
+
 ## 2026-11-23
 
 **Rules from strata-react's issues #293 to #299 (branch `claude/project-thread-ybj4q4`, strata-react PR #300)**. Jonathan asked for the open strata-react issues, found building Flashtap, to be worked through; the rules they set are written back here.
