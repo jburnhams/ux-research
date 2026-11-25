@@ -255,7 +255,15 @@ default overrides any value in a later block. Rules for such a default, with the
 - **No serif on Operate titles.** A serif page title on a dashboard reads as an editorial costume
   (§3b). A reading serif is opt-in for Read surfaces: Source Serif 4 (sturdy, large x-height, clear
   numerals and units), chosen over Newsreader, Literata, Lora, Crimson Pro and Bitter.
-- **Alternatives were generated but not shipped** (pine and coral, cobalt and tangerine, steel and
-  mint, clay and teal): coral's wash reads as error beside a danger chip; steel and mint puts the dark
-  primary at 2.99:1; clay and teal is close to cream-and-terracotta. A palette preset is one generated
-  file and no dependency, so presets can be added when a product wants one.
+- **Palettes are themes beside the colour scheme, chosen independently** (Jonathan, 2026-11-25). Four
+  more ship with the default (pine and coral, cobalt and tangerine, steel and mint, clay and teal), each
+  a light and a dark block keyed on `data-palette` on the element that carries `.dark`; the default is
+  the plain root, so "no attribute" and "petrol" are the same. Rules that came from building it:
+  status colours (success, warning, danger, info) are **shared by every palette**, so a status never
+  changes meaning with the brand; a swatch is drawn by scoping the palette on the swatch itself, so the
+  dark form must also match `.dark [data-palette]`, and any role declared once at the root as a
+  reference (`--accent: var(--secondary-3)`) is redeclared per palette, because it is computed at the
+  root; the picker names every palette in words (a swatch is never the only name); steel's first seed
+  put the dark primary at 2.99:1 on the ground (under 3:1) and was moved. Cautions kept from the
+  specimen: coral's pale wash on an active row can read as error beside a danger chip, and clay and teal
+  sits near cream-and-terracotta, so neither suits a default (the default stays petrol and marigold).
