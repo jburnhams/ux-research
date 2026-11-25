@@ -227,13 +227,14 @@ tokens ([`character.md`](./character.md)). Three kinds of token carry the rest:
 ## 14. A default look for a framework (2026-11-25)
 
 A framework that ships no look makes every app choose one, and an agent asked to "make it look
-good" reaches for the stock one. strata-react now ships a finished look as an **opt-in file**
-(`strata-react/theme.css`) beside the unchanged contract (`strata.css`), so an app with its own
-theme does not move. Rules for such a default, with the reason for each:
+good" reaches for the stock one. strata-react now ships a finished look **as the default**
+(`strata-react/strata.css` = contract + look); an app with its own theme imports
+`strata-react/strata.bare.css`, which is the old contract unchanged, and an app that keeps the
+default overrides any value in a later block. Rules for such a default, with the reason for each:
 
-- **Opt-in, separate from the contract.** Never restyle by changing a value in the contract file: an
-  app built on the old value moves silently. The default lives in its own file and is overridden by
-  any later `:root` or `@theme` block.
+- **The look is a layer on a contract that stays whole.** Never restyle by changing a value in the
+  contract file: an app built on the old value moves silently. The bare contract is kept as its own
+  entry, so opting out is one import and nothing else moves.
 - **Generated ramps plus a hand layer with a reason per value.** Seeds petrol `#00798f` and marigold
   `#f2a900`, `palette.mjs --contrast 0.5 --ground tinted` (42 checks pass); status roles solved to
   6:1 (a check found the first light warning ink at 5.99 and it was darkened).
@@ -245,8 +246,16 @@ theme does not move. Rules for such a default, with the reason for each:
   stay on the neutral ramp, so the warm wash means "this one, now".
 - **Three radii that differ** (6, 10, 14 px) and one shadow, tinted with the primary's ink, for what
   floats only (taxonomy §3d).
-- **Open point.** Geist is the face (Jonathan's 2026-11-25 choice, for deterministic rendering) and sits
-  in the taxonomy's "tasteful free font" cluster (§3b, P1). A display face for titles (Archivo, expanded
-  and heavy, as in the kiln room) was spiked and changed little; the character of the default is in
-  colour and shape, not the face.
-
+- **One family used twice, not two families.** Instrument Sans at normal width for text; at 85% width
+  and weight 700 for titles and big figures (condensed, so "212 °C" stays compact beside its label).
+  Chosen by Jonathan from 12 text faces rendered on the kiln screen. Inter is neutral enough, and the
+  taxonomy's tell is a single face with nothing second, not Inter itself; Geist is as neutral and sits
+  in the overused cluster (§3b, P1). Onest and Schibsted Grotesk space figures and colons loosely, which
+  hurts a data app. JetBrains Mono for code and keys.
+- **No serif on Operate titles.** A serif page title on a dashboard reads as an editorial costume
+  (§3b). A reading serif is opt-in for Read surfaces: Source Serif 4 (sturdy, large x-height, clear
+  numerals and units), chosen over Newsreader, Literata, Lora, Crimson Pro and Bitter.
+- **Alternatives were generated but not shipped** (pine and coral, cobalt and tangerine, steel and
+  mint, clay and teal): coral's wash reads as error beside a danger chip; steel and mint puts the dark
+  primary at 2.99:1; clay and teal is close to cream-and-terracotta. A palette preset is one generated
+  file and no dependency, so presets can be added when a product wants one.
