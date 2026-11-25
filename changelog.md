@@ -6,6 +6,10 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-25
 
+**A tool screen: the decisions from twelve strata-react issues written back** (branch `claude/project-thread-uwr1a5`). Jonathan asked for every open strata-react issue (#359 to #370, from rebuilding the Quake 2 explorer) to be fixed in one batch, and the new UX rules written into the research.
+
+- `ui-library/components.md`: **new** §3.34 (the tool's one bar and which header is which, the pane inset and `flush`, a window-wide file drop, opening a folder without choosing it, a hex dump, pictures drawn from bytes at a whole zoom, a console, rebinding keys, a 3D view the app draws), and an inventory row for the new components. The evidence line says it is one app's list of needs, not a survey.
+
 **Default look for strata-react: the decisions written back** (branch `claude/project-thread-qb50hp`, PR #57). Jonathan asked strata-react for an opinionated default look so every app gets the same finished UI while staying customisable (strata-react PR #346), then chose the faces and said the theme must be the default with apps opting out. The research already said what to avoid; this records what was chosen and why.
 
 - `ui-library/tokens.md`: **new** §14, "A default look for a framework": the look as a layer on a contract that stays whole (`strata.css` is the look, `strata.bare.css` the opt-out), seeds and the 6:1 check that caught the first warning ink, off the slop list on purpose, one warm accent placed by meaning, three radii and one tinted shadow, one family used twice (Instrument Sans, condensed for titles and figures) with JetBrains Mono, no serif on Operate titles and Source Serif 4 as the opt-in reading serif, and the four palettes generated but not shipped with the reason for each.
