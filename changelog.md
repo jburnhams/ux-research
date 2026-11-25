@@ -6,6 +6,11 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-25
 
+**Linked the vocabulary from the taxonomies repo** (branch `claude/project-thread-l3cp9e`). Jonathan asked for the taxonomy method in `jburnhams/taxonomies` to be applied to this repo; its files live there, in `domains/ux/`, and this repo links to them (his decision J2).
+
+- `CLAUDE.md`: new "Vocabulary: use the glossary" section linking `domains/ux/glossary.md` and `facets.md`, telling agents to use preferred labels and to add candidates there rather than coin words here.
+- Found while building it, not yet changed here: `ux-slop-taxonomy.md` §3 lists two defects among the slop tells ("Font declared in CSS but never loaded", "Content left at `opacity: 0`"), and §3 and `ux-design/skill/references/tells.md` disagree on how five tells are detected (near-black with one acid accent, oversized italic serif headline, three-tier pricing, four-column footer, ghost card).
+
 **A tool screen: the decisions from twelve strata-react issues written back** (branch `claude/project-thread-uwr1a5`). Jonathan asked for every open strata-react issue (#359 to #370, from rebuilding the Quake 2 explorer) to be fixed in one batch, and the new UX rules written into the research.
 
 - `ui-library/components.md`: **new** §3.34 (the tool's one bar and which header is which, the pane inset and `flush`, a window-wide file drop, opening a folder without choosing it, a hex dump, pictures drawn from bytes at a whole zoom, a console, rebinding keys, a 3D view the app draws), and an inventory row for the new components. The evidence line says it is one app's list of needs, not a survey.

@@ -5,6 +5,19 @@ for React + Tailwind (and shadcn/ui). Layout and conventions are in
 [`README.md`](./README.md); where every source came from is in
 [`sources.md`](./sources.md).
 
+## Vocabulary: use the glossary
+
+The words for this repo's concepts (tell, slop, defect, mode, screen, surface, direction,
+token contract, ...) are defined once in the `ux` glossary in `jburnhams/taxonomies`:
+[`domains/ux/glossary.md`](https://github.com/jburnhams/taxonomies/blob/main/domains/ux/glossary.md),
+with its sorting questions in
+[`facets.md`](https://github.com/jburnhams/taxonomies/blob/main/domains/ux/facets.md).
+Read it before writing docs here. Use each entry's heading word; if you reach for one
+of its aliases, use the heading word instead. If a concept you need has no entry, add a
+`candidate` entry there rather than inventing a word here. The glossary is still a draft
+(every term `candidate`), so where it and an existing doc disagree, follow the glossary in
+new text and leave old text until the rename round.
+
 ## Keep the changelog current
 
 Every change to this repository adds an entry to [`changelog.md`](./changelog.md) **in
