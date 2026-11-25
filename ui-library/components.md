@@ -62,6 +62,7 @@ here and follow the same conventions.
 | Disclosure, `useExpanded`, DataTable `expansion` | `<button aria-expanded>` | strata-react | [§3.18](#318-disclosure-and-expandable-rows) |
 | `useHistory`, `useHistoryState`, `useAutoSave`, SaveStatus | window `keydown`, status text | strata-react | [§3.19](#319-document-history-and-save-state) |
 | Workspace, Split, Pane, `useWorkspaceState` | React Aria `useMove` | strata-react | [§3.20](#320-workspace-layout) |
+| WorkspaceBar, FileDropOverlay, ByteView, PixelImage, `useObjectUrl`, Console, ShortcutEditor, SceneViewport | React Aria `Button`, `GridList`; document drag events; WebGL2 | strata-react | [§3.34](#334-a-tool-screens-bar-a-window-drop-bytes-a-console-rebinding-keys-and-a-3d-scene) |
 | Timeline, `useTimelineZoom`, `noOverlap` | React Aria slider hooks, `useDrop` | strata-react | [§3.21](#321-timeline) |
 | RouteMap, `geo` | Leaflet (optional peer, own entry) | strata-react | [§3.22](#322-maps-of-routes) |
 | LineChart | SVG | example | [§3.8](#38-linechart-and-barchart) |
@@ -1105,3 +1106,51 @@ Findings from strata-stills (a photo browser, a job queue) and strata-scan (stra
   which the generator uses, so an app keeps the TypeScript 6 package under the name `typescript` and runs TypeScript 7's
   `tsc` under another name. When the generator cannot load, it says that, not "install it" (strata-react issue #293).
   Evidence: the failure and the workaround were seen in the first app built on Strata (flashtap), not measured elsewhere.
+
+### 3.34 A tool screen's bar, a window drop, bytes, a console, rebinding keys and a 3D scene
+
+Decisions from rebuilding the Quake 2 explorer on Strata (strata-react issues #359 to #370, one batch). The pieces were
+written by hand in that app first; each is here because a second tool would have written it again.
+
+- **A tool has one bar, and it is named for what it is.** Inside a workspace the bar across the top is the tool's name
+  (the screen's `h1`), what is loaded or happening (a polite status that is not read on first render), the one filled
+  action, then the colour scheme and palette choice at the far end; it wraps on a phone instead of clipping the action.
+  It is not `PageHeader` (an app screen's heading and finding, in the page flow), not a pane's header (a region's own
+  name and actions) and not a `Toolbar` (a row of controls inside a pane). Writing which is which down is what stops
+  each tool inventing its own.
+- **A pane's body has the same inset as its header; edge to edge is the exception and says so.** Text, an inspector's
+  heading and a form line up with the pane's name. A tree, table, list or stage that brings its own edges is `flush`.
+  The first version let each app pad its content, and the one that did not had a heading hard against the pane edge
+  while its sections were inset.
+- **In a tool, a file can land anywhere on the window.** People drag from the desktop onto the window, not onto a
+  region they must aim at. While files are over the window, one overlay names what it takes ("Drop to add PAK files");
+  the app's own drags never light it; a wrong file is judged after the drop with its reason. It is a pointer route, so
+  it is hidden from assistive technology and a "Add files" button is always beside it for keyboard and phone.
+- **Opening a folder is not choosing it.** In a file tree only files are worth choosing: pressing a folder's name opens
+  or closes it and the chosen row stays on the last file (Finder, VS Code). A deep link reveals a file by opening its
+  ancestors, which writes them into the URL's open list; that is right, and a test should check the open keys.
+- **Bytes need their own viewer, and the byte is the thing that is focused.** Any inspector of files or packets reaches
+  a kind it has no viewer for. A hex dump windows its rows (a 50 MB file is three million; past about 8 million pixels
+  the scroll bar is scaled, since a browser caps an element's height), is one tab stop with arrows by byte and row,
+  Page keys by screen and Shift to extend a range, and reports the range so a decoder can sit beside it. It is hidden from
+  assistive technology cell by cell and says where the cursor is in a polite status instead. Highlights are named in that
+  status, never colour alone.
+- **A picture the app decoded is drawn with square pixels at a whole-number zoom.** A fractional zoom smooths a 32-pixel
+  texture into mush, so the zoom is rounded, and "fit" is the largest whole number that fits. A checkerboard shows what is
+  clear. A buffer of the wrong length is named as such and is never half drawn. Bytes become a URL for a player,
+  thumbnail or download with one hook that revokes it, because hand-written versions leak the file until the tab closes.
+- **A console is a log, a line and history.** The log is a polite live region, virtualised from a hundred lines and
+  pinned to the end unless the person scrolled up (a "Latest" button says there is more). Levels are words as well as
+  tones. The command line has Up and Down for history, kept per console, and Tab completes from the app's list; several
+  matches are listed, so Tab is never a silent no-op, and when nothing completes Tab moves on as everywhere.
+- **Rebinding keys is a list the handler, the legend and the editor share.** Keys here are single keys (Ctrl, Cmd and Alt
+  belong to the browser and the system), so a chord is refused with that reason, and one the browser uses says so.
+  Tab and Escape cannot be bound. A conflict is named and offered as a swap, never silently overwritten; a disabled
+  shortcut does not conflict. Every result is said in a polite status.
+- **A 3D view the app draws has the app draw and the frame own the input.** Orbit by drag, pan by right drag or Shift,
+  zoom by Ctrl or Cmd with the wheel (a trackpad pinch sends the same) or by pinch; a plain wheel scrolls the page, as
+  for any frame in the middle of one. Arrows, `+`, `-` and `0` from the keyboard; a visible Reset (animated, but not under
+  reduced motion). A walkthrough is the same camera with no distance, drag looks, W A S D walk. The camera is the
+  app's to hold, and it is said in words, politely, once it has been still.
+  Evidence: this is one app's list of what it needed, not a survey; the key bindings follow `ViewportFrame`'s and the
+  panorama viewer's, and the right-handed, Y-up, yaw-right convention is a choice, written in the camera file.
