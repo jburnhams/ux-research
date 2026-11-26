@@ -3,7 +3,9 @@
 A tell is a default that appears regardless of the subject. Each was once a good idea
 on a good site; it became a tell by being produced everywhere without a reason. The
 brief can ask for any of these; then build it well. **Det** = how it is found:
-`lint` (slop-lint rule id), `render` (needs the pixels), `judge` (needs the brief).
+`lint` (slop-lint rule id), `render` (needs the page running), `judgement` (needs the brief;
+here it also means no rule exists yet, so a row can say `judgement` where the
+[`ux` glossary](https://github.com/jburnhams/taxonomies/blob/main/domains/ux/glossary.md)'s `code` would apply).
 
 Sources and evidence for every row: `ux-research/ux-slop-taxonomy.md`.
 
@@ -15,10 +17,10 @@ Sources and evidence for every row: `ux-research/ux-slop-taxonomy.md`.
 | Gradient-filled headline or metric text | `gradient-text` |
 | Coloured glow shadows and zero-offset halos | `glow-shadow` |
 | Glass panels and backdrop blur as decoration | `glass` |
-| Three identical icon-topped feature cards | `icon-chip` + judge |
-| Centred hero: pill badge, H1, grey subhead, two buttons, screenshot below | `hero-badge` + judge |
+| Three identical icon-topped feature cards | `icon-chip` + judgement |
+| Centred hero: pill badge, H1, grey subhead, two buttons, screenshot below | `hero-badge` + judgement |
 | Emoji as icons or bullets | `emoji-icon` |
-| Inter / Roboto / the system stack as the only face (Persuade surfaces) | `overused-font` |
+| Inter / Roboto / the system stack as the only face (Persuade screens) | `overused-font` |
 | Untouched shadcn theme: zinc/slate base, stock `--primary`, stock `--radius` | `untouched-shadcn` |
 
 ## Wave 2 (2025): the decorated median
@@ -30,7 +32,7 @@ Sources and evidence for every row: `ux-research/ux-slop-taxonomy.md`.
 | One word of the headline in italic serif, colour or highlight | `accent-word` |
 | Near-black ground, one neon accent, a glow | `glow-shadow`, `radial-glow` |
 | Blurred colour blob or radial spotlight behind the hero | `radial-glow` |
-| Bento grid as the default composition | judge |
+| Bento grid as the default composition | judgement |
 | Fade-and-rise on every section; hover lift on every card | `fade-up-everywhere` |
 | Pulsing "live" dot with nothing live behind it | `pulse-dot` |
 | Fake product chrome: macOS dots, grey-bar dashboard hero | `window-chrome` |
@@ -45,24 +47,24 @@ generated look.
 | Tell | Det |
 |---|---|
 | Warm cream/parchment ground (near #F4F1EA) with a high-contrast serif and a terracotta/clay accent (near #D97757) | `tell-colour` |
-| Near-black (#0B0B0B, #111) with a lone acid-green or vermilion accent | judge |
+| Near-black (#0B0B0B, #111) with a lone acid-green or vermilion accent | judgement |
 | Broadsheet cosplay: hairline rules everywhere, zero radius, dense columns, on something that isn't a publication | render |
-| Oversized italic serif hero headline | judge |
+| Oversized italic serif hero headline | judgement |
 | The "tasteful free font" cluster as the only design gesture (Space Grotesk, Fraunces, Instrument Serif, Geist, Syne, Sora…) | `overused-font` |
 | Monospace micro-labels as a "technical" costume | `mono-costume` |
 | Template chrome: `A · B · C` meta strings, `WORD — fragment` labels, a `→` on every link | `middot-meta`, `arrow-label` |
 | Decorative 01 / 02 / 03 markers on things that aren't a sequence | `numbered-markers` |
-| Performative labels ("Field notes", "Quietly trusted by", "On our desks") | judge |
+| Performative labels ("Field notes", "Quietly trusted by", "On our desks") | judgement |
 
 ## Wave 4 (forming, late 2026)
 
 | Tell | Det |
 |---|---|
 | Emerald or teal as the "purple escape" accent when nothing asked for green | `palette.mjs` warn |
-| Handmade "anti-AI" reflex: grain, sketchy SVG illustrations, hand-drawn type, scrapbook collage, when the subject doesn't earn it | judge |
+| Handmade "anti-AI" reflex: grain, sketchy SVG illustrations, hand-drawn type, scrapbook collage, when the subject doesn't earn it | judgement |
 | Hairline border plus a wide soft shadow on every card in a row (the "ghost card") | render |
-| Decorative grid-line or stripe backgrounds with no canvas, map or blueprint under them | judge |
-| "X theater" framing in copy | judge |
+| Decorative grid-line or stripe backgrounds with no canvas, map or blueprint under them | judgement |
+| "X theater" framing in copy | judgement |
 
 ## Playful slop (any wave; added 2026-11-07)
 
@@ -77,25 +79,25 @@ neighbouring product ship it unchanged? See `character.md`.
 | "Something went wrong" (vague, not playful, but it travels with the above) | `slop-lint vague-error` |
 | Stock illustration kits: unDraw, Humaaans, Open Peeps, Storyset, Blush, generic Lottie files | `slop-lint stock-illustration` |
 | Sound with no off switch | `slop-lint sound-without-control` |
-| A mascot that talks on every screen | judge |
-| Perpetual loops (pulse, float, shimmer, typewriter) on components at rest | judge; `pulse-dot` |
-| Pastel blobs, rounded-everything and "bold colors" because the brief said "fun" | judge |
-| Streaks, badges and points on a tool nobody asked to gamify | judge |
-| Fake waiting jokes; a delay staged before a flourish | judge |
+| A mascot that talks on every screen | judgement |
+| Perpetual loops (pulse, float, shimmer, typewriter) on components at rest | judgement; `pulse-dot` |
+| Pastel blobs, rounded-everything and "bold colors" because the brief said "fun" | judgement |
+| Streaks, badges and points on a tool nobody asked to gamify | judgement |
+| Fake waiting jokes; a delay staged before a flourish | judgement |
 
 ## Structure (any wave)
 
 | Tell | Det |
 |---|---|
-| The stock section waterfall (hero, logos, features, how-it-works, testimonials, stats, pricing, FAQ, CTA, footer) whatever the product | judge (silhouette test against 5 competitors) |
+| The stock section waterfall (hero, logos, features, how-it-works, testimonials, stats, pricing, FAQ, CTA, footer) whatever the product | judgement (silhouette test against 5 competitors) |
 | Round vanity numbers ("10,000+ teams", "99.9%") and invented proof | `vanity-stat` |
-| Three-tier pricing with a ringed "Most Popular" middle, regardless of the real plans | judge |
-| Four-column footer with newsletter and social row, whatever links exist | judge |
+| Three-tier pricing with a ringed "Most Popular" middle, regardless of the real plans | judgement |
+| Four-column footer with newsletter and social row, whatever links exist | judgement |
 | Everything centred; one width (`max-w-7xl mx-auto`) forever | render |
 | One radius and one soft shadow on every surface; cards inside cards | render |
 | Coloured left/top stripe on a rounded card | `side-stripe` |
 | Content left at `opacity: 0` until an observer fires | render |
-| Cross-page drift: pages of one product with different fonts, palette or radius | judge (compare side by side) |
+| Cross-page drift: pages of one product with different fonts, palette or radius | judgement (compare side by side) |
 
 ## Copy
 
@@ -127,7 +129,7 @@ neighbouring product ship it unchanged? See `character.md`.
 
 - Glassmorphism, bento and aurora backgrounds rank low among the tells people actually
   complain about (3.2M-post Reddit study). Flag them only as reflexes.
-- Inter, Geist and the system stack are acceptable on Operate surfaces when tuned
+- Inter, Geist and the system stack are acceptable on Operate screens when tuned
   (scale, weights, tabular figures). slop-lint skips `overused-font` in operate mode.
 - One gradient tied to the brand, within one hue, is not slop.
 - Judge combinations: one accented headline word on an otherwise authored page is a nit;

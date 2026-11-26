@@ -56,7 +56,7 @@ numbers:
 - "A strong minority of users preferred calmer, less intense versions."
 - Results were affected by users' **lack of familiarity** with the new style.
 
-That is the same split this collection makes between Persuade and Operate surfaces
+That is the same split this collection makes between Persuade and Operate screens
 ([`ux-product-ui.md`](./ux-product-ui.md) §1), now with Google's own data behind it:
 expressiveness helps where it sharpens hierarchy, and hurts where it breaks a
 familiar pattern.
@@ -119,7 +119,7 @@ position and size, never on colour or opacity. Standard's 0.9 is a barely-visibl
 settle and is Material's own choice for utilitarian products, which matches the
 Operate rules here. Expressive's 0.6 on fast spatial (small controls) *is* a visible
 bounce, and Material recommends it by default, so the two camps genuinely disagree on
-Persuade surfaces. Our resolution stands: Standard-like damping (≈ 0.9) for Operate,
+Persuade screens. Our resolution stands: Standard-like damping (≈ 0.9) for Operate,
 Expressive damping only on a hero moment, and never `animate-bounce` or
 `easeOutBack` on content. In Motion for React the equivalents are
 `{ type: "spring", stiffness: 700, damping: … }`. Note that Motion's `damping`

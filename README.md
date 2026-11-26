@@ -14,13 +14,13 @@ First pass: **2026-11-01**. Blocked sources retried and the component library de
 **[→ `ux-slop-taxonomy.md`](./ux-slop-taxonomy.md)**: what AI slop in UI is, why it
 happens (the stack's defaults are the corpus median), how it moves in **waves** (the
 published fix becomes the next tell: purple gradients → eyebrows and glow →
-cream + serif + terracotta → the handmade reflex), the full catalogue by layer with
-detectability and severity, the slop-vs-quality split, the eleven places the sources
+cream + serif + terracotta → the handmade reflex), the full catalogue by aspect with
+detection and severity, the slop-vs-quality split, the eleven places the sources
 disagree and how each is resolved, and how strong the evidence is.
 
 **[→ `ux-design/`](./ux-design)**: the output. A skill for React + Tailwind
 ([`SKILL.md`](./ux-design/skill/SKILL.md)), a dated tell registry, a mood-to-token
-procedure, Operate-surface rules, a quality audit, a zero-dependency **source linter**
+procedure, Operate-screen rules, a quality audit, a zero-dependency **source linter**
 (`slop-lint`, 51 rules, mode-aware) and a **palette generator** (`palette.mjs`: seeds →
 contrast-solved OKLCH ramps → shadcn/Tailwind v4 tokens → validation), with fixtures and
 tests (`node --test ux-design/tests/*.test.mjs`).
@@ -52,7 +52,7 @@ docs and the live example as a site.
 | [`ux-generator-prompts.md`](./ux-generator-prompts.md) | How do Lovable, v0, Same, Emergent, Orchids, AI Studio, Codex/Amp and Anthropic prompt for design, and how do those prompts *cause* the look? Anthropic's four generations of anti-slop advice; the Codex frontend block that was dropped |
 | [`ux-anti-slop-skills.md`](./ux-anti-slop-skills.md) | Ten anti-slop skills compared stage by stage: classify, ground, direct, rules, floor, verify, report |
 | [`ux-react-tailwind.md`](./ux-react-tailwind.md) | Which layer of a React + Tailwind + shadcn app each design decision belongs in; Tailwind v4 specifics; the libraries that ship tells; what a linter can own |
-| [`ux-product-ui.md`](./ux-product-ui.md) | Apps, dashboards, tables and forms: why landing-page rules misfire there, "the one question", generated-dashboard tells against 23 real screens, states |
+| [`ux-product-ui.md`](./ux-product-ui.md) | Apps, dashboards, tables and forms: why landing-page rules misfire there, "the screen question", generated-dashboard tells against 23 real screens, states |
 | [`ux-material-3.md`](./ux-material-3.md) | Material 3 Expressive as of late 2026: spring motion tokens, the shape scale, the emphasized type scale, dynamic colour (HCT, ten scheme variants incl. the new two-seed CMF, contrast levels), and what transfers to Tailwind |
 | [`ux-colour-science.md`](./ux-colour-science.md) | Colour spaces (OKLCH, HCT), WCAG vs APCA, four ways to build a scale, harmony, mechanical validation, CVD, preference and emotion research, dark mode |
 | [`ux-character.md`](./ux-character.md) | How to add personality and playfulness while function stays first: the frequency budget, moments, voice, the playful-slop tells, the swap test |

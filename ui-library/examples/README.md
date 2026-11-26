@@ -97,5 +97,5 @@ What the checks found while building it, and what changed:
   4 or 5 × 10ⁿ, giving 0, 400, 800, 1,200, 1,600.
 - The peak label read 1,212 °C, not 1,222, because half-hourly readings missed the
   hold. Readings now include the controller's segment changes.
-- The finding said 14:49 while the table said "about 14:50"; the computed time is now
+- The screen finding said 14:49 while the table said "about 14:50"; the computed time is now
   rounded to five minutes, since the copy says "about".

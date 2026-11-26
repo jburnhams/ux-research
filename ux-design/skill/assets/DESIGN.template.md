@@ -3,7 +3,7 @@
 # (https://github.com/google-labs-code/design.md). Values are generated where
 # possible (palette.mjs); every value has a reason in the prose below.
 version: alpha
-name: "[Product] [surface]"
+name: "[Product] [screen]"
 mode: operate            # persuade | operate | read | experience
 colors:
   primary-seed: "#______"     # from: [the subject's real object this came from]
@@ -25,7 +25,7 @@ character:
 
 ## Overview
 
-- **Subject**: [one concrete subject] · **Audience**: [who, where, in what light] · **Job**: [the surface's single job]
+- **Subject**: [one concrete subject] · **Audience**: [who, where, in what light] · **Job**: [the screen's single job]
 - **Mode**: [mode], because [the visitor comes to …]
 - **Reference**: "On this [screen], **[something that belongs to the subject]** becomes **[the device]**."
 - **Signature move** (Operate) / **the one bold thing** (Persuade): [concrete]

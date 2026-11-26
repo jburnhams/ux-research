@@ -4,6 +4,17 @@ All notable changes to this repository, grouped by day, newest first. Backfilled
 git history on 2026-11-02 and kept up to date with every change since (see
 [`CLAUDE.md`](./CLAUDE.md)).
 
+## 2026-11-26
+
+**Renamed this repo's docs to the adopted `ux` glossary** (branch `claude/project-thread-l3cp9e`, PR #59). Jonathan asked for the taxonomy, adopted in `jburnhams/taxonomies` after round 1 (κ 0.78 to 1.00 per facet), to be applied here. Scope: the repo's own docs only; stored sources, quotes and code are left as they are.
+
+- `README.md`, `ux-*.md`, `ux-design/README.md`, `ux-design/skill/SKILL.md`, `ux-design/skill/references/{character,product-ui,tells}.md`, `ux-design/skill/assets/DESIGN.template.md`, `ui-library/{README,agents,character,components,patterns,tokens}.md`, `ui-library/examples/{README,AGENTS}.md`: the screen sense of "surface" is now **screen** ("Operate screens", "the screen's single job", headings "Read the screen", "Read screens", "Persuade screens"; the one in-repo link to `#314-read-surfaces` updated). "Surface" now only means a tonal layer, as in the `--surface-*` tokens.
+- Same files: "the one question" and "the one finding" are now the **screen question** and the **screen finding**, the glossary's labels after a name test showed the old phrases misread; "the signature" (the Operate device) is now **the signature move**. "One question per chart" is a different idea and is unchanged.
+- `ux-slop-taxonomy.md` §3: "by layer" is now **by aspect** (layer is kept for the five stack layers of `ux-react-tailwind.md`); the detection column uses **code / render / judgement** instead of `src` / `render` / `judge`; §3g is "Model signatures and drift". **Corrections**: "Font declared in CSS but never loaded" (was P1) and "Content left at `opacity: 0`" (was **error**) are marked **defect**, since no brief can allow them; "Three-tier pricing" and "Four-column footer" detection `src` → **judgement**, and the ghost card `src` → **render**, so the catalogue agrees with `tells.md` under the glossary's rule (the least evidence that finds the item).
+- `ux-design/skill/references/tells.md`: `judge` → **judgement**; the legend now says that in this registry `judgement` also means no rule exists yet.
+- `CLAUDE.md`: the vocabulary section now says the glossary is adopted and names the common slips.
+- Left as they were: `ui-library/examples/app/globals.css` and `screens/kiln-room.tsx` comments ("Operate surface", "The one question") and one `slop-lint.mjs` message ("Operate surfaces"), because this pass changed docs only (example code needs the check and render run, and the linter message is code); a later pass can rename them. Mood and vibe stay as plain English beside the glossary's **mood word**.
+
 ## 2026-11-25
 
 **Linked the vocabulary from the taxonomies repo** (branch `claude/project-thread-l3cp9e`). Jonathan asked for the taxonomy method in `jburnhams/taxonomies` to be applied to this repo; its files live there, in `domains/ux/`, and this repo links to them (his decision J2).

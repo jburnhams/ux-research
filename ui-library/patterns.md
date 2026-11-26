@@ -11,12 +11,12 @@ Research: [`../ux-product-ui.md`](../ux-product-ui.md),
 
 ## 1. Before any component: mode, question, finding
 
-1. **Mode** of the surface (not the product): Operate, Read, Persuade or Experience.
+1. **Mode** of the screen (not the product): Operate, Read, Persuade or Experience.
    Strata's components assume Operate; §7 and §8 say what changes for the others.
-2. **The one question** the screen answers, in the user's words. The example's kiln
+2. **The screen question**: what the screen answers, in the user's words. The example's kiln
    room answers "Is my work out of the kiln yet?" It decides what is biggest and what
    comes first.
-3. **The one finding**: the fact in today's data that most needs attention ("Kiln 2 is
+3. **The screen finding**: the fact in today's data that most needs attention ("Kiln 2 is
    cooling at 212 °C and will be safe to open at about 14:50"). It goes in
    `PageHeader.finding`, beside the action it drives.
 4. **Blocks in answer order.** Each block answers the next question a person asks after
@@ -132,14 +132,14 @@ From [`book-firing.tsx`](./examples/screens/book-firing.tsx)
 | Background work failed | Inline `role="alert"` where the work shows, with recovery |
 | Optimistic update | Show the result immediately; roll back and say so on failure |
 
-## 8. Read surfaces
+## 8. Read screens
 
 Docs, help, changelogs: `Prose` with a 60–75ch measure, a table of contents for long
 pages, headings from the same type steps, real code blocks on `--surface-sunken`.
 The Operate rules about restraint apply; the extra job is navigation (where am I,
 what is next).
 
-## 9. Persuade surfaces
+## 9. Persuade screens
 
 Strata ships no hero, feature grid, logo cloud, testimonial, pricing or stats blocks,
 because those are where the stock section waterfall comes from. A landing page built
@@ -162,7 +162,7 @@ the registry of what to avoid is `../ux-design/skill/references/tells.md`.
 The full layer is [`character.md`](./character.md). On a screen it comes down to:
 
 1. **At rest, in three places**: the voice (labels, empties, errors in the subject's
-   own words, straight-faced), the signature (how the main data is drawn, coloured by
+   own words, straight-faced), the signature move (how the main data is drawn, coloured by
    a fact of the subject where there is one) and the figures. None of these cost the
    person time, so they can be everywhere the person reads.
 2. **In motion, by frequency**: nothing on navigation and shortcuts; `press` on

@@ -14,9 +14,12 @@ with its sorting questions in
 [`facets.md`](https://github.com/jburnhams/taxonomies/blob/main/domains/ux/facets.md).
 Read it before writing docs here. Use each entry's heading word; if you reach for one
 of its aliases, use the heading word instead. If a concept you need has no entry, add a
-`candidate` entry there rather than inventing a word here. The glossary is still a draft
-(every term `candidate`), so where it and an existing doc disagree, follow the glossary in
-new text and leave old text until the rename round.
+`candidate` entry there rather than inventing a word here. The glossary is in use
+(adopted 2026-11-26) and this repo's own docs were renamed to it the same day; `candidate`
+terms are usable but not yet re-tested. Words inside stored sources and quotes keep their
+authors' wording. Common slips: a page being built is a **screen** ("Operate screens"),
+and a **surface** is a tonal layer of the theme (`--surface-*`); the catalogue's groups
+are **aspects**, and "layer" means a stack layer (`ux-react-tailwind.md` §1).
 
 ## Keep the changelog current
 

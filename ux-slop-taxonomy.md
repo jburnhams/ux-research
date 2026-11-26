@@ -75,111 +75,113 @@ Two consequences shape everything in [`ux-design/`](./ux-design):
 2. **A tell list is dated data, not a principle.** It needs a date on it and a
    review cadence, the way this repo's sibling `prompts` does weekly passes.
 
-## 3. The catalogue, by layer
+## 3. The catalogue, by aspect
 
-Grouped by the layer of a React and Tailwind app where each one lives, with the
-detectability split from avoid-ai-design: **src** means it is visible in source
-(a linter can own it), **render** means it needs pixels, and **judge** means it
-needs intent against the brief. Severity is avoid-ai-design's: **P0** a layperson
-notices, **P1** a designer or developer notices, **P2** craft.
+Grouped by aspect (the part of the interface each one is about), with detection
+from avoid-ai-design's split: **code** means reading the source finds it (a linter can
+own it), **render** means it needs the page running, and **judgement** means it needs the
+brief or the subject. Severity is avoid-ai-design's: **P0** a layperson notices, **P1** a
+designer or developer notices, **P2** craft. **defect** in the Sev column marks a fault no
+brief can allow, which belongs to the quality floor (§4) rather than the slop axis. Terms
+follow the [`ux` glossary](https://github.com/jburnhams/taxonomies/blob/main/domains/ux/glossary.md).
 
 ### 3a. Colour and surface
 
 | Tell | Sev | Det | Named by |
 |---|---|---|---|
-| Purple/indigo/violet gradient (135°, hero, CTA, glow) | P0 | src | all; Impeccable `ai-color-palette` |
-| Indigo/violet primary button | P1 | src | avoid C2, anti-ai-slop 1 |
-| Gradient text (`bg-clip-text text-transparent`) | P0 | src | Impeccable `gradient-text`, taste (banned), frontend-design |
-| Coloured glow shadows (`shadow-indigo-500/50`, zero-offset halos) | P1 | src | Impeccable `dark-glow`, avoid C5 |
-| Radial halo or spotlight behind the hero | P1 | src | Impeccable `radial-halo`, `radial-spotlight-glow`; avoid M3 ("the Linear glow") |
-| Cream or beige ground by reflex; cream plus terracotta | P1 | src | Impeccable `cream-palette`; frontend-design cluster 1; taste wave 3 |
-| Near-black (#0B0B0B, #111) standing in for black; one acid accent | P1 | src | frontend-design clusters 2 and 5 |
-| `zinc-950` card with `border-white/10` (the default dark SaaS card) | P1 | src | avoid K9 |
-| Dark mode nobody asked for; dark ground with muted grey body text | P1 | judge/render | avoid C7, anti-slop-design; the **most common** pattern in Krebs's current data (34.7% of 1,390 Show HN sites, `perma_dark_mode`) |
+| Purple/indigo/violet gradient (135°, hero, CTA, glow) | P0 | code | all; Impeccable `ai-color-palette` |
+| Indigo/violet primary button | P1 | code | avoid C2, anti-ai-slop 1 |
+| Gradient text (`bg-clip-text text-transparent`) | P0 | code | Impeccable `gradient-text`, taste (banned), frontend-design |
+| Coloured glow shadows (`shadow-indigo-500/50`, zero-offset halos) | P1 | code | Impeccable `dark-glow`, avoid C5 |
+| Radial halo or spotlight behind the hero | P1 | code | Impeccable `radial-halo`, `radial-spotlight-glow`; avoid M3 ("the Linear glow") |
+| Cream or beige ground by reflex; cream plus terracotta | P1 | code | Impeccable `cream-palette`; frontend-design cluster 1; taste wave 3 |
+| Near-black (#0B0B0B, #111) standing in for black; one acid accent | P1 | code | frontend-design clusters 2 and 5 |
+| `zinc-950` card with `border-white/10` (the default dark SaaS card) | P1 | code | avoid K9 |
+| Dark mode nobody asked for; dark ground with muted grey body text | P1 | judgement/render | avoid C7, anti-slop-design; the **most common** pattern in Krebs's current data (34.7% of 1,390 Show HN sites, `perma_dark_mode`) |
 | Cyan or neon accents on a dark ground; several neon accents with no dominant one | P1 | render | Pixelslop 4 and 22 (cyan-on-dark is one of its four severity-3 fingerprints); Fountain Institute tell 1 |
-| Timid, evenly distributed palette; primary and accent within 20° of hue | P1/P2 | render/src | avoid C4 and C8; cookbook ("dominant colors with sharp accents outperform timid, evenly-distributed palettes") |
+| Timid, evenly distributed palette; primary and accent within 20° of hue | P1/P2 | render/code | avoid C4 and C8; cookbook ("dominant colors with sharp accents outperform timid, evenly-distributed palettes") |
 | Grey text on a coloured surface; muted text below AA | P1 | render | Impeccable `gray-on-color`, `low-contrast`; avoid C9 |
-| Glass and backdrop blur as decoration | P1 | src | Impeccable craft floor, avoid K3, taste wave 1. Reddit data says *over-blamed* (§5) |
-| Grid-line or stripe backgrounds with no canvas under them | P2 | src | Impeccable `codex-grid-background`, `repeating-stripes-gradient` |
+| Glass and backdrop blur as decoration | P1 | code | Impeccable craft floor, avoid K3, taste wave 1. Reddit data says *over-blamed* (§5) |
+| Grid-line or stripe backgrounds with no canvas under them | P2 | code | Impeccable `codex-grid-background`, `repeating-stripes-gradient` |
 
 ### 3b. Typography
 
 | Tell | Sev | Det | Named by |
 |---|---|---|---|
-| Inter, Roboto or system stack for everything, no second face | P0 | src | avoid T1, cookbook, Codex/Amp, Emergent |
-| The "tasteful free font" cluster as the only design gesture (Space Grotesk, Geist, Syne, Sora, Instrument Serif, Fraunces, Bricolage Grotesque, Young Serif, Cal Sans; 15.8% in the first version of the Show HN study, 10.4% in the current detector, which counts a face only when it is the page default) | P1 | src | avoid T2, Impeccable `overused-font`, Krebs `slop_fonts` (list from an r/UXDesign thread) |
-| Oversized italic serif hero headline | P1 | src | Impeccable `italic-serif-display`, taste wave 3 |
-| One accented word in the headline (italic, colour, gradient, highlighter) | P1 | src | frontend-design (first item), avoid SD5, taste wave 2 |
-| Tracked ALL-CAPS eyebrow or kicker above headings | P1 | src | Impeccable bans it outright ("no brief earns it back"); taste data: 16% of top sites against 57% of weak |
+| Inter, Roboto or system stack for everything, no second face | P0 | code | avoid T1, cookbook, Codex/Amp, Emergent |
+| The "tasteful free font" cluster as the only design gesture (Space Grotesk, Geist, Syne, Sora, Instrument Serif, Fraunces, Bricolage Grotesque, Young Serif, Cal Sans; 15.8% in the first version of the Show HN study, 10.4% in the current detector, which counts a face only when it is the page default) | P1 | code | avoid T2, Impeccable `overused-font`, Krebs `slop_fonts` (list from an r/UXDesign thread) |
+| Oversized italic serif hero headline | P1 | code | Impeccable `italic-serif-display`, taste wave 3 |
+| One accented word in the headline (italic, colour, gradient, highlighter) | P1 | code | frontend-design (first item), avoid SD5, taste wave 2 |
+| Tracked ALL-CAPS eyebrow or kicker above headings | P1 | code | Impeccable bans it outright ("no brief earns it back"); taste data: 16% of top sites against 57% of weak |
 | Full-sentence headline at display size, three or more lines | P1 | render | Impeccable `oversized-h1`, taste ("banned over two lines") |
 | Flat scale (steps under 1.25×), nine near-equal sizes | P2 | render | Impeccable `flat-type-hierarchy`; taste ("five sizes, far apart") |
-| Monospace as a costume for "technical" | P1 | src | Impeccable craft floor, frontend-design cluster 5, taste (banned, though the data shows it on 44% of top sites) |
-| Font declared in CSS but never loaded | P1 | src | avoid T7 ("declaring is not shipping") |
-| Crushed tracking (below -0.04em) | P2 | src | Impeccable `extreme-negative-tracking` |
+| Monospace as a costume for "technical" | P1 | code | Impeccable craft floor, frontend-design cluster 5, taste (banned, though the data shows it on 44% of top sites) |
+| Font declared in CSS but never loaded | defect | render | avoid T7 ("declaring is not shipping") |
+| Crushed tracking (below -0.04em) | P2 | code | Impeccable `extreme-negative-tracking` |
 
 ### 3c. Layout and page structure
 
 | Tell | Sev | Det | Named by |
 |---|---|---|---|
-| Centred hero: pill badge, H1, grey subhead, two buttons, screenshot below | P0 | src | avoid L1; taste data: centred statement over media is 7% of top sites against **24%** of weak |
-| Three (or six) identical icon-topped feature cards | P0 | src | everyone; Impeccable `icon-tile-stack` |
-| The stock section waterfall: hero, logos, features, how-it-works, testimonials, stats, pricing, FAQ, CTA, footer | P1 | src/render | avoid L9 ("the silhouette test"), taste ("write the argument" first), anti-ai-slop 8 |
-| Hero-metric template / stat strip of round numbers ("10,000+ teams", "99.9%") | P1 | src | frontend-design, Impeccable `hero-metric` ban, avoid L4, anti-ai-slop 7 (fabricated precision) |
-| Three-tier pricing with a ringed "Most Popular" middle | P1 | src | avoid L7 |
-| Four-column footer with newsletter box and social row | P1 | src | avoid L8 |
+| Centred hero: pill badge, H1, grey subhead, two buttons, screenshot below | P0 | code | avoid L1; taste data: centred statement over media is 7% of top sites against **24%** of weak |
+| Three (or six) identical icon-topped feature cards | P0 | code | everyone; Impeccable `icon-tile-stack` |
+| The stock section waterfall: hero, logos, features, how-it-works, testimonials, stats, pricing, FAQ, CTA, footer | P1 | code/render | avoid L9 ("the silhouette test"), taste ("write the argument" first), anti-ai-slop 8 |
+| Hero-metric template / stat strip of round numbers ("10,000+ teams", "99.9%") | P1 | code | frontend-design, Impeccable `hero-metric` ban, avoid L4, anti-ai-slop 7 (fabricated precision) |
+| Three-tier pricing with a ringed "Most Popular" middle | P1 | judgement | avoid L7 |
+| Four-column footer with newsletter box and social row | P1 | judgement | avoid L8 |
 | Everything centred (over 72% centred text) | P1 | render | taste structural, artifact-design |
-| Numbered 01 / 02 / 03 markers on non-sequences | P1 | src | frontend-design, Impeccable, avoid SD6, artifact-design ("Structure is information") |
-| Bento grid as the default composition | P1/P2 | judge | taste wave 2, avoid L3 (also over-blamed per Reddit) |
+| Numbered 01 / 02 / 03 markers on non-sequences | P1 | code | frontend-design, Impeccable, avoid SD6, artifact-design ("Structure is information") |
+| Bento grid as the default composition | P1/P2 | judgement | taste wave 2, avoid L3 (also over-blamed per Reddit) |
 | Monotonous spacing; heading closer to the block above than its own content | P2 | render | Impeccable `monotonous-spacing`, `heading-rhythm`; avoid S1 |
 | FAQ accordion of 3+ generic questions near the bottom, often restating the page | P2 | render | Krebs `faq_accordion` (14.2%), Sailop ("FAQs that paraphrase the page") |
-| Everything visible at once: no progressive disclosure on app screens | P1 | judge | Kosta Canatselis |
+| Everything visible at once: no progressive disclosure on app screens | P1 | judgement | Kosta Canatselis |
 
 ### 3d. Components and chrome
 
 | Tell | Sev | Det | Named by |
 |---|---|---|---|
-| Untouched shadcn defaults (base colour, `--radius`, Card, Button) | P0 | src | avoid K1 and K8 |
-| `rounded-2xl shadow-lg` on everything; one radius regardless of hierarchy | P1 | src | frontend-design cluster 4, artifact-design ("`rounded-lg` everywhere"), avoid K2 |
-| Hairline border *plus* a wide soft shadow on a whole row of cards (the "ghost card") | P1 | src | Impeccable `gpt-thin-border-wide-shadow` (a GPT-family tell), taste app rules |
-| Coloured left or top stripe on a rounded card; a *different* colour per card ("multicoloured side tabs") | P1 | src | Impeccable `side-tab` ("the most recognizable tell"), artifact-design ("accent bar/rail on rounded cards"), Krebs (quoting a designer: "almost as reliable … as em-dashes are for text"; 6.3% of sites, and the pattern humans rejected most in his labels), Fountain Institute ("quickly becoming the em-dash of AI-generated UI") |
-| Icon in a tinted rounded-square chip, one per feature or KPI | P1 | src | Impeccable `icon-tile-stack`, avoid K6, taste app rules ("0 of 23" real screens) |
+| Untouched shadcn defaults (base colour, `--radius`, Card, Button) | P0 | code | avoid K1 and K8 |
+| `rounded-2xl shadow-lg` on everything; one radius regardless of hierarchy | P1 | code | frontend-design cluster 4, artifact-design ("`rounded-lg` everywhere"), avoid K2 |
+| Hairline border *plus* a wide soft shadow on a whole row of cards (the "ghost card") | P1 | render | Impeccable `gpt-thin-border-wide-shadow` (a GPT-family tell), taste app rules |
+| Coloured left or top stripe on a rounded card; a *different* colour per card ("multicoloured side tabs") | P1 | code | Impeccable `side-tab` ("the most recognizable tell"), artifact-design ("accent bar/rail on rounded cards"), Krebs (quoting a designer: "almost as reliable … as em-dashes are for text"; 6.3% of sites, and the pattern humans rejected most in his labels), Fountain Institute ("quickly becoming the em-dash of AI-generated UI") |
+| Icon in a tinted rounded-square chip, one per feature or KPI | P1 | code | Impeccable `icon-tile-stack`, avoid K6, taste app rules ("0 of 23" real screens) |
 | Cards inside cards | P2 | render | Impeccable `nested-cards` ("always wrong"), avoid K11 |
-| Status-chip soup; decorative pulsing "live" dot; status dots on every element; "New"/"Live" badges on things that are neither | P2 | src | avoid K12, Impeccable `pulsing-dot`, Fountain Institute tell 7, Noqta |
-| Decorative sparklines with no data behind them | P2 | src | Pixelslop 11 |
+| Status-chip soup; decorative pulsing "live" dot; status dots on every element; "New"/"Live" badges on things that are neither | P2 | code | avoid K12, Impeccable `pulsing-dot`, Fountain Institute tell 7, Noqta |
+| Decorative sparklines with no data behind them | P2 | code | Pixelslop 11 |
 | Every button styled as primary | P1 | render | Pixelslop 20 |
-| Fake window chrome (macOS traffic lights) as the hero | P2 | src | avoid SD7 |
-| Stock effect components (Spotlight, Beams, Meteors, Number Ticker, Marquee) | P1 | src | avoid K10, Impeccable `marquee` |
-| Emoji as icons or bullets; Unicode glyphs as an icon system | P1 | src | everyone; v0, Same.dev and Lovable prompts all ban it |
-| The worn Lucide set: `Sparkles` for AI, `Zap`, `Rocket`, `Shield`, `ArrowRight` | P1 | src | avoid I3 |
-| Modal as the first thought | P2 | judge | Impeccable `operate.md` |
+| Fake window chrome (macOS traffic lights) as the hero | P2 | code | avoid SD7 |
+| Stock effect components (Spotlight, Beams, Meteors, Number Ticker, Marquee) | P1 | code | avoid K10, Impeccable `marquee` |
+| Emoji as icons or bullets; Unicode glyphs as an icon system | P1 | code | everyone; v0, Same.dev and Lovable prompts all ban it |
+| The worn Lucide set: `Sparkles` for AI, `Zap`, `Rocket`, `Shield`, `ArrowRight` | P1 | code | avoid I3 |
+| Modal as the first thought | P2 | judgement | Impeccable `operate.md` |
 
 ### 3e. Motion
 
 | Tell | Sev | Det | Named by |
 |---|---|---|---|
-| Identical fade-and-rise on every section | P2 | src | frontend-design, avoid M1, Impeccable craft floor |
-| Bounce or elastic easing (`animate-bounce`, `easeOutBack`) | P2 | src | Impeccable `bounce-easing` (advisory), avoid M4 |
-| Hover lift on every card; scattered micro-interactions | P2 | src | taste motion tells, avoid M2 |
-| Count-up numbers on scroll | P2 | src | avoid M5 |
-| Content left at `opacity: 0` waiting for an observer that never fires | **error** | render | Impeccable `content-hidden-at-rest`, artifact-design ("Make the page complete at rest") |
-| Motion that ignores `prefers-reduced-motion` | P1 | src | everyone in §4 |
+| Identical fade-and-rise on every section | P2 | code | frontend-design, avoid M1, Impeccable craft floor |
+| Bounce or elastic easing (`animate-bounce`, `easeOutBack`) | P2 | code | Impeccable `bounce-easing` (advisory), avoid M4 |
+| Hover lift on every card; scattered micro-interactions | P2 | code | taste motion tells, avoid M2 |
+| Count-up numbers on scroll | P2 | code | avoid M5 |
+| Content left at `opacity: 0` waiting for an observer that never fires | defect | render | Impeccable `content-hidden-at-rest`, artifact-design ("Make the page complete at rest") |
+| Motion that ignores `prefers-reduced-motion` | P1 | code | everyone in §4 |
 
 ### 3f. Copy
 
 | Tell | Sev | Det | Named by |
 |---|---|---|---|
-| Benefit-speak: elevate, unlock, supercharge, seamless, empower, streamline, leverage, all-in-one, cutting-edge, world-class | P1 | src | Impeccable `marketing-buzzword`, avoid CP1–CP2, anti-ai-slop 6, taste copy tells |
-| "Not just X, it's Y"; "X. No Y." aphoristic cadence across sections | P1 | src | Impeccable `aphoristic-cadence`, anti-ai-slop, Codex writing rules |
-| Tricolon slogans ("Faster, smarter, simpler") | P2 | src | avoid CP4, taste |
-| `→` stapled to button and link text | P1 | src | frontend-design cluster 5, avoid CP3 |
-| Generic CTA ("Get started", "Learn more", "Submit") | P2 | src | frontend-design ("'Save changes,' not 'Submit'"), Vercel ("'Save API Key' not 'Continue'"), avoid CP6 |
-| Em-dash saturation (8 or more at about 1 per 500 characters) | P2 | src | Impeccable `em-dash-overuse` (advisory only: "humans use em-dashes legitimately") |
-| "X theater" framing | P2 | src | Impeccable `theater-slop-phrase` (Codex-family) |
-| Performative labels ("Field notes", "Quietly trusted by", "On our desks") | P2 | src | taste wave 3 |
-| Placeholder identities: Acme, John Doe, lorem ipsum, pravatar, DiceBear | P1 | src | avoid IM4, taste app rules |
-| "Welcome back, Alex 👋" dashboard greeting | P1 | src | taste app tells |
+| Benefit-speak: elevate, unlock, supercharge, seamless, empower, streamline, leverage, all-in-one, cutting-edge, world-class | P1 | code | Impeccable `marketing-buzzword`, avoid CP1–CP2, anti-ai-slop 6, taste copy tells |
+| "Not just X, it's Y"; "X. No Y." aphoristic cadence across sections | P1 | code | Impeccable `aphoristic-cadence`, anti-ai-slop, Codex writing rules |
+| Tricolon slogans ("Faster, smarter, simpler") | P2 | code | avoid CP4, taste |
+| `→` stapled to button and link text | P1 | code | frontend-design cluster 5, avoid CP3 |
+| Generic CTA ("Get started", "Learn more", "Submit") | P2 | code | frontend-design ("'Save changes,' not 'Submit'"), Vercel ("'Save API Key' not 'Continue'"), avoid CP6 |
+| Em-dash saturation (8 or more at about 1 per 500 characters) | P2 | code | Impeccable `em-dash-overuse` (advisory only: "humans use em-dashes legitimately") |
+| "X theater" framing | P2 | code | Impeccable `theater-slop-phrase` (Codex-family) |
+| Performative labels ("Field notes", "Quietly trusted by", "On our desks") | P2 | code | taste wave 3 |
+| Placeholder identities: Acme, John Doe, lorem ipsum, pravatar, DiceBear | P1 | code | avoid IM4, taste app rules |
+| "Welcome back, Alex 👋" dashboard greeting | P1 | code | taste app tells |
 
-### 3g. Signatures and drift
+### 3g. Model signatures and drift
 
 - **Generator fingerprints left in** (`lovable-tagger`, `gpt-engineer`, v0 meta).
   avoid F1.
@@ -228,7 +230,7 @@ follows that split.
 | **Borders and shadows** | Vercel: "Layered shadows", "semi-transparent borders + shadows" | Impeccable `gpt-thin-border-wide-shadow`; taste: "a border or a shadow, never both" | One elevation channel per surface; both only on a genuinely floating layer |
 | **Monospace labels and index numbers** | taste data: *more* common on top gallery sites (44% against 24%; 38% against 21%) | taste and Impeccable ban them anyway, as owner taste | Allowed when they encode data (IDs, ranks, real sequences); banned as costume |
 | **Glass, bento, aurora** | Banned or warned by taste, anti-slop-design, Impeccable | Reddit study (3.2M posts): rank low as perceived tells; aurora "rejected on verification" | Lower priority; flag only as reflexive defaults |
-| **Fonts like Inter and Geist** | Impeccable `overused-font`, avoid T1, cookbook: avoid | Impeccable `operate.md`: "System fonts and familiar sans defaults" are permitted on product UI | Mode-dependent: a tell on Persuade surfaces, acceptable on Operate surfaces if tuned (scale, weights, tabular figures) |
+| **Fonts like Inter and Geist** | Impeccable `overused-font`, avoid T1, cookbook: avoid | Impeccable `operate.md`: "System fonts and familiar sans defaults" are permitted on product UI | Mode-dependent: a tell on Persuade screens, acceptable on Operate screens if tuned (scale, weights, tabular figures) |
 | **Removing tells** | Most skills: remove the pattern | taste: "blind jurors rightly prefer a richer page with tells over an empty page without them" | Removal is never the fix by itself; substance (subject, real content, committed type) comes first |
 | **Asking about aesthetics** | Claude Design canvas: "Settle the aesthetic with the user, not for them … this is how you get slop!" | taste and anti-slop-design: "If the request is vague, decide and state your reading in one line instead of asking" | Ask when a human is in the loop and the axis is genuinely open; otherwise commit, state the assumption, offer one alternate |
 | **Contrast metric** | Vercel: "prefer APCA over WCAG 2" | Everyone else quotes WCAG 2 ratios | Gate on WCAG 2 AA (still the legal standard); report APCA Lc as advisory ([`ux-colour-science.md`](./ux-colour-science.md)) |

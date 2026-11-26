@@ -4,7 +4,7 @@ Most React and Tailwind work is not a landing page. It is an app: a dashboard, a
 table, a settings screen, an editor. The anti-slop literature was written mostly
 for marketing pages, and applying it unchanged to apps produces a different failure:
 **strangeness without purpose**. This doc collects what the sources say when the
-surface is one people work in.
+screen is one people work in.
 
 Primary sources: Impeccable [`operate.md`](./impeccable/reference/operate.md) and
 [`mode-operate.md`](./impeccable/reference/mode-operate.md); taste-skill
@@ -26,7 +26,7 @@ and the test that replaces the landing-page slop test:
 > can trust the interface immediately or must pause at every subtly-off component.
 > Product UI's failure mode isn't flatness, it's strangeness without purpose.
 
-So on an Operate surface:
+So on an Operate screen:
 
 | Landing-page rule | On an app screen |
 |---|---|
@@ -42,7 +42,7 @@ density, and one signature move. It never supplies the layout, the navigation mo
 or the controls" (Impeccable). Example signature moves: "service health drawn as a
 transit map, a schedule set in a timetable's column rhythm."
 
-## 2. Start from the screen's one question
+## 2. Start from the screen question
 
 taste-skill's app run starts not with a style but with a sentence:
 
@@ -142,6 +142,6 @@ Converged across frontend-design, artifact-design, Vercel and Impeccable `clarif
 
 Impeccable's evals: image comps of working screens scored 2.0–2.9 while code-led
 builds of the same briefs scored 3–3.5 "and were always complete", so Operate and
-Read surfaces are always built directly in code. For React that means: compose real
+Read screens are always built directly in code. For React that means: compose real
 shadcn or Radix primitives with real-shaped sample data in the first pass, rather
 than generating a picture of an app and then translating it.

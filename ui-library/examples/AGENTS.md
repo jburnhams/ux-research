@@ -41,7 +41,7 @@ by `app/theme.generated.css` (generated), `app/globals.css` (tokens) and `DESIGN
 
 ## This project
 
-- The kiln room is an Operate surface used on a wall tablet as much as on phones:
+- The kiln room is an Operate screen used on a wall tablet as much as on phones:
   check every change at 390px and with `pointer: coarse` (44px controls).
 - Kiln facts (shelf gaps, cone temperatures, safe-to-open threshold) live in
   `screens/sample-data.ts` until the controller API exists; do not hard-code them in

@@ -21,7 +21,7 @@ review agents. The generator prompts are compared separately in
 
 ## 1. Before any pixels: classify, then ground
 
-| Source | Classifies the surface? | Grounds in the subject how? |
+| Source | Classifies the screen? | Grounds in the subject how? |
 |---|---|---|
 | frontend-design | No | "Identify [the subject] yourself … confirm with the client"; "the subject's industry, subject matter, materials, and vernacular are where distinctive visual choices come from" |
 | artifact-design | **Yes**: utilitarian against editorial treatment; "When the page is a UI" | One subject-only detail "as content rather than ornament" |

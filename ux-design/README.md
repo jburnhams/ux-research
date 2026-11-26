@@ -7,7 +7,7 @@ than invented from scratch. Three parts:
 | Part | What it is |
 |---|---|
 | [`skill/SKILL.md`](skill/SKILL.md) | The agent skill: mode → subject → direction → character → token contract → build through the layers → check → hand over |
-| [`skill/references/`](skill/references) | `tells.md` (dated registry, now with playful slop), `direction.md` (mood/vibe → tokens), `character.md` (personality by frequency, the moment, the swap test), `product-ui.md` (Operate surfaces), `audit.md` (quality floor) |
+| [`skill/references/`](skill/references) | `tells.md` (dated registry, now with playful slop), `direction.md` (mood/vibe → tokens), `character.md` (personality by frequency, the moment, the swap test), `product-ui.md` (Operate screens), `audit.md` (quality floor) |
 | [`skill/scripts/slop-lint.mjs`](skill/scripts/slop-lint.mjs) | Zero-dependency source linter: 50 file rules + 1 project rule (five playful-slop rules added 2026-11-07), `slop` (P0/P1/P2) vs `quality` (error/warn), mode-aware, inline disables, `.sloplintrc.json` allowances with reasons |
 | [`skill/scripts/palette.mjs`](skill/scripts/palette.mjs) | Seeds → contrast-solved 12-step OKLCH ramps → shadcn/Tailwind v4 roles (light + dark) → validation (WCAG, CVD-safe charts, tell clusters, dislike, second-job) |
 | [`skill/assets/DESIGN.template.md`](skill/assets/DESIGN.template.md) | DESIGN.md (Google format) with the reference sentence, reasons and lint allowances |
@@ -24,8 +24,8 @@ than invented from scratch. Three parts:
 
 | # | Decision | Taken from | Instead of |
 |---|---|---|---|
-| 1 | **Classify mode first** (Persuade/Operate/Read/Experience) and treatment (utilitarian/editorial); most rules are conditional on it | Impeccable modes; Claude `artifact-design` treatments | One rule set for every surface (over-flags dashboards) |
-| 2 | **Subject inventory + competitor test**; Operate screens start from "the one question" and "the one finding" | taste-skill run and app study | Mood adjectives as the input |
+| 1 | **Classify mode first** (Persuade/Operate/Read/Experience) and treatment (utilitarian/editorial); most rules are conditional on it | Impeccable modes; Claude `artifact-design` treatments | One rule set for every screen (over-flags dashboards) |
+| 2 | **Subject inventory + competitor test**; Operate screens start from "the screen question" and "the screen finding" | taste-skill run and app study | Mood adjectives as the input |
 | 3 | **Three reference sentences, diverging on named axes**, human picks when present | DESIGN.md philosophy ("a point, not a region"); Claude Design canvas ("not for them"); anti-ai-slop set divergence | A single model-picked direction; a style menu |
 | 4 | **Token contract in DESIGN.md + Tailwind v4 `@theme`, generated where arithmetic allows** | shadcn `design-system.md`; Google DESIGN.md; Claude `dataviz` validator; Material dynamic colour; Leonardo/Harmonizer contrast targeting; Radix step jobs | Hand-picked hex; HSL scales; recommend-lists of fonts |
 | 5 | **Build through layers; `className` for layout only; restyle via `cva`** | shadcn skill | Same.dev-style per-component hand edits; call-site colour |

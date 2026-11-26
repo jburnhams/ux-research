@@ -24,7 +24,7 @@ Reading our own docs against the request, four causes, all deliberate at the tim
 1. **The rules only subtract.** The tell registry, 46 lint rules and the audit all say
    what to remove. [`ux-design/skill/SKILL.md`](./ux-design/skill/SKILL.md) step 6.4
    already warns that "removal is not the fix", but nothing said what to add on an
-   Operate surface except "one signature move".
+   Operate screen except "one signature move".
 2. **Every dial on Operate was set to its calm end.** Motion conveys state and nothing
    else; the accent is asked for, not defaulted; one type family; low-chroma primary
    (the example's celadon is at chroma 0.038); no illustration slot in `EmptyState`
@@ -173,7 +173,7 @@ and moments; nouns only become palettes.
 | Rare and earned: first use, finishing something that took effort, a milestone, recovering from a failure | **The moment**: one per flow, drawn from the subject, proportional to the stakes, once | The booking's shelf drawing |
 | Always, but read rather than used: the screen's signature, the voice, the data encodings | **Character at rest**: no motion, carried by what things are and what they say | The kiln-glow firing chart; "All three kilns are cold" |
 
-The last row matters most for Operate surfaces. Most of a work tool's character
+The last row matters most for Operate screens. Most of a work tool's character
 should be **at rest**: in words, in what the data is drawn as, in one signature,
 none of which costs the person time.
 

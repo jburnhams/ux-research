@@ -107,9 +107,9 @@ neutral ramp rather than a new shadow.
 
 ## 6. Type
 
-One family on Operate surfaces is usually right. The example uses Public Sans: plain,
+One family on Operate screens is usually right. The example uses Public Sans: plain,
 sturdy, true tabular figures, legible at arm's length on a wall tablet. A display
-face is added only for a Persuade surface, and then used once.
+face is added only for a Persuade screen, and then used once.
 
 Steps are utilities, not `--text-*` keys:
 
@@ -168,7 +168,7 @@ so the "hairline plus wide soft shadow on every card" tell cannot be typed.
 | `press` (utility) | `scale: 0.98` while active | buttons: the only motion on something used tens of times a day |
 | `enter-moment` (utility) | `@starting-style` opacity 0, 0.75rem up | the result in a `Done` figure; CSS only, runs once on mount |
 
-Motion on Operate surfaces conveys a state change and nothing else. The theme carries
+Motion on Operate screens conveys a state change and nothing else. The theme carries
 one reduced-motion path (`prefers-reduced-motion: reduce` collapses durations), so
 components do not each need their own. A spring for a Persuade hero moment is a
 product token, recorded in DESIGN.md with its reason.
@@ -253,7 +253,7 @@ default overrides any value in a later block. Rules for such a default, with the
   in the overused cluster (§3b, P1). Onest and Schibsted Grotesk space figures and colons loosely, which
   hurts a data app. JetBrains Mono for code and keys.
 - **No serif on Operate titles.** A serif page title on a dashboard reads as an editorial costume
-  (§3b). A reading serif is opt-in for Read surfaces: Source Serif 4 (sturdy, large x-height, clear
+  (§3b). A reading serif is opt-in for Read screens: Source Serif 4 (sturdy, large x-height, clear
   numerals and units), chosen over Newsreader, Literata, Lora, Crimson Pro and Bitter.
 - **Palettes are themes beside the colour scheme, chosen independently** (Jonathan, 2026-11-25). Four
   more ship with the default (pine and coral, cobalt and tangerine, steel and mint, clay and teal), each

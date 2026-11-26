@@ -23,7 +23,7 @@ it was implemented (2026-11-07). Older changelog entries keep the old name.
 | [`README.md`](./README.md) (this file) | The brief, the stance, every decision with where it came from, the architecture, what is deliberately not shipped, how it is enforced, known limits |
 | [`tokens.md`](./tokens.md) | The token contract: colour roles and ramps, status, surfaces, type steps, radius, elevation, motion, density, contrast, dark mode, and the namespace reset |
 | [`components.md`](./components.md) | The inventory, the API conventions, and a spec for each component: job, props, states, accessibility, and what generated versions get wrong |
-| [`patterns.md`](./patterns.md) | How components compose into screens: the Operate screen shape, figures, tables, charts, forms, destructive actions, async feedback; what Read and Persuade surfaces get |
+| [`patterns.md`](./patterns.md) | How components compose into screens: the Operate screen shape, figures, tables, charts, forms, destructive actions, async feedback; what Read and Persuade screens get |
 | [`agents.md`](./agents.md) | How a coding agent works inside a Strata project: the rules file, the order of work, the checks, and how the library is maintained |
 | [`character.md`](./character.md) | Where personality goes without becoming stock whimsy: the frequency budget, the moment, voice in components, the checks |
 | [`examples/`](./examples) | One fictional product end to end on strata-react: a generated theme, a dashboard, a form, its completion moment and a state-matrix page, with screenshots |
@@ -98,7 +98,7 @@ Not adopted, and why:
   for free); React Aria's Select and ComboBox are added when a product needs search or rich
   options.
 - **Expressive (bouncy) motion tokens.** Material recommends them by default; this
-  repo's resolution keeps Standard-like damping for Operate surfaces
+  repo's resolution keeps Standard-like damping for Operate screens
   (`../ux-material-3.md` §1). A product may add an Expressive spring for one hero
   moment on a Persuade page, recorded in DESIGN.md. The character layer (2026-11-07)
   keeps this: moments use a hard ease-out without overshoot (`--ease-moment`), and
@@ -161,11 +161,11 @@ Full specs in [`components.md`](./components.md).
 | Page | PageHeader, AppShell (side nav, breadcrumb), Tabs, CommandMenu | all but CommandMenu |
 | Overlays | Dialog, AlertDialog, Sheet, Popover, Menu, Tooltip (React Aria, always titled) | all but Menu (strata-react) |
 | Feedback | UndoBar + `useUndoable`, Toast (polite live region), Alert, Done | UndoBar, Done |
-| Read surfaces | Prose (measure, rhythm), TableOfContents, Callout | none |
+| Read screens | Prose (measure, rhythm), TableOfContents, Callout | none |
 
 Twenty-five components are specified. strata-react builds the eleven the example started
 with, chosen because they are the ones generated UI gets most wrong, plus AppShell, Tabs
-and VirtualList. The rest (overlays, toasts, the command menu, read surfaces) are still
+and VirtualList. The rest (overlays, toasts, the command menu, read screens) are still
 specs; they are thin restyles of React Aria components and follow the same conventions.
 
 ## 6. How it is enforced
@@ -190,7 +190,7 @@ the chart (a `<table>` ignores `width: 1px`), which no source check would have f
 ## 7. Known limits
 
 - **Partly built.** strata-react implements fourteen of the twenty-five specified
-  components; overlays, toasts, the command menu and read surfaces are still specs, and
+  components; overlays, toasts, the command menu and read screens are still specs, and
   there is no `init` command to generate a theme and write the agent rules.
 - **Character is shown at its calm end only.** The example is a shared work tool;
   no product whose subject is itself playful has been built on Strata yet

@@ -16,9 +16,9 @@ that is possible.
 (DESIGN.md, `globals.css` tokens, `components/ui/*`, CLAUDE.md), then your choices. If
 the brief asks for one of the looks listed as tells, build it well; the brief wins.
 
-## 1. Read the surface: mode and treatment
+## 1. Read the screen: mode and treatment
 
-Decide this first, because the rest depends on it. The mode is set by the surface
+Decide this first, because the rest depends on it. The mode is set by the screen
 being built, not by the product (a tool's landing page is Persuade; its settings page
 is Operate).
 
@@ -31,24 +31,24 @@ is Operate).
 
 Treatment: most requests are **utilitarian** (polished hierarchy, considered spacing,
 a real palette, no hero, no flourishes). Use an **editorial** treatment only for
-Persuade or Experience surfaces someone will keep or share. If unsure: a
+Persuade or Experience screens someone will keep or share. If unsure: a
 well-composed page is always acceptable; an over-designed one sometimes isn't.
 
 Write the mode in DESIGN.md (`## Overview`) and in `.sloplintrc.json` (`"mode"`).
 
 ## 2. Ground it in the subject
 
-1. State the subject, its audience, and the surface's single job, in one line each.
+1. State the subject, its audience, and the screen's single job, in one line each.
    If the request is vague, infer them and say so in one line.
 2. **Inventory 8–12 facts only this product has**: its name and what it means, its
    place, its real numbers and units, the constraint it lives with, its materials,
    its rituals and hours, the printed things of its world (a ticket, a label, a
    timetable). Distinctive choices come from here, not from the category.
-3. **Operate surfaces**: name the screen's **one question** ("Which deploy broke?")
-   and **one finding** (the fact in today's data that most needs attention). The
-   question decides what is biggest; the finding goes where it is read first, next
+3. **Operate screens**: name the **screen question** ("Which deploy broke?")
+   and the **screen finding** (the fact in today's data that most needs attention). The
+   question decides what is biggest; the screen finding goes where it is read first, next
    to the action it drives. Delete any block that answers no question.
-4. **Persuade surfaces**: write the page as claims, each with its proof, one line per
+4. **Persuade screens**: write the page as claims, each with its proof, one line per
    section. The claims decide which sections exist and in what order. Delete any
    section with no claim. This replaces the stock order (hero, logos, three features,
    testimonials, pricing, CTA).
@@ -89,8 +89,8 @@ their place. Read [`references/character.md`](references/character.md). In short
 2. **Place it by frequency**: nothing on what is used 100+ times a day, a
    near-imperceptible response on what is used tens of times, the delight budget only
    on rare, earned moments (first use, a finished piece of work, recovery). On
-   Operate surfaces most character is *at rest*: the subject's words in labels,
-   empties and errors, and the signature (how the main data is drawn, coloured by a
+   Operate screens most character is *at rest*: the subject's words in labels,
+   empties and errors, and the signature move (how the main data is drawn, coloured by a
    fact of the subject where there is one).
 3. **Swap test** every touch: if a neighbouring product could ship it unchanged, it is
    stock whimsy (confetti, "Oops!", kit illustrations, emoji, bounce), which is the
@@ -159,7 +159,7 @@ DESIGN.md  →  globals.css tokens  →  components/ui/* cva variants  →  comp
   benefit-speak, no "not just X, it's Y", no arrow glyphs stapled to labels, no emoji
   as icons.
 
-Operate surfaces: also read [`references/product-ui.md`](references/product-ui.md)
+Operate screens: also read [`references/product-ui.md`](references/product-ui.md)
 (shell, KPIs, tables, charts, forms and the generated-dashboard tells).
 
 ## 6. Check: mechanical first, then one look

@@ -26,9 +26,9 @@ by the **swap test**: if a neighbouring product could ship it unchanged, it is s
 | Tens a day (buttons, toggles, hover, rows, the screen's own load) | Near-imperceptible: 100–160 ms, small (a 2% press, a colour change) |
 | Occasional (dialogs, sheets, toasts, a save) | Ordinary craft: 150–250 ms, no overshoot, said plainly ("Saved") |
 | Rare and earned (first use, finishing something that took effort, a milestone, recovery) | The moment: one per flow, from the subject, proportional to the stakes, once |
-| Read, not used (voice, the signature, data encodings) | Character at rest: no motion, no cost |
+| Read, not used (voice, the signature move, data encodings) | Character at rest: no motion, no cost |
 
-On Operate surfaces almost all character belongs in the last row.
+On Operate screens almost all character belongs in the last row.
 
 ## 3. Channels by mode
 
