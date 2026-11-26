@@ -6,6 +6,10 @@ git history on 2026-11-02 and kept up to date with every change since (see
 
 ## 2026-11-26
 
+**Wrote down the clock, key-scope and second-look decisions from strata-react #383 to #386** (branch `claude/project-thread-wn07qt`). Written back after the strata-react batch that fixed them, as that repo's `CLAUDE.md` asks.
+
+- `ui-library/components.md`: new §3.35 (a clock the app owns, keys that follow one player and leave a stage its arrows, a 3D scene as a stage in a player's layout, `data-part` and inert variables for a second look). Marks the shared 3D view model and input layer of #386 as left open.
+
 **Renamed this repo's docs to the adopted `ux` glossary** (branch `claude/project-thread-l3cp9e`, PR #59). Jonathan asked for the taxonomy, adopted in `jburnhams/taxonomies` after round 1 (κ 0.78 to 1.00 per facet), to be applied here. Scope: the repo's own docs only; stored sources, quotes and code are left as they are.
 
 - `README.md`, `ux-*.md`, `ux-design/README.md`, `ux-design/skill/SKILL.md`, `ux-design/skill/references/{character,product-ui,tells}.md`, `ux-design/skill/assets/DESIGN.template.md`, `ui-library/{README,agents,character,components,patterns,tokens}.md`, `ui-library/examples/{README,AGENTS}.md`: the screen sense of "surface" is now **screen** ("Operate screens", "the screen's single job", headings "Read the screen", "Read screens", "Persuade screens"; the one in-repo link to `#314-read-surfaces` updated). "Surface" now only means a tonal layer, as in the `--surface-*` tokens.
