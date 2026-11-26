@@ -1154,3 +1154,27 @@ written by hand in that app first; each is here because a second tool would have
   app's to hold, and it is said in words, politely, once it has been still.
   Evidence: this is one app's list of what it needed, not a survey; the key bindings follow `ViewportFrame`'s and the
   panorama viewer's, and the right-handed, Y-up, yaw-right convention is a choice, written in the camera file.
+
+### 3.35 A clock the app owns, keys that follow one player, and hooks for a second look
+
+Decisions from the second pass on the Quake 2 explorer (strata-react issues #383 to #386). One app's list, not a survey.
+
+- **Anything that plays is a clock with the media element's names.** A recorded run, a demo replay or an animation drawn
+  to a canvas is the same thing to a person as a video: play, pause, scrub, step a frame, change speed. So one hook
+  (`useTimeline`) gives the state a media element does, and the transport parts take either. The rules a video has are
+  kept, because people have learnt them: playing at the end starts from the beginning, a seek pauses (so dragging the bar
+  does not fight the clock), a loop is a choice, and a run that is shown whole before anyone presses play rests at its end.
+  Starting it pauses a real player on the same page (the media group).
+- **The keys belong to one player at a time, and a stage beside it keeps its own.** The first rule (#147) was "the player
+  last played, focused or pressed owns Space and J, K, L"; a clock joins it. The second (#385): a stage that uses the arrow
+  keys (a 3D view turns with them) must not lose them to a frame step, so the transport's arrows count only while focus is in
+  its bar, and Space, K, J, L, Home and End stay page-wide. A legend lists only the keys that are live right now; a legend
+  that shows a key that does nothing is the same fault as a button that does nothing.
+- **A 3D scene over time is a stage in a player's layout.** The scene viewport draws from the clock's time, and a player
+  puts the same control bar under it as under a video. What this does not settle (issue #386, left open): one view model
+  and input layer for looking from inside a sphere, orbiting and flying, with a follow aim for "through the player's eyes".
+- **A second look needs named parts, not markup.** A theme that styles a pane header by `[data-pane] > header > h2` breaks
+  when the markup changes. Structural parts carry `data-part` (pane, its header and title, the tool bar, an inspector, its
+  header and sections, a link card), and the type steps and surfaces read variables with an inert default: a heading face,
+  an ink for big figures, a texture for the ground and panels. A figure's ink and a surface texture sit below utility classes,
+  so a component that sets its own colour or background keeps it.
