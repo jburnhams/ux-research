@@ -1171,8 +1171,14 @@ Decisions from the second pass on the Quake 2 explorer (strata-react issues #383
   its bar, and Space, K, J, L, Home and End stay page-wide. A legend lists only the keys that are live right now; a legend
   that shows a key that does nothing is the same fault as a button that does nothing.
 - **A 3D scene over time is a stage in a player's layout.** The scene viewport draws from the clock's time, and a player
-  puts the same control bar under it as under a video. What this does not settle (issue #386, left open): one view model
-  and input layer for looking from inside a sphere, orbiting and flying, with a follow aim for "through the player's eyes".
+  puts the same control bar under it as under a video.
+- **Looking from inside a sphere and looking round a scene are one view model.** Both use degrees, positive yaw to the right
+  and positive pitch up, so a panorama's view is exactly the fly camera at that point, and the conversion is a rename. What
+  differs is what a drag does to the view, so the reading of the input (one pointer drags, two pinch, a press that did not
+  move is a tap, which wheel zooms, the polite sentence said once the view is still) is shared and each viewer keeps its own
+  meaning. A viewer that follows something that moves (the player's eyes in a replay) takes the heading from the app and adds
+  the person's own look on top, so turning to look around during playback still works. Left as separate viewers on purpose: a
+  picture on a sphere needs no scene to draw.
 - **A second look needs named parts, not markup.** A theme that styles a pane header by `[data-pane] > header > h2` breaks
   when the markup changes. Structural parts carry `data-part` (pane, its header and title, the tool bar, an inspector, its
   header and sections, a link card), and the type steps and surfaces read variables with an inert default: a heading face,
