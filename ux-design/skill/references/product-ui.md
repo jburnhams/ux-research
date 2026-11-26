@@ -1,4 +1,4 @@
-# Operate surfaces: app screens, dashboards, tables, forms, settings
+# Operate screens: app screens, dashboards, tables, forms, settings
 
 The failure on a working screen isn't flatness, it's **strangeness without purpose**:
 over-decorated buttons, display fonts in labels, invented affordances, motion on load.
@@ -30,7 +30,7 @@ first idea · orchestrated page-load sequences · reinvented standard controls.
 
 1. **Title row**: a noun title (~24px/600), the scope (date range, filters) and the main
    job's primary control.
-2. **The finding**: the line under the title, or the subline of the headline figure,
+2. **The screen finding**: the line under the title, or the subline of the headline figure,
    next to the action it drives.
 3. **Blocks in answer order**: each block answers the next question; size the headline
    block to the question (≈200–360px tall); cap lists at 4–6 rows with "View all";

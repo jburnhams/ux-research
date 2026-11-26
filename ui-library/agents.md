@@ -74,7 +74,7 @@ Condensed from the `ux-design` skill, for a project where the theme already exis
 
 1. Read DESIGN.md: mode, subject, reference sentence, signature move, character
    sentence and voice.
-2. Write the screen's one question and finding in a comment at the top of the file
+2. Write the screen question and screen finding in a comment at the top of the file
    (the example's screens do).
 3. List blocks as answers to the next questions; delete any that answer none.
 4. Compose from strata-react's components with real-shaped sample data from a `sample-data.ts`.

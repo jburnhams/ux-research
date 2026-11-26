@@ -19,7 +19,7 @@ Research and sources: [`../ux-character.md`](../ux-character.md). The example:
 | `LineChart` `colourScale`, for colour that is a fact of the subject | library | [`components.md`](./components.md) §3.8 |
 | The character sentence, the voice pairs, the subject's words | product | DESIGN.md `## Character` |
 | Subject colours (the example's `--heat-*`) | product | `globals.css`, with reasons in DESIGN.md |
-| The signature, the moments and their figures | product | screens, product components (the example's `ShelfFigure`) |
+| The signature move, the moments and their figures | product | screens, product components (the example's `ShelfFigure`) |
 | Allowances (an overshooting spring for a bouncy subject, opt-in sound) | product | DESIGN.md and `.sloplintrc.json`, same reason in both |
 
 ## 2. DESIGN.md gains a Character section

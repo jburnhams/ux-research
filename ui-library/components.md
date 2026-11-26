@@ -74,7 +74,7 @@ here and follow the same conventions.
 | AppShell, Tabs, CommandMenu, Breadcrumb | React Router, React Aria (`Tabs`, and `Autocomplete` for the command menu) | AppShell and Tabs in strata-react | [§3.12](#312-navigation) |
 | `useHotkeys`, KeysLegend, `useActiveItem`, ActiveList | window `keydown`, `<dl>`, `<ul>` | strata-react | [§3.16](#316-keyboard-triage) |
 | Toast, Alert | live region | spec | [§3.13](#313-toast-and-alert) |
-| Prose, TableOfContents, Callout | – | spec | [§3.14](#314-read-surfaces) |
+| Prose, TableOfContents, Callout | – | spec | [§3.14](#314-read-screens) |
 | Done | – | example | [§3.15](#315-done) |
 | Meter, CompositionBar, LinkCard, compact ColorSchemeChoice | `role="meter"`, `<table>`, `<a>`, native radios | strata-react | [§3.17](#317-status-dashboards) |
 
@@ -293,7 +293,7 @@ here and follow the same conventions.
   clear 3:1 against the ground. Without a subject reason in DESIGN.md it is the
   "gradient that encodes nothing" tell; use one hue.
 - **BarChart** (spec): bars start at zero; values printed on or beside bars; one hue,
-  with a second hue only to mark the one bar the finding is about.
+  with a second hue only to mark the one bar the screen finding is about.
 - **Generated versions get wrong**: gradient area fills; smoothed splines; a dot on
   every point; a rainbow palette with a hue per bar; values only in tooltips; axes
   that end at an arbitrary maximum.
@@ -304,7 +304,7 @@ here and follow the same conventions.
 
 - `title` (a noun, `type-title`), `scope` (date, range or filter), `actions` (the main
   job's control, usually the one filled button), and `finding: { text, action? }`.
-- The finding is the fact in today's data that most needs attention, in a sentence,
+- The screen finding is the fact in today's data that most needs attention, in a sentence,
   with the action it drives beside it. It is the first thing read under the title.
 - **Generated versions get wrong**: "Welcome back, Alex 👋"; a search, bell and avatar
   top bar on every screen; a 48px landing-page title on an app screen.
@@ -364,7 +364,7 @@ errors a person must act on (those go inline). **Alert**: an inline callout with
 tint, an icon and a sentence, `role="alert"` only when it appears in response to an
 action. Neither has a coloured side stripe on a rounded box.
 
-### 3.14 Read surfaces
+### 3.14 Read screens
 
 **Prose**: body measure 60–75ch, line height ≥ 1.5, headings from the same type
 steps, links underlined with `text-primary-11`. **TableOfContents**: a list of anchor

@@ -74,7 +74,7 @@ generator has produced before and against the known tell clusters.
 
 The procedure [`ux-design/`](./ux-design) uses (skill step 3, "Direction"):
 
-1. **Classify the surface** (Persuade, Operate, Read, Experience). On Operate,
+1. **Classify the screen** (Persuade, Operate, Read, Experience). On Operate,
    the mood mostly sets density, palette restraint and one signature move, never
    layout or controls ([`ux-product-ui.md`](./ux-product-ui.md)).
 2. **Inventory the subject**: 8–12 facts only this product has (its materials, place,
@@ -128,7 +128,7 @@ The procedure [`ux-design/`](./ux-design) uses (skill step 3, "Direction"):
 Brief: *"An app for sea swimmers to check tides and water temperature. Calm,
 trustworthy, a bit of personality."*
 
-- Surface: **Operate** (a tool used daily on a phone, often in bright light by the
+- Screen: **Operate** (a tool used daily on a phone, often in bright light by the
   sea).
 - Adjective path (what to avoid): "calm, trustworthy" usually produces a teal or blue
   gradient, Inter, rounded white cards, a wave illustration and "Dive in 🌊". That is
