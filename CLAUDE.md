@@ -13,13 +13,40 @@ token contract, ...) are defined once in the `ux` glossary in `jburnhams/taxonom
 with its sorting questions in
 [`facets.md`](https://github.com/jburnhams/taxonomies/blob/main/domains/ux/facets.md).
 Read it before writing docs here. Use each entry's heading word; if you reach for one
-of its aliases, use the heading word instead. If a concept you need has no entry, add a
-`candidate` entry there rather than inventing a word here. The glossary is in use
+of its aliases, use the heading word instead. If a concept you need has no entry, ask for one (below)
+rather than inventing a word here. The glossary is in use
 (adopted 2026-11-26) and this repo's own docs were renamed to it the same day; `candidate`
 terms are usable but not yet re-tested. Words inside stored sources and quotes keep their
 authors' wording. Common slips: a page being built is a **screen** ("Operate screens"),
 and a **surface** is a tonal layer of the theme (`--surface-*`); the catalogue's groups
 are **aspects**, and "layer" means a stack layer (`ux-react-tailwind.md` §1).
+
+### Looking up and asking for terms
+
+The glossary grows as research goes: settling one concept usually opens up more, and
+older terms sometimes need a sharper edge or a breaking change. So:
+
+1. **Look up before you write a new concept word.** No checkout needed:
+   ```bash
+   T=https://raw.githubusercontent.com/jburnhams/taxonomies/main/tools/term.py
+   curl -fsSL $T | python3 - lookup ux "words for the concept"
+   ```
+   It gives the term to use (an alias or old label finds its term), or the closest terms
+   with their scope and near miss, and any request already made.
+2. **When nothing fits, use your own word now and add a request** to
+   [`term-requests.md`](./term-requests.md) (template there): Ask `new`, a one-sentence
+   definition, what lookup showed and why it does not fit, an example link and a count.
+   If a term is unclear for your case, or its label or edge looks wrong, add a `clarify`
+   or `change` request instead of working round it.
+3. **At the start of a pass**, run `curl -fsSL $T | python3 - changes ux --since <date>`
+   with the date your last changelog entry checked to. Switch the words it marks
+   BREAKING in the docs you touch, remove your requests it shows answered, and say in the
+   new changelog entry which date you checked to and which requests you made.
+
+Requests are answered in the taxonomies repo
+([`domains/ux/requests.md`](https://github.com/jburnhams/taxonomies/blob/main/domains/ux/requests.md));
+the rules are in [`design/growth.md`](https://github.com/jburnhams/taxonomies/blob/main/design/growth.md)
+(proposed).
 
 ## Keep the changelog current
 
